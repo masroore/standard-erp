@@ -19,6 +19,7 @@ class BuyPurchaseInvoiceRepository  implements BuyPurchaseInvoiceInterface
 
     public function index(){
         $rows      = $this->model::get();
+        dd('welcom');
         return view('backend.purchases.invoices.index', compact('rows'));
     }//end of index
 

@@ -1,7 +1,9 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Purchases\SupplierController;
+use App\Http\Controllers\BackEnd\Purchases\BuyPurchaseInvoiceController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +24,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['loc
 
 
     // Suppliers  routes
+    Route::resource('purchases', BuyPurchaseInvoiceController::class);
     Route::resource('suppliers', SupplierController::class);
+
 
     });
 

@@ -102,11 +102,17 @@ class RepositoryServicesProvider extends ServiceProvider
             'App\Http\Interfaces\Finance\FinJournalInterface',
             'App\Http\Repositories\Finance\FinJournalRepository'
         );
-        
+
         $this->app->bind(
             'App\Http\Interfaces\Finance\FinSettingInterface',
             'App\Http\Repositories\Finance\FinSettingRepository'
         );
+
+        $this->app->bind(
+            'App\Http\Interfaces\Purchases\BuyPurchaseInvoiceInterface',
+            'App\Http\Repositories\Purchases\BuyPurchaseInvoiceRepository'
+        );
+
 
 
 

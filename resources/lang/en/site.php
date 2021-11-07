@@ -66,6 +66,11 @@ return [
     'address'               => 'Address',
     'add_new_supplier'      => 'Add New Supplier',
     'supplier_profile'      => 'Supplier Profile',
+    'purchases_invoices'    => 'Purchases Invoices',
+    'all_invoices'          => 'All Invoices',
+    'add_invoice'           => 'Add Invoice',
+    'add_supplier'          => 'Add Supplier',
+    'all_suppliers'         => 'All Suppliers',
 
      // settings
 
