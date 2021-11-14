@@ -21,6 +21,16 @@ return [
     'mobile'           => 'Mobile',
     'inactive'         => 'Inactive',
     'dashbord'         => 'Dashboard',
+    'download'         => 'Download',
+    'to_date'          => 'To Date',
+    'from_date'        => 'From Date',
+    'fillter_date'     => 'Fillter Data',
+    'add_new'          => 'Add New',
+    'paid'             => 'Paid',
+    'unpaid'           => 'UnPaid',
+    'partial'          => 'Partial',
+    'due'              => 'Due',
+
 
     // Accounts module
 
@@ -71,6 +81,18 @@ return [
     'add_invoice'           => 'Add Invoice',
     'add_supplier'          => 'Add Supplier',
     'all_suppliers'         => 'All Suppliers',
+    'purchases_list'        => 'Purchases List',
+    'invoice_code'          => 'Invoice Code',
+    'created_at'            => 'Created at',
+    'paid_status'           => 'Paid Status',
+    'amount'                => 'Amount',
+    'supplier'              => 'Supplier',
+    'actions'               => 'Actions',
+    'add_purchases'         => 'Add Purchases',
+    'select_supplier'       => 'Select Supplier',
+    'select_unit'           => 'Select Unit',
+    'select_purchase_unit'  => 'Select Purchase Unit',
+    'select_sale_unit'     => 'Select Sale Unit',
 
      // settings
 

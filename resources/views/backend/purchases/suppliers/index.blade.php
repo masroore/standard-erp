@@ -75,7 +75,7 @@
                     @endforeach
 
                 </tbody>
-                <tfoot>
+                {{-- <tfoot>
                     <tr>
                         <th>#</th>
 
@@ -86,7 +86,7 @@
 
                         <th class="no-content">{{$lang == 'ar' ? 'اجراءت' : ' Actions '}}</th>
                     </tr>
-                </tfoot>
+                </tfoot> --}}
             </table>
         </div>
     </div>

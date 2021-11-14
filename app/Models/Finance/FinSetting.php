@@ -10,7 +10,7 @@ class FinSetting extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'title_ar','title_en','account_id','user_id'];
+    protected $fillable = [ 'title_ar','title_en','account_id','user_id','account_key'];
 
     public function account()
     {

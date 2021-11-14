@@ -109,8 +109,8 @@ class RepositoryServicesProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            'App\Http\Interfaces\Purchases\BuyPurchaseInvoiceInterface',
-            'App\Http\Repositories\Purchases\BuyPurchaseInvoiceRepository'
+            'App\Http\Interfaces\Purchases\PurchaseInvoiceInterface',
+            'App\Http\Repositories\Purchases\PurchaseInvoiceRepository'
         );
 
 

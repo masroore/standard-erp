@@ -2,13 +2,13 @@
 namespace App\Http\Repositories\Purchases;
 use App\Models\Supplier;
 use App\Models\Purchase\BuyPurchaseInvoice;
-use App\Http\Interfaces\Purchases\BuyPurchaseInvoiceInterface;
+use App\Http\Interfaces\Purchases\PurchaseInvoiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use DB;
 use Image;
-class BuyPurchaseInvoiceRepository  implements BuyPurchaseInvoiceInterface
+class PurchaseInvoiceRepository  implements PurchaseInvoiceInterface
 {
     private $model;
 
@@ -18,9 +18,10 @@ class BuyPurchaseInvoiceRepository  implements BuyPurchaseInvoiceInterface
     }// end of construct
 
     public function index(){
+        $suppliers = Supplier::select('id','contact_person', 'company_name')->get();
         $rows      = $this->model::get();
-        dd('welcom');
-        return view('backend.purchases.invoices.index', compact('rows'));
+       // dd('welcom');
+        return view('backend.purchases.invoices.index', compact('rows','suppliers'));
     }//end of index
 
     public function show($id){
@@ -29,14 +30,14 @@ class BuyPurchaseInvoiceRepository  implements BuyPurchaseInvoiceInterface
     }//end of show
 
     public function create(){
-        $countries = DB::table('countries')->get();
-        return view('backend.purchases.invoices.create', compact('countries'));
+
+        return view('backend.purchases.invoices.create');
     }//e nd of create
 
     public function edit($id){
-        $countries = DB::table('countries')->get();
+
         $row =   $this->model::FindOrFail($id);
-        return view('backend.purchases.invoices.edit', compact('countries','row'));
+        return view('backend.purchases.invoices.edit', compact('row'));
     }
     public function store($request){
 

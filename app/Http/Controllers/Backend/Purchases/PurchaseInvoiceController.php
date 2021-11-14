@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\BackEnd\Purchases;
 
 use App\Http\Controllers\Controller;
-use App\Http\Interfaces\Purchases\BuyPurchaseInvoiceInterface;
+use App\Http\Interfaces\Purchases\PurchaseInvoiceInterface;
 use Illuminate\Http\Request;
 
-class BuyPurchaseInvoiceController extends Controller
+class PurchaseInvoiceController extends Controller
 {
     private $invoiceInterface;
 
-    public function __construct(BuyPurchaseInvoiceInterface $invoiceInterface){
+    public function __construct(PurchaseInvoiceInterface $invoiceInterface){
         $this->invoiceInterface = $invoiceInterface ;
     }// end of constructor
 

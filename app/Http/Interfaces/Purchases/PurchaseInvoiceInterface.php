@@ -2,7 +2,7 @@
 
 namespace App\Http\Interfaces\Purchases;
 
-interface BuyPurchaseInvoiceInterface{
+interface PurchaseInvoiceInterface{
 
     public function index();
 

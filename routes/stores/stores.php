@@ -30,6 +30,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['loc
         Route::resource('stores', StoStoreController::class);
         Route::resource('items', StoItemController::class);
 
+        Route::get('getchaildunit', [StoItemController::class, 'selectUnits'])->name('unitschaild');
+
     });
 
 });

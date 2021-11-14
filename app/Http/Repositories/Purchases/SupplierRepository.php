@@ -2,6 +2,8 @@
 namespace App\Http\Repositories\Purchases;
 use App\Models\Supplier;
 use App\Http\Interfaces\Purchases\SupplierInterface;
+use App\Models\Finance\FinAccount;
+use App\Models\Finance\FinSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -49,12 +51,16 @@ class SupplierRepository  implements SupplierInterface
             'tax_file_number' => 'required|unique:suppliers',
        ]);
 
+       // create account for supplier
+
+        $accountId = $this->createAccount($request->company_name);
+
         if($request->is_active == 1){
             $status = 1;
         }else{
-            $status = 0;
-        }
-        $requestArray =   ['is_active' => $status] +$request->all() ;
+            $status = 0; }
+
+        $requestArray =   ['is_active' => $status , 'account_id' => $accountId] +$request->all() ;
 
         $row =  $this->supplierModel::create($requestArray);
 
@@ -67,6 +73,23 @@ class SupplierRepository  implements SupplierInterface
 
 
     }// end of store
+
+    protected function createAccount($name){
+        $accSetting      =  FinSetting::where('account_key' , '=' , 'Supplier')->first();
+        $accountInfo     =  FinAccount::where('id', $accSetting->account_id )->first();
+
+        $supplierAccount =  FinAccount::create([
+        'title_ar'       => $name,
+        'title_en'       => $name,
+        'parent_id'      => $accSetting->account_id,
+        'level'          => $accountInfo->level + 1,
+        'description'    => 'create supplier Account',
+        'cat_id'         => $accountInfo->cat_id,
+        'start_amount'   => 0
+        ]);
+
+        return $supplierAccount -> id ;
+    }
 
     public function update($request,$id){
 

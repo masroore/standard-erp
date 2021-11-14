@@ -17,7 +17,7 @@ function deleteItemRow() {
             this.parentElement.parentNode.parentNode.parentNode.remove();
         })
     }
-}
+} 
 
 function selectableDropdown(getElement, myCallback) {
   var getDropdownElement = getElement;

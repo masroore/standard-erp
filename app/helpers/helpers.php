@@ -18,12 +18,8 @@ function is_true(array $routeName){
 
 }// end is_true
 function userName(int $id){
-
-    $user = User::where('id',$id)->first();
-
-    return $user->name ;
+    // $user = User::where('id',$id)->first();
+    // return $user->name ;
 }
-
-
 
 ?>
