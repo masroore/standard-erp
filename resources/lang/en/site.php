@@ -131,4 +131,70 @@ return [
      'edit_role' => 'Edit Role',
      'role' => 'Role',
 
+     // sales
+    'sales' => 'Sales',
+    'sales_management' => 'Sales Management',
+    'invoices' => 'Invoices',
+    'create_invoice' => 'Create Invoice',
+    'create_offer_price' => 'Create Offer Price',
+    'create_new_invoice' => ' Create New Invoice',
+    'list_invoices' => 'List Invoices',
+
+
+    // customers
+    'customers' => 'Customers',
+    'customer_list' => 'Customer List',
+    'customers_list' => 'Customers List',
+    'customer_group' => 'Customer Group',
+    'customer_profile' => 'Customer Profile',
+    'add_customers' => 'Add Customers',
+    'add_customer' => 'Add Customer',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'photo' => 'Photo',
+    'status' => 'Status',
+    'actions' => 'Actions',
+    'add_new_customer' => 'Add New  Customer',
+    'contact_info' => 'Contact Info',
+    'tax_info' => 'Tax Info',
+    'company_name' => 'Company Name',
+    'fax' => 'Fax',
+    'address' => 'Address',
+    'tax_file_num' => 'Tax file num',
+    'tax_id' => 'Tax id',
+    'percent' => 'percent',
+    'add_new' => 'Add New',
+    'add_new_customer_group' => 'Add new customer group',
+    'edit_customer_group' => 'Edit customer group',
+    'active' => 'Active',
+    'inactive' => 'Inactive',
+
+    // tax
+    'tax_list' => 'Tax List',
+    'tax' => 'TaX',
+    'add_new_tax' => 'Add New Tax',
+    'edit_tax' => 'Edit Tax',
+    'rate' => 'Rate',
+
+// price_list
+    'price_list' => 'price List',
+    'details' => 'Details',
+    'add_price_list' => 'Add Price List',
+    'please_fill_price_list_data' => 'Please Fill Price List Data',
+    'unit' => 'Unit',
+    'price' => 'Price',
+    'custom_price' => 'Custom Price',
+    'add_new_price_list' => 'Add New Price List',
+
+
+// parent_company
+
+
+    'parent_company' => 'Parent Company',
+    'parent_company_list' => 'Parent Company List',
+    'code' => 'Code',
+    'edit_parent_company' => 'Edit Parent Company',
+    'add_new_parent_company' => 'Add Parent Company',
+
+
 ];

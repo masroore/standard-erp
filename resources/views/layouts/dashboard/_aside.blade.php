@@ -80,6 +80,65 @@
                 </ul>
             </li>
 
+            {{-- sales management  --}}
+            <li class="menu menu-heading">
+                <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>
+                    <span>@lang('site.sales_management')</span>
+                </div>
+            </li>
+
+            <li class="menu">
+                <a href="#invoices" data-toggle="collapse" aria-expanded="{{is_true(['invoices'])}}" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>                        <span>@lang('site.sales')</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled {{is_show(['invoices'])}}" id="invoices" data-parent="#accordionExample">
+                    <li class="{{is_active('invoices')}}">
+                        <a class="text-white" href="{{route('dashboard.invoices.index')}}"> @lang('site.invoices') </a>
+                    </li>
+                    <li class="{{is_active('invoices')}}">
+                        <a class="text-white" href="{{route('dashboard.invoices.create')}}"> @lang('site.create_invoice') </a>
+                    </li>
+                    <li class="{{is_active('invoices')}}">
+                        <a class="text-white" href="{{route('dashboard.invoices.create')}}"> @lang('site.create_offer_price') </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu">
+                <a href="#customer" data-toggle="collapse" aria-expanded="{{is_true(['customers','customerGroup','parentCompany'])}}" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+
+                        <span>@lang('site.customers')</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled {{is_show(['customers','customerGroup','parentCompany'])}}" id="customer" data-parent="#accordionExample">
+
+                    <li class="{{is_active('customers')}}">
+                        <a href="{{route('dashboard.customers.index')}}">  @lang('site.customer_list') </a>
+                    </li>
+
+
+
+
+                    <li class="{{is_active('customerGroup')}}">
+                        <a href="{{route('dashboard.customerGroup.index')}}"> @lang('site.customer_group') </a>
+                    </li>
+                    <li class="{{is_active('parentCompany')}}">
+                        <a href="{{route('dashboard.parentCompany.index')}}"> @lang('site.parent_company') </a>
+                    </li>
+
+                </ul>
+            </li>
+
             {{-- Inventory Management --}}
 
             <li class="menu menu-heading">
@@ -235,7 +294,7 @@
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg><span>{{ $current_lang == 'ar'  ? ' الإعدادات' :'settings'}}</span></div>
             </li>
             <li class="menu">
-                <a href="#setting" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <a href="#setting" data-toggle="collapse" aria-expanded="{{is_true(['tax',''])}}" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                         <span>{{ $current_lang == 'ar'  ? ' الإعدادات' :'settings'}}</span>
@@ -244,12 +303,12 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled" id="setting" data-parent="#accordionExample">
-                    <li>
-                        <a href="">  {{ $current_lang == 'ar'  ? ' قائمة المستخدمين' :'List Users'}} </a>
+                <ul class="collapse submenu list-unstyled {{is_show(['tax',''])}}" id="setting" data-parent="#accordionExample">
+
+
+                    <li class="{{is_active('tax')}}">
+                        <a href="{{route('dashboard.tax.index')}}">@lang('site.tax') </a>
                     </li>
-
-
                 </ul>
             </li>
 

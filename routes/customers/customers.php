@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\BackEnd\Customers\CustomerController;
-use App\Http\Controllers\BackEnd\Customers\CustomerGroupController;
-use App\Http\Controllers\BackEnd\Customers\ParentCompanyController;
+use App\Http\Controllers\Backend\Customers\CustomerController;
+use App\Http\Controllers\Backend\Customers\CustomerGroupController;
+use App\Http\Controllers\Backend\Customers\ParentCompanyController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 

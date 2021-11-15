@@ -16,7 +16,7 @@
 <li class="breadcrumb-item"><a href="{{route('dashboard.customers.index')}}">  @lang('site.customers')</a></li>
 <li class="breadcrumb-item active" aria-current="page"><span>  @lang('site.customer_profile')</span></li>
 
-@endcomponent
+@endcomponent 
 
 @endsection
 

@@ -113,6 +113,21 @@ class RepositoryServicesProvider extends ServiceProvider
             'App\Http\Repositories\Purchases\PurchaseInvoiceRepository'
         );
 
+        $this->app->bind(
+            'App\Http\Interfaces\Sales\SalInvoiceInterface',
+            'App\Http\Repositories\Sales\SalInvoiceRepository'
+        );
+
+        $this->app->bind(
+            'App\Http\Interfaces\Settings\TaxInterface',
+            'App\Http\Repositories\Settings\TaxRepository'
+        );
+
+        $this->app->bind(
+            'App\Http\Interfaces\Stores\PriceListInterface',
+            'App\Http\Repositories\Stores\PriceListRepository'
+        );
+
 
 
 

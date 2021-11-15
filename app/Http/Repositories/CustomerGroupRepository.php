@@ -11,7 +11,6 @@ class CustomerGroupRepository  implements CustomerGroupInterface
 {
     use ApiDesignTrait;
 
-     private $customerGroupModel;
 
     public function __construct(CustomerGroup $customerGroup)
     {
@@ -19,60 +18,65 @@ class CustomerGroupRepository  implements CustomerGroupInterface
     }
 
     public function index(){
-       $customerGroups =  $this->customerGroupModel::select('id' , 'name', 'percent')->get();
-        return $this->ApiResponse(200, 'Done', null,  $customerGroups);
+        $routeName = 'customers';
+        $rows = CustomerGroup::get();
+        return view('backend.customerGroup.index',compact('routeName','rows'));
     }//end of index
 
 
     public function store($request){
-       // dd('welcome');
 
-        $validation = Validator::make($request->all(),[
-            'name' => 'required', 
-       ]);
+        $request->validate([
+            'name' => 'required|string|unique:customer_groups,name',
+            'percent' => 'required|integer|max:100',
+            'is_active' => 'string|max:3',
+        ]);
+        ($request->is_active == 'on')? $is_active = '1' : $is_active = '0';
 
-       if($validation->fails())
-       {
-           return $this->ApiResponse(422,'Validation Error', $validation->errors());
-       }
+        $requestArray =['is_active'=> $is_active]+$request->all();
 
-        $customerGroup =   $this->customerGroupModel::create([
-            'name' => $request->name,
-            'percent' => $request->percent,
-            'is_active' => $request->is_active,
-        ]); 
+       $this->customerGroupModel->create($requestArray);
+        if( config('app.locale') == 'ar'){
+            alert()->success('تم انشاء جروب جديد بنجاح', 'عمل رائع');
+        }else{
+            alert()->success('The Group Created Successfully', 'Good Work');
+        }
+        return redirect()->back();
 
-         return $this->ApiResponse(200, 'Done', null,  $customerGroup);
-       
-       
-    }// end of store 
+    }// end of store
 
     public function update($request,$id){
-        $customerGroup =   $this->customerGroupModel::FindOrFail($id);
-            $validation = Validator::make($request->all(),[
-                'name' => 'required'
-            ]);
+        $request->validate([
+            'name' => 'required|string|unique:customer_groups,name,'. $id,
+            'percent' => 'required|integer|max:100',
+            'is_active' => 'string|max:3',
+        ]);
 
-            if($validation->fails())
-            {
-                return $this->ApiResponse(422,'Validation Error', $validation->errors());
+            ($request->is_active == 'on')? $is_active = '1' : $is_active = '0';
+            $requestArray =['is_active'=> $is_active]+$request->all();
+            $customerGroup =   $this->customerGroupModel::FindOrFail($id);
+
+            $customerGroup->update($requestArray);
+
+            if( config('app.locale') == 'ar'){
+                alert()->success('تم تعديل الجروب  بنجاح', 'عمل رائع');
+            }else{
+                alert()->success('The Group Updated Successfully', 'Good Work');
             }
-        
-    
-        $customerGroup->name      = $request->name ;
-        $customerGroup->percent   = $request->percent ;
-        $customerGroup->is_active = $request->is_active ;
-        $customerGroup->save();
+            return redirect()->back();
 
-        return $this->ApiResponse(200, 'Updated Successfully');
-    
 
-    }// end of update 
+    }// end of update
 
     public function destroy($id){
         $this->customerGroupModel::FindOrFail($id)->delete();
-        return $this->ApiResponse(200, 'Deleted Successfully', null);
-    }// end of destroy 
+        if( config('app.locale') == 'ar'){
+            alert()->success('تم حذف الجروب  بنجاح', 'عمل رائع');
+        }else{
+            alert()->success('The Group Deleted Successfully', 'Good Work');
+        }
+        return redirect()->back();
+    }// end of destroy
 
 
 } // end of class

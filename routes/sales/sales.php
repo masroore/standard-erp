@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\sales\SalInvoiceController;
+use App\Http\Controllers\Backend\Sales\SalInvoiceController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 /*
 |--------------------------------------------------------------------------

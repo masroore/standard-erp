@@ -37,15 +37,8 @@ class TaxRepository  implements TaxInterface
             'rate'       => 'required|numeric',
 
        ]);
-
-
-
         $requestArray =  $request->all();
-
-
-
-          $this->TaxModel->create($requestArray);
-
+        $this->TaxModel->create($requestArray);
 
         if( config('app.locale') == 'ar'){
             alert()->success('تم انشاء ضريبه  بنجاح', 'عمل رائع');

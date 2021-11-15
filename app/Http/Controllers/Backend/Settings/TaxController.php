@@ -18,12 +18,7 @@ class TaxController  extends Controller
     public function index(){
       return $this->TaxInterface->index();
     }
-    public function create(){
-        return $this->TaxInterface->create();
-    }
-    public function edit($id){
-    return $this->TaxInterface->edit($id);
-    }
+
     public function store(Request $request){
       return $this->TaxInterface->store($request);
     }

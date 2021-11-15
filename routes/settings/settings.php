@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\BackEnd\Settings\TaxController;
+use App\Http\Controllers\Backend\Settings\TaxController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 

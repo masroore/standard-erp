@@ -43,7 +43,7 @@
         </select>
     </div>
     <div class="form-group col-md-4">
-        <label for="">@lang('site.customer_group')</label>
+        <label for="">@lang('site.parentcompany')</label>
         <select class="form-control nested select2" name="parent_id" >
             @foreach ($parentCompanies as $parent)
                 <option value="{{ $parent->id }}" {{(isset($row) && $row->parent_id == $parent->id) ? 'selected' : ''}}>{{$parent->name}}</option>
@@ -62,11 +62,12 @@
 
     <div class="form-group col-md-4">
         <label for="">@lang('site.tax')</label>
-        <select class="form-control nested select2" name="tax_id" >
+        <input type="text" name="tax_id" class="form-control" value="{{ old('tax_id', isset($row) ? $row->tax_id : '')}}"  required>
+        {{-- <select class="form-control nested select2" name="tax_id" >
             @foreach ($taxes as $tax)
                 <option value="{{ $tax->id }}" {{(isset($row) && $row->tax_id == $tax->id) ? 'selected' : ''}}>{{$tax->name}}</option>
             @endforeach
-        </select>
+        </select> --}}
     </div>
     <div class="form-group col-md-3">
         <label for="">@lang('site.tax_file_num')</label>
