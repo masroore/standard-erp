@@ -40,7 +40,7 @@ class SalInvoiceController extends Controller
       return $this->SalInvoiceInterface->destroy($id);
     }// end of destroy
 
-    public function search($value){
-        return $this->SalInvoiceInterface->search($value);
+    public function search($value,$id){
+        return $this->SalInvoiceInterface->search($value,$id);
       }// end of search
 }

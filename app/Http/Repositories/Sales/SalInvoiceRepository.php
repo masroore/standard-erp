@@ -7,6 +7,7 @@ use App\Http\Repositories\LaravelLocalization;
 use App\Models\Finance\FinSetting;
 use App\Models\Store\StoItem;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -33,7 +34,9 @@ class SalInvoiceRepository  implements SalInvoiceInterface
 
     public function create(){
         $routeName='invoices';
-        return view('backend.sales.invoices.create',compact('routeName') );
+        $taxes = DB::table('taxes')->get();
+
+        return view('backend.sales.invoices.create',compact('routeName','taxes') );
     }// end of create
 
     public function store($request){
@@ -124,16 +127,15 @@ class SalInvoiceRepository  implements SalInvoiceInterface
         return redirect()->back();
 
     }// end of destroy
-    public function search($value){
-
+    public function search($value,$id){
         $StoItem =  StoItem::where(function ($query) use ($value){
                          $query->where('title_en', 'LIKE', '%'.$value.'%')
                              ->orWhere('title_ar', 'LIKE', '%'.$value.'%');
                      })->get();
-     return view('backend.sales.invoices.search', compact('StoItem'));
-         
-       
-     }// end of search 
+     return view('backend.sales.invoices.search', compact('StoItem','id'));
+
+
+     }// end of search
 } // end of class
 
 ?>

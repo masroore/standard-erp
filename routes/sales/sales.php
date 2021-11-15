@@ -22,7 +22,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['loc
 
         Route::resource('invoices', SalInvoiceController::class);
 
-        Route::get('invoices/search/{value?}', [SalInvoiceController::class,'search']);
+        Route::get('invoices/search/{value?}/{id?}', [SalInvoiceController::class,'search']);
 
     });
 

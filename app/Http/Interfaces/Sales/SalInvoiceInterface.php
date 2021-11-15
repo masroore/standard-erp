@@ -10,7 +10,7 @@ interface SalInvoiceInterface{
     public function edit($id);
     public function update($request ,$id);
     public function destroy($id);
-    public function search($value);
+    public function search($value,$id);
 
 }// end of interface
 

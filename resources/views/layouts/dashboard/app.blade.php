@@ -162,7 +162,7 @@
     <script src="{{asset('public/backend/crock/rtl/plugins/treeview/custom-jstree.js') }}"></script>
     <script src="{{asset('public/backend/crock/rtl/plugins/dropify/dropify.min.js') }}"></script>
     <script src="{{asset('public/backend/crock/rtl/plugins/flatpickr/flatpickr.js') }}"></script>
-    <script src="{{asset('public/backend/crock/rtl/assets/js/apps/invoice-add.js') }}"></script>
+    {{-- <script src="{{asset('public/backend/crock/rtl/assets/js/apps/invoice-add.js') }}"></script> --}}
     <script src="{{asset('public/backend/crock/assets/js/apps/journal.js') }}"></script>
 
     <script>
@@ -210,7 +210,7 @@
 
     <script src="{{asset('public/backend/crock/plugins/dropify/dropify.min.js') }}"></script>
     <script src="{{asset('public/backend/crock/plugins/flatpickr/flatpickr.js') }}"></script>
-    <script src="{{asset('public/backend/crock/assets/js/apps/invoice-add.js') }}"></script>
+    {{-- <script src="{{asset('public/backend/crock/assets/js/apps/invoice-add.js') }}"></script> --}}
     <script src="{{asset('public/backend/crock/assets/js/apps/journal.js') }}"></script>
 
     <script>

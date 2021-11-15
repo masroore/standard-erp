@@ -1,19 +1,24 @@
-@php 
+@php
 	$lang =  LaravelLocalization::getCurrentLocale();
 @endphp
 
-<div class="widget-content widget-content-area p-3" style="    overflow-y: scroll;height: 220px;">
+<div class="widget-content widget-content-area{{ $id }} p-3" style="    overflow-y: scroll;height: 220px;">
 
 
     <ul class="file-tree">
     @foreach ($StoItem as $key => $row)
-        
 
-        <li style="cursor: pointer;" class="item" title="{{$lang == 'ar' ? $row->title_ar: $row->title_en}}">{{$lang == 'ar' ? $row->title_ar: $row->title_en}}</li>
+
+        <li style="cursor: pointer;" class="item"
+         title="{{$lang == 'ar' ? $row->title_ar: $row->title_en}}"
+         item_id="{{$row->id}}"
+         sale_price="{{$row->sale_price}}"
+
+         >{{$lang == 'ar' ? $row->title_ar: $row->title_en}}</li>
     @endforeach
-       
 
-                              
+
+
 
     </ul>
 
@@ -25,11 +30,20 @@
 <script>
     $(".item").on('click',function(){
        var title = $(this).attr('title');
-       $('#search').val(title);
-       $('.widget-content-area').remove();
+       var item_id = $(this).attr('item_id');
+       var qty = $(this).attr('qty');
+       var sale_price = $(this).attr('sale_price');
+       var id = {{ $id }};
+    //    alert(id);
+
+       $('.title'+id).val(title);
+       $('.item_id'+id).val(item_id);
+       $('.qty'+id).val(1);
+       $('.sale_price'+id).val(sale_price);
+       $('.amount'+id).text(sale_price);
+       $('.widget-content-area'+id).remove();
     });
 </script>
 
-    
-    
-    
+
+
