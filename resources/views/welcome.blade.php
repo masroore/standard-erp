@@ -3,39 +3,39 @@
 
 <head>
     <meta charset="utf-8">
-    
+
     <!--====== Title ======-->
     <title>E.R.P Landing Page</title>
-    
+
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="{{ asset('public/frontend/assets/images/favicon.png') }}" type="image/png">
-        
+
     <!--====== Animate CSS ======-->
     <link rel="stylesheet" href="{{ asset('public/frontend/assets/css/animate.css') }}">
-                
+
     <!--====== Line Icons CSS ======-->
     <link rel="stylesheet" href="{{ asset('public/frontend/assets/css/LineIcons.2.0.css') }}">
-        
+
     <!--====== Bootstrap CSS ======-->
     <link rel="stylesheet" href="{{ asset('public/frontend/assets/css/bootstrap-4.5.0.min.css') }}">
-    
+
     <!--====== Default CSS ======-->
     <link rel="stylesheet" href="{{ asset('public/frontend/assets/css/default.css') }}">
-    
+
     <!--====== Style CSS ======-->
     <link rel="stylesheet" href="{{ asset('public/frontend/assets/css/style.css') }}">
-    
+
 </head>
 
 <body>
     <!--[if IE]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-  <![endif]-->    
-   
-   
+  <![endif]-->
+
+
     <!--====== PRELOADER PART START ======-->
 
     <div class="preloader">
@@ -56,9 +56,9 @@
     </div>
 
     <!--====== PRELOADER PART ENDS ======-->
-    
+
     <!--====== HEADER PART START ======-->
-    
+
     <header class="header-area">
         <div class="navbar-area">
             <div class="container">
@@ -97,7 +97,7 @@
                                     </li>
                                 </ul>
                             </div> <!-- navbar collapse -->
-                            
+
                             <div class="navbar-btn d-none d-sm-inline-block">
                                 <a class="main-btn" data-scroll-nav="0" href="{{ route('login') }}" rel="nofollow">Login</a>
                             </div>
@@ -106,7 +106,7 @@
                 </div> <!-- row -->
             </div> <!-- container -->
         </div> <!-- navbar area -->
-        
+
         <div id="home" class="header-hero bg_cover" style="background-image: url(public/frontend/assets/images/banner-bg.svg)">
             <div class="container">
                 <div class="row justify-content-center">
@@ -130,11 +130,11 @@
             <div id="particles-1" class="particles"></div>
         </div> <!-- header hero -->
     </header>
-    
+
     <!--====== HEADER PART ENDS ======-->
-    
+
     <!--====== BRAMD PART START ======-->
-    
+
     <div class="brand-area pt-90">
         <div class="container">
             <div class="row">
@@ -160,11 +160,11 @@
             </div>   <!-- row -->
         </div> <!-- container -->
     </div>
-    
+
     <!--====== BRAMD PART ENDS ======-->
-    
+
     <!--====== SERVICES PART START ======-->
-    
+
     <section id="features" class="services-area pt-120">
         <div class="container">
             <div class="row justify-content-center">
@@ -221,11 +221,11 @@
             </div> <!-- row -->
         </div> <!-- container -->
     </section>
-    
+
     <!--====== SERVICES PART ENDS ======-->
-    
+
     <!--====== ABOUT PART START ======-->
-    
+
     <section id="about" class="about-area pt-70">
         <div class="container">
             <div class="row">
@@ -250,11 +250,11 @@
             <img src="{{ asset('public/frontend/assets/images/about-shape-1.svg') }}" alt="shape">
         </div>
     </section>
-    
+
     <!--====== ABOUT PART ENDS ======-->
-    
+
     <!--====== ABOUT PART START ======-->
-    
+
     <section class="about-area pt-70">
         <div class="about-shape-2">
             <img src="{{ asset('public/frontend/assets/images/about-shape-2.svg') }}" alt="shape">
@@ -282,7 +282,7 @@
 
 
     <!--====== ABOUT PART START ======-->
-    
+
     <section class="about-area pt-70">
         <div class="container">
             <div class="row">
@@ -307,14 +307,14 @@
             <img src="{{ asset('public/frontend/assets/images/about-shape-1.svg') }}" alt="shape">
         </div>
     </section>
-    
+
     <!--====== ABOUT PART ENDS ======-->
 
-    
+
     <!--====== ABOUT PART ENDS ======-->
-    
+
     <!--====== VIDEO COUNTER PART START ======-->
-    
+
     <section id="facts" class="video-counter pt-70">
         <div class="container">
             <div class="row">
@@ -371,15 +371,15 @@
             </div> <!-- row -->
         </div> <!-- container -->
     </section>
-    
+
     <!--====== VIDEO COUNTER PART ENDS ======-->
-    
 
-    
 
-    
+
+
+
     <!--====== FOOTER PART START ======-->
-    
+
     <footer id="footer" class="footer-area pt-120">
         <div class="container">
             <div class="subscribe-area wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
@@ -473,17 +473,17 @@
         </div> <!-- container -->
         <div id="particles-2"></div>
     </footer>
-    
+
     <!--====== FOOTER PART ENDS ======-->
-    
+
     <!--====== BACK TOP TOP PART START ======-->
 
     <a href="#" class="back-to-top"><i class="lni lni-chevron-up"></i></a>
 
-    <!--====== BACK TOP TOP PART ENDS ======-->   
-    
+    <!--====== BACK TOP TOP PART ENDS ======-->
+
     <!--====== PART START ======-->
-    
+
 <!--
     <section class="">
         <div class="container">
@@ -493,7 +493,7 @@
         </div>
     </section>
 -->
-    
+
     <!--====== PART ENDS ======-->
 
 
@@ -502,33 +502,33 @@
     <!--====== Jquery js ======-->
     <script src="{{ asset('public/frontend/assets/js/vendor/jquery-3.5.1-min.js') }}"></script>
     <script src="{{ asset('public/frontend/assets/js/vendor/modernizr-3.7.1.min.js') }}"></script>
-    
+
     <!--====== Bootstrap js ======-->
     <script src="{{ asset('public/frontend/assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('public/frontend/assets/js/bootstrap-4.5.0.min.js') }}"></script>
-    
+
     <!--====== Plugins js ======-->
     <script src="{{ asset('public/frontend/assets/js/plugins.js') }}"></script>
-    
+
     <!--====== Counter Up js ======-->
     <script src="{{ asset('public/frontend/assets/js/waypoints.min.js') }}"></script>
     <script src="{{ asset('public/frontend/assets/js/jquery.counterup.min.js') }}"></script>
-    
 
-    
+
+
     <!--====== Scrolling Nav js ======-->
     <script src="{{ asset('public/frontend/assets/js/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('public/frontend/assets/js/scrolling-nav.js') }}"></script>
-    
+
     <!--====== wow js ======-->
     <script src="{{ asset('public/frontend/assets/js/wow.min.js') }}"></script>
-    
+
     <!--====== Particles js ======-->
     <script src="{{ asset('public/frontend/assets/js/particles.min.js') }}"></script>
-    
+
     <!--====== Main js ======-->
     <script src="{{ asset('public/frontend/assets/js/main.js') }}"></script>
-    
+
 </body>
 
 </html>
