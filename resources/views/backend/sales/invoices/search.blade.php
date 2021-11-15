@@ -2,7 +2,7 @@
 	$lang =  LaravelLocalization::getCurrentLocale();
 @endphp
 
-<div class="widget-content widget-content-area{{ $id }} p-3" style="    overflow-y: scroll;height: 220px;">
+<div class="widget-content widget-content-area{{ $id }} p-3" style="    overflow-y: scroll;height: 220px; background-color: white;">
 
 
     <ul class="file-tree">
