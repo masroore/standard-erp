@@ -19,62 +19,59 @@ class ParentCompanyRepository  implements ParentCompanyInterface
     }
 
     public function index(){
-       $rows =  ParentCompany::select('id' , 'name', 'code')->get();
-       $routeName = 'customers';
-       return view('backend.parentCompany.index',compact('routeName','rows'));
+       $parentCompanies =  ParentCompany::select('id' , 'name', 'code')->get();
+        return $this->ApiResponse(200, 'Done', null,  $parentCompanies);
     }//end of index
 
 
     public function store($request){
-    //    dd('welcome');
+       // dd('welcome');
 
-       $request->validate([
-        'name' => 'required|string|unique:parent_companies,name',
-        'code' => 'required|string|unique:parent_companies,code|max:15',
+        $validation = Validator::make($request->all(),[
+            'name' => 'required', 
+       ]);
 
+       if($validation->fails())
+       {
+           return $this->ApiResponse(422,'Validation Error', $validation->errors());
+       }
+
+        $parentCompany =   ParentCompany::create([
+            'name' => $request->name,
+            'code' => str_replace(' ', '_', $request->name). '_' . Str::random(5)
         ]);
 
-
-        $requestArray =$request->all();
-
-    $this->parentCompanyModel->create($requestArray);
-        if( config('app.locale') == 'ar'){
-            alert()->success('تم انشاء الشركه جديد بنجاح', 'عمل رائع');
-        }else{
-            alert()->success('The Company Created Successfully', 'Good Work');
-        }
-        return redirect()->back();
-
-
-    }// end of store
+         
+               
+         return $this->ApiResponse(200, 'Done', null,  $parentCompany);
+       
+       
+    }// end of store 
 
     public function update($request,$id){
+        $parentCompany =   ParentCompany::FindOrFail($id);
+            $validation = Validator::make($request->all(),[
+                'name' => 'required'
+            ]);
 
-        $request->validate([
-            'name' => 'required|string|unique:parent_companies,name,'. $id,
-            'code' => 'required|string|max:15|unique:parent_companies,code,'. $id,
-
-        ]);
-
-            $requestArray =$request->all();
-            $parentCompany =   $this->parentCompanyModel::FindOrFail($id);
-
-            $parentCompany->update($requestArray);
-
-            if( config('app.locale') == 'ar'){
-                alert()->success('تم تعديل الشركه  بنجاح', 'عمل رائع');
-            }else{
-                alert()->success('The Company Updated Successfully', 'Good Work');
+            if($validation->fails())
+            {
+                return $this->ApiResponse(422,'Validation Error', $validation->errors());
             }
-            return redirect()->back();
+        
+    
+        $parentCompany->name = $request->name ;
+        $parentCompany->save();
 
+        return $this->ApiResponse(200, 'Updated Successfully');
+    
 
-    }// end of update
+    }// end of update 
 
     public function destroy($id){
         ParentCompany::FindOrFail($id)->delete();
         return $this->ApiResponse(200, 'Deleted Successfully', null);
-    }// end of destroy
+    }// end of destroy 
 
 
 } // end of class

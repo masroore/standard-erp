@@ -1,13 +1,13 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <div class="row">
 
-           
+
 
             <div class="form-group col-md-6">
                 <label for="">{{ $lang == 'ar' ? ' الرجاء ادخال الاسم باللغة العربية' : 'Enter Name in Arabic ' }}</label>
                 <input  type="text" name="title_ar" value="{{old('title_ar', isset($row) ? $row->title_ar : '')}}"  class="form-control" required>
-            
+
             </div>
 
             <div class="form-group col-md-6">
@@ -32,15 +32,45 @@
                 <label for="">{{ $lang == 'ar' ? ' الرجاء اختيار العلامة التجارية  ' : 'Select Brand' }}</label>
                 <select class="form-control basic select2" name="brand_id" >
                     <option disabled selected>{{$lang == 'ar' ? 'بدون علامة تجارية' : 'Without Brand'}}</option>
-                    @foreach ($brands as $brand) 
+                    @foreach ($brands as $brand)
                         <option value="{{ $brand->id }}" {{isset($row) && $row->brand_id == $brand->id  ? 'selected' : ''}} >{{$lang == 'ar' ? $brand->title_ar: $brand->title_en}}</option>
-                       
+
                     @endforeach
                 </select>
             </div>
-
             <div class="form-group col-md-6">
-                <label for="">{{ $lang == 'ar' ? ' الرجاء اختيار العلامة التجارية  ' : 'Select Brand' }}</label>
+                <label for="">{{ $lang == 'ar' ? ' الرجاء ادخال الباركود' : 'Enter Barcode' }}</label>
+                <input type="text" name="barcode" value="{{old('barcode', isset($row) ? $row->barcode : '')}}" class="form-control" >
+            </div>
+            <div class="form-group col-md-6">
+                <label for="">@lang('site.select_unit')</label>
+                <select class="form-control basic select2" name="unit_id" id="units">
+                    <option disabled selected>@lang('site.select_unit')</option>
+                    @foreach ($units as $unit)
+                        <option value="{{ $unit->id }}" {{isset($row) && $row->unit_id == $unit->id  ? 'selected' : ''}} >{{$unit->unit_name}}</option>
+
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="">@lang('site.select_purchase_unit')</label>
+                <select class="form-control basic select2 unit-child" name="purchase_unit_id">
+
+                    <option disabled selected>@lang('site.select_unit')</option>
+
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="">@lang('site.select_sale_unit')</label>
+                <select class="form-control basic select2 unit-child" name="sale_unit_id" >
+                    <option disabled selected>@lang('site.select_unit')</option>
+
+                </select>
+            </div>
+
+
+            {{-- <div class="form-group col-md-6">
+                <label for="">{{ $lang == 'ar' ? ' الرجاء اختيار  الباركود  ' : 'Select barcode' }}</label>
                 <select name="barcode_symbology"  class="form-control basic">
                     <option value="C128" {{isset($row) && $row->barcode_symbology == 'C128'  ? 'selected' : ''}}>Code 128</option>
                     <option value="C39"  {{isset($row) && $row->barcode_symbology == 'C39'  ? 'selected' : ''}}>Code 39</option>
@@ -49,13 +79,10 @@
                     <option value="EAN8" {{isset($row) && $row->barcode_symbology == 'EAN8'  ? 'selected' : ''}}>EAN-8</option>
                     <option value="EAN13" {{isset($row) && $row->barcode_symbology == 'EAN13'  ? 'selected' : ''}}>EAN-13</option>
                 </select>
-            </div>
+            </div> --}}
 
-            <div class="form-group col-md-6">
-                <label for="">{{ $lang == 'ar' ? ' الرجاء ادخال الباركود' : 'Enter Barcode' }}</label>
-                <input type="text" name="barcode" value="{{old('barcode', isset($row) ? $row->barcode : '')}}" class="form-control" >
-            </div>
-            
+
+
             <div class="form-group col-md-6">
                 <label for="">{{ $lang == 'ar' ? ' الرجاء سعر البيع' : 'Enter Sale Price' }}</label>
                 <input type="number" name="sale_price" value="{{old('sale_price', isset($row) ? $row->sale_price : '')}}" class="form-control" >
@@ -88,7 +115,7 @@
                         <option value="0" {{isset($row) && $row->tax_id == 0  ? 'selected' : ''}}>No Tax</option>
                         <option value="10" {{isset($row) && $row->tax_id == 10  ? 'selected' : ''}}>@10%</option>
                         <option value="14" {{isset($row) && $row->tax_id == 14  ? 'selected' : ''}}>@14%</option>
-                        
+
                     </select>
                 </div>
             </div>
@@ -104,7 +131,7 @@
 
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="row">
             <div class="col-md-12">
                 <div class="widget-content widget-content-area p-3" >
@@ -115,18 +142,18 @@
                             <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
                             <span class="custom-file-container__custom-file__custom-file-control"></span>
                         </label>
-                    
-                        @if (isset($row) && $row->image != null) 
-                   
-                        <div class="custom-file-container__image-preview" > 
-                            
+
+                        @if (isset($row) && $row->image != null)
+
+                        <div class="custom-file-container__image-preview" >
+
                             <img width="70px" height="70px" src="{{asset('public/uploads/stores/items/images/'.$row->image)}}">
-                        </div> 
+                        </div>
                     @else
-                        <div class="custom-file-container__image-preview"></div> 
+                        <div class="custom-file-container__image-preview"></div>
                     @endif
-                    
-                        
+
+
                     </div>
                 </div>
             </div>
@@ -134,7 +161,7 @@
             <div class="col-md-12">
                 <div class="form-group p-3">
                     <label for="exampleFormControlTextarea1">{{$lang == 'ar' ? '  ادخال وصف الصنف ' : ' Enter Item Description'}}</label>
-                    <textarea class="form-control" name="description" value="{{old('description', isset($row) ? $row->description : '')}}" id="exampleFormControlTextarea1" rows="3">
+                    <textarea class="form-control" name="description" value="{{old('description', isset($row) ? $row->description : '')}}" id="exampleFormControlTextarea1" rows="5">
                        {{old('description', isset($row) ? $row->description : '')}}
                     </textarea>
                 </div>
@@ -160,5 +187,20 @@
     });
 
 </script>
-    
+
+<!-- ajax -->
+
+<script type="text/javascript">
+    $("#units").change(function(){
+        $.ajax({
+            url: "{{ route('dashboard.unitschaild') }}?unit_id=" + $(this).val(),
+            method: 'GET',
+            success: function(data) {
+                $('.unit-child').html(data.html);
+            }
+        });
+    });
+</script>
+
+
 @endpush

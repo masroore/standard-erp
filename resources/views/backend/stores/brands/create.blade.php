@@ -17,20 +17,20 @@
             </div>
             <form action="{{route('dashboard.brands.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
-
+              
             <div class="modal-body">
                 <div class="form-group">
-
-
+                    
+                   
                     <input  type="text" name="title_ar" placeholder="{{ $lang == 'ar' ? ' الرجاء ادخال الاسم باللغة العربية' : 'Enter Name in Arabic ' }}" class="form-control" required>
-
+                  
                 </div>
 
                 <div class="form-group">
-
-
+                    
+                  
                     <input type="text" name="title_en" placeholder="{{ $lang == 'ar' ? ' الرجاء ادخال الاسم باللغة الانجليزية' : 'Enter Name in English ' }}" class="form-control" required>
-
+                  
                 </div>
             </div>
             <div class="modal-footer">

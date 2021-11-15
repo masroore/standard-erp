@@ -11,3 +11,4 @@ class RoleUser extends LaratrustRole
     protected $table = 'role_user';
 
 }
+ 
