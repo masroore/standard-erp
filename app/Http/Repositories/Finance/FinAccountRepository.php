@@ -33,7 +33,7 @@ class FinAccountRepository  implements FinAccountInterface
 
         return view('backend.finance.accounts.index', compact('rows','routeName','cats','categories'));
 
-    }//end of index
+    }//end of index  
 
     public function create(){
         $cats      = FinCategory::get();
@@ -61,7 +61,7 @@ class FinAccountRepository  implements FinAccountInterface
         }elseif($request->parent_id == 0){
             $accountLevel = 1 ;
         }
- 
+
         $requestArray = ['level' => $accountLevel ] + $request->all() ;
 
         $row =  $this->model->create($requestArray);

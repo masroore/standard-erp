@@ -20,17 +20,6 @@
     <link href="{{asset('public/backend/crock/rtl/assets/css/plugins.css')}}" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
-     <!-- BEGIN THEME GLOBAL STYLES -->
-     <link href="{{ asset('public/backend/crock/rtl/plugins/noUiSlider/nouislider.min.css') }}" rel="stylesheet" type="text/css">
-     <!-- END THEME GLOBAL STYLES -->
-
-     <!--  BEGIN CUSTOM STYLE FILE  -->
-     <link href="{{ asset('public/backend/crock/rtl/plugins/noUiSlider/custom-nouiSlider.css') }}" rel="stylesheet" type="text/css">
-     <link href="{{ asset('public/backend/crock/rtl/plugins/bootstrap-range-Slider/bootstrap-slider.css') }}" rel="stylesheet" type="text/css">
-     <!--  END CUSTOM STYLE FILE  -->
-
-
-
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     <link rel="stylesheet" type="text/css" href="{{asset('public/backend/crock/rtl/plugins/table/datatable/datatables.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('public/backend/crock/rtl/plugins/table/datatable/dt-global_style.css')}}">
@@ -62,15 +51,6 @@
      <link href="{{asset('public/backend/crock/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
      <link href="{{asset('public/backend/crock/assets/css/plugins.css')}}" rel="stylesheet" type="text/css" />
      <!-- END GLOBAL MANDATORY STYLES -->
-
-       <!-- BEGIN THEME GLOBAL STYLES -->
-       <link href="{{ asset('public/backend/crock/plugins/noUiSlider/nouislider.min.css') }}" rel="stylesheet" type="text/css">
-       <!-- END THEME GLOBAL STYLES -->
-
-       <!--  BEGIN CUSTOM STYLE FILE  -->
-       <link href="{{ asset('public/backend/crock/plugins/noUiSlider/custom-nouiSlider.css') }}" rel="stylesheet" type="text/css">
-       <link href="{{ asset('public/backend/crock/plugins/bootstrap-range-Slider/bootstrap-slider.css') }}" rel="stylesheet" type="text/css">
-       <!--  END CUSTOM STYLE FILE  -->
 
      <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     <link rel="stylesheet" type="text/css" href="{{asset('public/backend/crock/plugins/table/datatable/datatables.css')}}">
@@ -182,6 +162,8 @@
     <script src="{{asset('public/backend/crock/rtl/plugins/treeview/custom-jstree.js') }}"></script>
     <script src="{{asset('public/backend/crock/rtl/plugins/dropify/dropify.min.js') }}"></script>
     <script src="{{asset('public/backend/crock/rtl/plugins/flatpickr/flatpickr.js') }}"></script>
+    <script src="{{asset('public/backend/crock/rtl/assets/js/apps/invoice-add.js') }}"></script>
+    <script src="{{asset('public/backend/crock/assets/js/apps/journal.js') }}"></script>
 
     <script>
         $('#zero-config').DataTable({
@@ -219,17 +201,6 @@
      <script src="{{asset('public/backend/crock/assets/js/custom.js')}}"></script>
      <!-- END GLOBAL MANDATORY SCRIPTS -->
 
-     <script src="plugins/highlight/highlight.pack.js"></script>
-
-     <!-- END GLOBAL MANDATORY STYLES -->
-
-     <!-- BEGIN PAGE LEVEL SCRIPTS -->
-
-
-     <script src="{{ asset('public/backend/crock/plugins/noUiSlider/nouislider.min.js') }}"></script>
-     <script src="{{ asset('public/backend/crock/plugins/noUiSlider/custom-nouiSlider.js') }}"></script>
-     <script src="{{ asset('public/backend/crock/plugins/bootstrap-range-Slider/bootstrap-rangeSlider.js') }}"></script>
-
      <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     <script src="{{asset('public/backend/crock/assets/js/scrollspyNav.js')}}"></script>
     <script src="{{asset('public/backend/crock/plugins/table/datatable/datatables.js')}}"></script>
@@ -239,7 +210,9 @@
 
     <script src="{{asset('public/backend/crock/plugins/dropify/dropify.min.js') }}"></script>
     <script src="{{asset('public/backend/crock/plugins/flatpickr/flatpickr.js') }}"></script>
-    <script src="{{asset('public/backend/crock/plugins/flatpickr/custom-flatpickr.js') }}"></script>
+    <script src="{{asset('public/backend/crock/assets/js/apps/invoice-add.js') }}"></script>
+    <script src="{{asset('public/backend/crock/assets/js/apps/journal.js') }}"></script>
+
     <script>
         $('#zero-config').DataTable({
             "dom": "<'dt--top-section'<'row'<'col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center'l><'col-12 col-sm-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3'f>>>" +
@@ -257,12 +230,10 @@
             "pageLength": 10
         });
     </script>
-
     <script src="{{asset('public/backend/crock/plugins/treeview/custom-jstree.js') }}"></script>
      @stack('js')
 
     @endif
-
     @include('sweet::alert')
 </body>
 </html>

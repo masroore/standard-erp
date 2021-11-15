@@ -7,4 +7,5 @@ return [
     'accounts'         => 'الحسابات',
     'create account'   => 'انشاء حساب ',
     'account list'     => 'شجرة الحسابات',
+
 ];

@@ -5,20 +5,18 @@ namespace App\Http\Interfaces\Stores;
 interface StoItemInterface{
 
     public function index();
+      
+    public function create(); 
 
-    public function create();
-
-    public function edit($id);
+    public function edit($id); 
 
     public function store($request);
 
     public function update($request,$id);
 
-    public function destroy($id);
-    
-    public function selectUnits($request);
+    public function destroy($id); 
 
-}// end of interface
+}// end of interface  
 
 
-?>
+?> 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BackEnd\Stores\PriceListController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Stores\StoBrandController;
 use App\Http\Controllers\Backend\Stores\StoCategoryController;
@@ -29,8 +30,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['loc
         Route::resource('units', StoUnitController::class);
         Route::resource('stores', StoStoreController::class);
         Route::resource('items', StoItemController::class);
-
-        Route::get('getchaildunit', [StoItemController::class, 'selectUnits'])->name('unitschaild');
+        Route::resource('priceList', PriceListController::class);
+        Route::get('priceList/search/{value?}', [PriceListController::class,'search']);
 
     });
 

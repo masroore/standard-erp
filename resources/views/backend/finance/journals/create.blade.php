@@ -46,7 +46,6 @@
 
                                 <div class="form-group mb-4">
                                     <label for="date">Invoice Date</label>
-
                                     <input type="text" class="form-control form-control-sm" name="date" id="date" placeholder="Add date picker">
                                 </div>
                             </div>
@@ -155,12 +154,6 @@
 
 @endsection
 @push('js')
-@if ($lang == 'ar')
-<script src="{{asset('public/backend/crock/rtl/assets/js/apps/journal.js') }}"></script>
-@else
-<script src="{{asset('public/backend/crock/assets/js/apps/journal.js') }}"></script>
-@endif
-
 <script>
     $(document).ready(function(){
 
@@ -202,6 +195,4 @@
             });
     });
 </script>
-
-
 @endpush

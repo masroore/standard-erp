@@ -123,3 +123,9 @@
 @media (max-width: 767px) {
   .custo-radio {
     margin-top: 5px; } }
+
+
+    .check-account{
+        margin: 0 15px;
+    cursor: alias;
+    }

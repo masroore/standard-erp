@@ -18,6 +18,8 @@ class RoleRepository  implements RoleInterface
        ->WhenSearch(request()->search)
        ->with('permissions')
        ->withCount('users');
+
+
        return $rows ;
    }
     public function index(){
@@ -49,7 +51,6 @@ class RoleRepository  implements RoleInterface
              'name' => 'required|unique:roles,name',
              'permissions' => 'required|array|min:1'
         ]);
-        
     $role =   Role::create($request->all());
     $role->attachPermissions($request->permissions);
 
@@ -65,21 +66,22 @@ class RoleRepository  implements RoleInterface
         // dd($roles);
 
         $routeName = 'roles';
+
+
          return view('backend.roles.edit', compact('row','routeName'));
 
      }//end of edit
 
     public function update($request,$id){
-        //dd(51451);
+        // dd(51451);
         $role =   Role::FindOrFail($id);
-        //dd($role);
         $request->validate([
             'name' => 'required|unique:roles,name,' .  $id,
-            'permissions' => 'required|array|min:1'
+             'permissions' => 'required|array|min:1'
         ]);
 
         $role->update($request->all());
-       // dd($request->permissions);
+
         $role->syncPermissions($request->permissions);
 
         alert()->success( __('site.data_updated'), __('site.success'));
