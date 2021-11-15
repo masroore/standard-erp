@@ -108,9 +108,12 @@ class FinSettingRepository  implements FinSettingInterface
 
     public function update($request,$id){
        $request->validate([
-            'account_id'=> 'required',
-            'account_key'=>'required',
+            'account_id'    => 'required',
+
+            'account_key'   => 'required|unique:fin_settings,account_key,'.$id,
         ]);
+
+
 
         $account_id = $request->account_id;
         $account_key = $request->account_key;

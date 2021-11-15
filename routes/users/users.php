@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\UsersManagment\UserController;
 use App\Http\Controllers\Backend\UsersManagment\RoleController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,6 @@ use App\Http\Controllers\Backend\UsersManagment\RoleController;
 */
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['localeSessionRedirect','localizationRedirect','localeViewPath']], function()
 {
-
-
-
 
 Route::prefix('dashboard')->name('dashboard.')->group(function(){
 

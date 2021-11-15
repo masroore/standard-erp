@@ -44,8 +44,8 @@ class RepositoryServicesProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            'App\Http\Interfaces\SupplierInterface',
-            'App\Http\Repositories\SupplierRepository'
+            'App\Http\Interfaces\Purchases\SupplierInterface',
+            'App\Http\Repositories\Purchases\SupplierRepository'
         );
 
         $this->app->bind(
@@ -107,20 +107,15 @@ class RepositoryServicesProvider extends ServiceProvider
             'App\Http\Interfaces\Finance\FinSettingInterface',
             'App\Http\Repositories\Finance\FinSettingRepository'
         );
-        $this->app->bind(
-            'App\Http\Interfaces\Sales\SalInvoiceInterface',
-            'App\Http\Repositories\Sales\SalInvoiceRepository'
-        );
 
         $this->app->bind(
-            'App\Http\Interfaces\Settings\TaxInterface',
-            'App\Http\Repositories\Settings\TaxRepository'
+            'App\Http\Interfaces\Purchases\PurchaseInvoiceInterface',
+            'App\Http\Repositories\Purchases\PurchaseInvoiceRepository'
         );
 
-        $this->app->bind(
-            'App\Http\Interfaces\Stores\PriceListInterface',
-            'App\Http\Repositories\Stores\PriceListRepository'
-        );
+
+
+
     }
 
     /**

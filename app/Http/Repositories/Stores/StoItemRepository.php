@@ -1,11 +1,11 @@
 <?php
-namespace App\Http\Repositories\Stores; 
+namespace App\Http\Repositories\Stores;
 use App\Models\Store\StoItem;
 use App\Models\Store\StoCategory;
 use App\Models\Store\StoBrand;
 use App\Http\Interfaces\Stores\StoItemInterface;
-//use App\Http\Traits\ApiDesignTrait;
 use App\Http\Repositories\LaravelLocalization;
+use App\Models\Store\StoUnit;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Image;
@@ -14,8 +14,7 @@ use Auth;
 
 class StoItemRepository  implements StoItemInterface
 {
-    //use ApiDesignTrait; 
-    private $model; 
+    private $model;
 
     public function __construct(StoItem $model)
     {
@@ -23,10 +22,10 @@ class StoItemRepository  implements StoItemInterface
     }
 
     public function index(){
-       
+
         $rows = $this->model::get();
         return view('backend.stores.items.index', compact('rows'));
-  
+
     }//end of index
 
     public function create(){
@@ -34,27 +33,28 @@ class StoItemRepository  implements StoItemInterface
         ->with('childrenCategories')
         ->get();
         $brands     = StoBrand::get();
+        $units      = StoUnit::where('base_unit', '=', 0)->get();
 
-        return view('backend.stores.items.create', compact('categories','brands'));
+        return view('backend.stores.items.create', compact('categories','brands','units'));
     }
 
 
     public function store($request){
-       
+
        // dd($request->all());
 
         $request->validate([
             'title_ar' => 'required|unique:sto_items,title_ar',
             'title_en' => 'required|unique:sto_items,title_en',
             'code'     => 'required|unique:sto_items,title_en',
-        ]);  
+        ]);
         $fileName = null;
         if($request->photo){
-       
+
             $img          = $request->photo;
             $fileName     = time().Str::random('10').'.'.$img->getClientOriginalExtension();;
             $img          = Image::make($img);
-           
+
             $img->resize(200, 200, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
@@ -62,7 +62,6 @@ class StoItemRepository  implements StoItemInterface
 
             $img->save(public_path('uploads/stores/items/images/'. $fileName));
         }
-
         if($request->branch_id){$branch = $request->branch_id;}else{$branch = 1;}
         $requestArray =   ['created_by' => Auth::user()->id, 'branch_id' =>$branch ,'image' => $fileName] + $request->all() ;
            //dd($requestArray);
@@ -81,8 +80,9 @@ class StoItemRepository  implements StoItemInterface
         ->with('childrenCategories')
         ->get();
         $brands     = StoBrand::get();
+        $units      = StoUnit::where('base_unit', '=', 0)->get();
         $row        =  $this->model->FindOrFail($id);
-        return view('backend.stores.items.edit', compact('categories','brands','row'));
+        return view('backend.stores.items.edit', compact('categories','brands','row','units'));
     }
 
     public function update($request,$id){
@@ -96,11 +96,11 @@ class StoItemRepository  implements StoItemInterface
         $row =  $this->model->FindOrFail($id);
 
         if($request->photo){
-       
+
             $img          = $request->photo;
             $fileName     = time().Str::random('10').'.'.$img->getClientOriginalExtension();;
             $img          = Image::make($img);
-           
+
             $img->resize(200, 200, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
@@ -112,13 +112,13 @@ class StoItemRepository  implements StoItemInterface
             $requestArray =   ['image' => $fileName] + $request->all() ;
         }
 
-        
-    
+
+
         if($request->branch_id){$branch = $request->branch_id;}else{$branch = 1;}
 
         $requestArray =   ['updated_by' => Auth::user()->id, 'branch_id' =>$branch ] + $request->all() ;
-        
-        
+
+
         $row->update($requestArray);
 
         if( config('app.locale') == 'ar'){
@@ -127,8 +127,8 @@ class StoItemRepository  implements StoItemInterface
             alert()->success('The Recourd Updated Successfully', 'Good Work');
         }
         return redirect()->back();
-     
-       
+
+
     }// end of update
 
     public function destroy($id){
@@ -142,9 +142,28 @@ class StoItemRepository  implements StoItemInterface
             alert()->success('The Recourd Deleted Successfully', 'Good Work');
         }
         return redirect()->back();
-      
-    }// end of destroy 
+
+    }// end of destroy
+
+
+    public function selectUnits($request)
+    {
+
+
+        if (!$request->unit_id) {
+            $html = '<option value=""> @lang("site.select_unit")</option>';
+        } else {
+            $html = '';
+            $units = StoUnit::where('base_unit', $request->unit_id)->get();
+            $baseUnit = StoUnit::where('id', $request->unit_id)->first();
+            $html .= '<option value="'.$baseUnit->id.'">'.$baseUnit->unit_name.'</option>';
+            foreach ($units as $unit) {
+            $html .= '<option value="'.$unit->id.'">'.$unit->unit_name.'</option>';
+            }
+        }
+
+        return response()->json(['html' => $html]);
+    }// end of select sup
 } // end of class
 
 ?>
- 
