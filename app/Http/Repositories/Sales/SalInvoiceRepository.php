@@ -26,8 +26,6 @@ class SalInvoiceRepository  implements SalInvoiceInterface
 
     public function index(){
         $routeName = 'invoices';
-
-
         return view('backend.sales.invoices.index',compact('routeName'));
 
     }//end of index

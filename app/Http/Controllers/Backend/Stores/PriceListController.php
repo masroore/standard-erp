@@ -25,7 +25,7 @@ class PriceListController extends Controller
       return $this->PriceListInterface->store($request);
     }
     public function edit($id){
-        return $this->PriceListInterface->edit();
+        return $this->PriceListInterface->edit($id);
       }
     public function update(Request $request ,$id){
       return $this->PriceListInterface->update($request,$id);
@@ -35,7 +35,7 @@ class PriceListController extends Controller
       return $this->PriceListInterface->destroy($id);
     }// end of destroy
 
-    
+
     public function search($value){
         return $this->PriceListInterface->search($value);
       }// end of destroy

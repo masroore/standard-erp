@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\BackEnd\Hr;
 
 use App\Http\Controllers\Controller;
-use App\Http\Interfaces\Hr\DepartmentInterface;
+use App\Http\Interfaces\Hr\HrDepartmentInterface;
 use Illuminate\Http\Request;
 
-class DepartmentController extends Controller
+class HrDepartmentController extends Controller
 {
      private $departmentInterface;
 
-    public function __construct(DepartmentInterface $departmentInterface){
+    public function __construct(HrDepartmentInterface $departmentInterface){
         $this->departmentInterface = $departmentInterface ;
-    }// end of constructor 
+    }// end of constructor
 
     public function index(){
       return $this->departmentInterface->index();
@@ -24,11 +24,13 @@ class DepartmentController extends Controller
       return $this->departmentInterface->store($request);
     }
 
-    public function update(Request $request){
-      return $this->departmentInterface->update($request);
+    public function update(Request $request,$id){
+      return $this->departmentInterface->update($request,$id);
     }
 
-    public function destroy(Request $request){
-      return $this->departmentInterface->destroy($request);
-    }// end of destroy 
+    public function destroy($id){
+      return $this->departmentInterface->destroy($id
+
+    );
+    }// end of destroy
 }

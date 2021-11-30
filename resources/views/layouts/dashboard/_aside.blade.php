@@ -229,6 +229,53 @@
             </li>
 
 
+             {{-- HR Management --}}
+
+             <li class="menu menu-heading">
+                <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>
+                    <span>@lang('site.hr_management')</span>
+                </div>
+            </li>
+
+
+
+
+            <li class="menu">
+                <a href="#hrm" data-toggle="collapse" aria-expanded="{{is_true(['employees','departments','attendances','rewards','employeeFiles','medicals'])}}" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+
+                        <span>@lang('site.hrm')</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled {{is_show(['employees','departments','attendances','rewards','employeeFiles','medicals'])}}" id="hrm" data-parent="#accordionExample" >
+                    <li class="{{is_active('departments')}}">
+                        <a class="text-white" href="{{route('dashboard.departments.index')}}">  @lang('site.departments') </a>
+                    </li>
+                    <li class="{{is_active('employees')}}">
+                        <a class="text-white" href="{{route('dashboard.employees.index')}}">  @lang('site.employee') </a>
+                    </li>
+                    <li class="{{is_active('employeeFiles')}}">
+                        <a class="text-white" href="{{route('dashboard.employeeFiles.index')}}">  @lang('site.employeeFiles') </a>
+                    </li>
+
+                    <li class="{{is_active('attendances')}}">
+                        <a class="text-white" href="{{route('dashboard.attendances.index')}}">  @lang('site.attendances') </a>
+                    </li>
+                    <li class="{{is_active('rewards')}}">
+                        <a class="text-white" href="{{route('dashboard.rewards.index')}}">  @lang('site.rewards') </a>
+                    </li>
+
+                    <li class="{{is_active('medicals')}}">
+                        <a class="text-white" href="{{route('dashboard.medicals.index')}}">  @lang('site.medicals') </a>
+                    </li>
+
+                </ul>
+            </li>
+
             <li class="menu menu-heading">
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg><span>{{ $current_lang == 'ar'  ? 'ادارة المستخدمين' :'Users Managment'}}</span></div>
             </li>
@@ -257,7 +304,7 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="users" data-parent="#accordionExample">
                     <li>
-                        <a href="{{route('dashboard.users.all')}}">  {{ $current_lang == 'ar'  ? ' قائمة المستخدمين' :'List Users'}} </a>
+                        <a href="{{route('dashboard.users.all')}}"> {{ $current_lang == 'ar'  ? ' قائمة المستخدمين' :'List Users'}} </a>
                     </li>
                     <li>
                         <a href="{{route('dashboard.users.create')}}"> {{ $current_lang == 'ar'  ? ' اضافة مستخدم' :'Add User'}} </a>

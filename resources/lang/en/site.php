@@ -40,6 +40,8 @@ return [
     'account type'     => 'Account Type',
     'name arabic'      => 'Enter Name in Arabic',
     'name english'     => 'Enter Name in English',
+    'name_ar'     => 'Name Arabic',
+    'name_en'     => 'Name  English',
     'description'      => 'Description',
     'start amount'     => 'Start Amount',
     'parent account'   => 'Parent Account',
@@ -196,5 +198,80 @@ return [
     'edit_parent_company' => 'Edit Parent Company',
     'add_new_parent_company' => 'Add Parent Company',
 
+
+
+    // hrm
+    'hrm' => 'HRM',
+    'employees' => 'Employees',
+    'employee' => 'Employee',
+    'employee_list' => 'Employee List',
+    'add_new_employee' => 'Add New Employee',
+    'birthday' => 'Birthday',
+    'add_user' => 'Add User',
+    'please_fill_employee_data' => 'Please Fill Employee Data',
+    'edit_employee' => 'Edit Employee',
+    'date_of_joining' => 'Date Of Joining',
+    'department' => 'Department',
+    'gender' => 'Gender',
+    'male' => 'Male',
+    'female' => 'Female',
+
+    'departments_list' => 'Departments List',
+    'departments' => 'Departments',
+    'add_new_department' => 'Add New Department',
+    'edit_department' => 'Edit Department',
+
+
+    // attendances
+    'attendances' =>'Attendances',
+    'attendance' =>'Attendance',
+    'attendances_list' =>'Attendances List',
+    'check_in' =>'Check In',
+    'check_out' =>'Check Out',
+    'date' =>'Date',
+    'created_by' =>'Created By',
+    'edit_attendance' =>'Edit Attendance',
+    'note' =>'Note',
+    'add_new_attendance' =>'Add New Attendance',
+    'daedit_attendancete' =>'Edit Attendance',
+    'late' =>'Late',
+    'present' =>'Present ',
+    'from' =>'From ',
+    'to' =>'To ',
+    'search' =>'Search',
+
+
+    // rewards
+
+    'rewards' => 'Rewards',
+    'reward' => 'Reward',
+    'rewards_list' => 'Rewards List',
+    'title_en' => 'Title En',
+    'title_ar' => 'Title Ar',
+    'reward_type' => 'Reward Type',
+    'add_new_reward' => 'Add New Reward',
+    'edit_reward' => 'Edit Reward',
+    'sanction' => 'Sanction ',
+    'reason' => 'Reason ',
+
+
+    // employee files
+
+    'employeeFiles' => 'Employee Files',
+    'employeeFile' => 'Employee File',
+    'employeeFiles_list' => 'Employee Files List',
+    'file' => 'file',
+    'add_new_employeeFile' => 'Add New Employee File',
+    'edit_employeeFile' => 'Edit Employee File',
+
+
+    // employee medical
+
+    'medicals'=> 'Medicals',
+    'medical'=> 'Medical',
+    'medicals_list'=> 'Medicals List',
+    'image'=> 'Image',
+    'add_new_medical'=> 'Add New Medical',
+    'edit_medical'=> 'Edit Medical',
 
 ];

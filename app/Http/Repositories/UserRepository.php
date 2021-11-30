@@ -143,7 +143,7 @@ class UserRepository  implements UserInterface
 
             $img->save(public_path('uploads/users/photos/'. $fileName));
 
-            $user->photo      = $fileName ;
+            $user->photo      = $fileName;
         }
 
         if($request->status){

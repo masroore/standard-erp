@@ -58,10 +58,7 @@ class RepositoryServicesProvider extends ServiceProvider
             'App\Http\Repositories\BankInfoRepository'
         );
 
-        $this->app->bind(
-            'App\Http\Interfaces\Hr\DepartmentInterface',
-            'App\Http\Repositories\Hr\DepartmentRepository'
-        );
+
 
         $this->app->bind(
             'App\Http\Interfaces\Tickets\TicketInterface',
@@ -127,7 +124,32 @@ class RepositoryServicesProvider extends ServiceProvider
             'App\Http\Interfaces\Stores\PriceListInterface',
             'App\Http\Repositories\Stores\PriceListRepository'
         );
+        $this->app->bind(
+            'App\Http\Interfaces\Hr\HrEmployeeInterface',
+            'App\Http\Repositories\Hr\HrEmployeeRepository'
+        );
+        $this->app->bind(
+            'App\Http\Interfaces\Hr\HrDepartmentInterface',
+            'App\Http\Repositories\Hr\HrDepartmentRepository'
+        );
+        $this->app->bind(
+            'App\Http\Interfaces\Hr\HrAttendanceInterface',
+            'App\Http\Repositories\Hr\HrAttendanceRepository'
+        );
 
+        $this->app->bind(
+            'App\Http\Interfaces\Hr\HrRewardInterface',
+            'App\Http\Repositories\Hr\HrRewardRepository'
+        );
+
+        $this->app->bind(
+            'App\Http\Interfaces\Hr\HrEmployeeFileInterface',
+            'App\Http\Repositories\Hr\HrEmployeeFileRepository'
+        );
+        $this->app->bind(
+            'App\Http\Interfaces\Hr\HrMedicalInterface',
+            'App\Http\Repositories\Hr\HrMedicalRepository'
+        );
 
 
 

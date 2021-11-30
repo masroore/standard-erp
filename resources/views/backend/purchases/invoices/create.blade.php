@@ -671,5 +671,4 @@
 @endsection
 @push('js')
 <script src="{{asset('public/backend/crock/assets/js/apps/add_purchase.js') }}"></script>
-
 @endpush

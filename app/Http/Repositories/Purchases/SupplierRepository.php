@@ -5,9 +5,9 @@ use App\Http\Interfaces\Purchases\SupplierInterface;
 use App\Models\Finance\FinAccount;
 use App\Models\Finance\FinSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
-use DB;
 use Image;
 class SupplierRepository  implements SupplierInterface
 {

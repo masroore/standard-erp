@@ -6,8 +6,8 @@ use App\Models\PermissionRole;
 use App\Http\Traits\ApiDesignTrait;
 use App\Http\Interfaces\RoleInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use DB;
 class RoleRepository  implements RoleInterface
 {
     use ApiDesignTrait;
@@ -49,7 +49,7 @@ class RoleRepository  implements RoleInterface
              'name' => 'required|unique:roles,name',
              'permissions' => 'required|array|min:1'
         ]);
-        
+
     $role =   Role::create($request->all());
     $role->attachPermissions($request->permissions);
 
