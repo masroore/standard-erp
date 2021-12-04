@@ -13,6 +13,7 @@ class CustomerController  extends Controller
 
     public function __construct(CustomerInterface $customerInterface){
         $this->customerInterface = $customerInterface ;
+        $this->middleware('auth');
     }// end of constructor
 
     public function index(){

@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BuyPurchaseInvoice extends Model
-{ 
+{
     use HasFactory;
 
-    protected $fillable = ['reference_no','supplier_id','money_id','added_by','store_id','date','total_qty',
-                            'order_tax_rate','order_tax','shipping_cost','total_cost','total_discount','total_tax',
-                            'paid_amount','grand_total','status','is_paid','is_received','document','note'];
+    protected $fillable = ['reference_no','supplier_id','money_id','added_by','store_id','date','total_qty','remaining_amount',
+                            'order_tax_rate','order_tax','shipping_cost','total_discount','total_tax','tax_type','items_count',
+                            'paid_amount','grand_total','status','is_paid','is_received','document','note','invoice_payment_type'];
 
     // start relation
 
@@ -25,6 +25,10 @@ class BuyPurchaseInvoice extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'added_by');
+    }
+
+    public function items(){
+        return $this->hasMany(BuyPurchaseInvoiceDetail::class, 'buy_invoice_id');
     }
 
 
@@ -47,6 +51,12 @@ class BuyPurchaseInvoice extends Model
     {
         return $this->belongsTo(StoStore::class, 'store_id');
     }
+
+
+
+
+
+
 
 
 

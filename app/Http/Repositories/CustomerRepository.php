@@ -4,6 +4,8 @@ use App\Models\Customer;
 use App\Http\Traits\ApiDesignTrait;
 use App\Http\Interfaces\CustomerInterface;
 use App\Models\CustomerGroup;
+use App\Models\Finance\FinAccount;
+use App\Models\Finance\FinSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -35,19 +37,20 @@ class CustomerRepository  implements CustomerInterface
     }//end of show
 
     public function create(){
+        $countries = DB::table('countries')->get();
         $CustomerGroup = DB::table('customer_groups')->get();
         $taxes = DB::table('taxes')->get();
         $parentCompanies = DB::table('parent_companies')->get();
-        return view('backend.customers.create',compact('CustomerGroup','taxes','parentCompanies'));
+        return view('backend.customers.create',compact('countries','CustomerGroup','taxes','parentCompanies'));
     }//e nd of create
 
     public function edit($id){
-        // $countries = DB::table('countries')->get();
+        $countries = DB::table('countries')->get();
         $row =   $this->customerModel::FindOrFail($id);
         $CustomerGroup = DB::table('customer_groups')->get();
         $taxes = DB::table('taxes')->get();
         $parentCompanies = DB::table('parent_companies')->get();
-        return view('backend.customers.edit', compact('row','CustomerGroup','taxes','parentCompanies'));
+        return view('backend.customers.edit', compact('row','countries','CustomerGroup','taxes','parentCompanies'));
     }
     public function getById($id){
         $row =  $this->customerModel::where('id', $id)->first();
@@ -58,7 +61,6 @@ class CustomerRepository  implements CustomerInterface
         $request->validate([
             'name'            => 'required|string',
             'company_name'    => 'required|string',
-            'is_active'       => 'required|numeric',  // 0 => not active , 1 => active
             'photo'           => 'mimes:jpeg,jpg,png,gif',
             'phone'           => 'required|digits:11',
             'fax'             => 'numeric',
@@ -71,9 +73,16 @@ class CustomerRepository  implements CustomerInterface
 
        ]);
 
+       // create account for supplier
 
+       $accountId = $this->createAccount($request->company_name);
 
-        $requestArray =  $request->all();
+        if($request->is_active == 1){
+            $status = 1;
+        }else{
+            $status = 0; }
+
+        $requestArray = ['is_active' => $status ,'account_id' => $accountId] + $request->all();
         // dd($requestArray);
 
          if ($request->hasFile('photo')) {
@@ -92,7 +101,7 @@ class CustomerRepository  implements CustomerInterface
 
             }
 
-          $this->customerModel->create($requestArray);
+        $this->customerModel->create($requestArray);
 
 
         if( config('app.locale') == 'ar'){
@@ -161,6 +170,23 @@ class CustomerRepository  implements CustomerInterface
         }
         return redirect()->back();
     }// end of destroy
+
+    protected function createAccount($name){
+        $accSetting      =  FinSetting::where('account_key' , '=' , 'Cutomer')->first();
+        $accountInfo     =  FinAccount::where('id', $accSetting->account_id )->first();
+
+        $customerAccount =  FinAccount::create([
+        'title_ar'       => $name,
+        'title_en'       => $name,
+        'parent_id'      => $accSetting->account_id,
+        'level'          => $accountInfo->level + 1,
+        'description'    => 'create supplier Account',
+        'cat_id'         => $accountInfo->cat_id,
+        'start_amount'   => 0
+        ]);
+
+        return $customerAccount -> id ;
+    }
 
 
 } // end of class

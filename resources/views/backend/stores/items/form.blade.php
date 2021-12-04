@@ -55,16 +55,22 @@
             <div class="form-group col-md-6">
                 <label for="">@lang('site.select_purchase_unit')</label>
                 <select class="form-control basic select2 unit-child" name="purchase_unit_id">
-
+                    @if(isset($row))
+                    <option value="{{ $unit->id }}" selected>{{$row->purchUnit->unit_name}}</option>
+                    @else
                     <option disabled selected>@lang('site.select_unit')</option>
+                    @endif
 
                 </select>
             </div>
             <div class="form-group col-md-6">
                 <label for="">@lang('site.select_sale_unit')</label>
                 <select class="form-control basic select2 unit-child" name="sale_unit_id" >
+                    @if(isset($row))
+                    <option value="{{ $unit->id }}" selected>{{$row->saleUnit->unit_name}}</option>
+                    @else
                     <option disabled selected>@lang('site.select_unit')</option>
-
+                    @endif
                 </select>
             </div>
 
@@ -110,21 +116,22 @@
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>{{ $lang == 'ar' ? ' الضريبة ' : 'Tax ' }}</strong> </label>
-                    <select name="tax_id" class="form-control selectpicker">
-                        <option value="0" {{isset($row) && $row->tax_id == 0  ? 'selected' : ''}}>No Tax</option>
-                        <option value="10" {{isset($row) && $row->tax_id == 10  ? 'selected' : ''}}>@10%</option>
-                        <option value="14" {{isset($row) && $row->tax_id == 14  ? 'selected' : ''}}>@14%</option>
-
+                    <label>@lang('site.tax')</strong> </label>
+                    <select id="tax_1" class="form-control form-control-sm tax-value-reset tax1 changesNo"  name="tax_id" >
+                        <option  value="0">@lang('site.no')</option>
+                        @foreach ($taxes as $tax)
+                        <option value="{{ $tax->rate }}" {{isset($row) && $row->tax_id == $tax->rate  ? 'selected' : ''}}>{{$tax->name . '('.$tax->rate .'%)'}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
+
             <div class="col-md-6">
                 <div class="form-group">
                     <label>{{ $lang == 'ar' ? 'نوع الضريبة ' : 'Tax Method' }}</strong> </label> <i class="dripicons-question" data-toggle="tooltip" title="{{trans('file.Exclusive: Poduct price = Actual product price + Tax. Inclusive: Actual product price = Product price - Tax')}}"></i>
                     <select name="tax_method" class="form-control selectpicker">
-                        <option value="1" {{isset($row) && $row->tax_method == 1  ? 'selected' : ''}}>  {{ $lang == 'ar' ? 'غير شامل الضريبة ' : 'Exclusive' }}</option>
-                        <option value="2" {{isset($row) && $row->tax_method == 2 ? 'selected' : ''}}> {{ $lang == 'ar' ? ' شامل الضريبة ' : 'Inclusive' }}</option>
+                        <option value="1" {{isset($row) && $row->tax_method == 1  ? 'selected' : ''}}>  {{ $lang == 'ar' ? 'مبيعات ' : 'sales' }}</option>
+                        <option value="2" {{isset($row) && $row->tax_method == 2 ? 'selected' : ''}}> {{ $lang == 'ar' ? ' جدول' : 'sechdule' }}</option>
                     </select>
                 </div>
             </div>

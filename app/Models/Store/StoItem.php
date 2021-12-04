@@ -36,4 +36,23 @@ class StoItem extends Model
         return $this->belongsTo(StoBrand::class, 'brand_id');
     }
 
+    /**
+     * Get the user that owns the StoItem
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function purchUnit()
+    {
+        return $this->belongsTo(StoUnit::class, 'purchase_unit_id');
+    }
+
+    public function saleUnit()
+    {
+        return $this->belongsTo(StoUnit::class, 'sale_unit_id');
+    }
+
+    public function baseUnit()
+    {
+        return $this->belongsTo(StoUnit::class, 'unit_id');
+    }
 }

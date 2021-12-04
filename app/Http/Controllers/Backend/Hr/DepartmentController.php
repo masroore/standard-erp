@@ -12,7 +12,8 @@ class DepartmentController extends Controller
 
     public function __construct(DepartmentInterface $departmentInterface){
         $this->departmentInterface = $departmentInterface ;
-    }// end of constructor 
+        $this->middleware('auth');
+    }// end of constructor
 
     public function index(){
       return $this->departmentInterface->index();
@@ -30,5 +31,5 @@ class DepartmentController extends Controller
 
     public function destroy(Request $request){
       return $this->departmentInterface->destroy($request);
-    }// end of destroy 
+    }// end of destroy
 }

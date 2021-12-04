@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 
-class StoUnitRepository  implements StoUnitInterface 
+class StoUnitRepository  implements StoUnitInterface
 {
-    //use ApiDesignTrait; 
-    private $model; 
+    //use ApiDesignTrait;
+    private $model;
 
     public function __construct(StoUnit $model)
     {
@@ -19,11 +19,11 @@ class StoUnitRepository  implements StoUnitInterface
     }
 
     public function index(){
-     
-        $rows = $this->model::get();
-       
+
+        $rows = $this->model::orderBy('id','desc')->get();
+
         return view('backend.stores.units.index', compact('rows'));
-  
+
     }//end of index
 
     public function create(){
@@ -37,25 +37,25 @@ class StoUnitRepository  implements StoUnitInterface
     }
 
     public function store($request){
-       
+
         //dd($request->all());
 
         $request->validate([
             'unit_code' => 'required|unique:sto_units,unit_code',
             'unit_name' => 'required|unique:sto_units,unit_name',
-          
-        ]);  
+
+        ]);
 
        if($request->base_unit == 0){
-           $operator        = null ; 
-           $operation_value = null ; 
+           $operator        = null ;
+           $operation_value = null ;
        }else {
-            $operator        = $request->operator ; 
-            $operation_value = $request->operation_value ; 
+            $operator        = $request->operator ;
+            $operation_value = $request->operation_value ;
        }
 
-        $requestArray = ['operator' => $operator , 'operation_value' => $operation_value] + $request->all() ; 
-            
+        $requestArray = ['operator' => $operator , 'operation_value' => $operation_value] + $request->all() ;
+
         $row =  $this->model->create($requestArray);
 
         if( config('app.locale') == 'ar'){
@@ -80,21 +80,21 @@ class StoUnitRepository  implements StoUnitInterface
             'unit_code' => 'required|unique:sto_units,unit_code,' . $id,
             'unit_name' => 'required|unique:sto_units,unit_name,' . $id,
         ]);
-       
-    
-        if($request->base_unit == 0){
-            $operator        = null ; 
-            $operation_value = null ; 
-        }else {
-             $operator        = $request->operator ; 
-             $operation_value = $request->operation_value ; 
-        }
- 
-         $requestArray = ['operator' => $operator , 'operation_value' => $operation_value] + $request->all() ; 
 
-        
+
+        if($request->base_unit == 0){
+            $operator        = null ;
+            $operation_value = null ;
+        }else {
+             $operator        = $request->operator ;
+             $operation_value = $request->operation_value ;
+        }
+
+         $requestArray = ['operator' => $operator , 'operation_value' => $operation_value] + $request->all() ;
+
+
         $row =  $this->model->FindOrFail($id);
-        
+
         $row->update($requestArray);
 
         if( config('app.locale') == 'ar'){
@@ -103,8 +103,8 @@ class StoUnitRepository  implements StoUnitInterface
             alert()->success('The Recourd Updated Successfully', 'Good Work');
         }
         return redirect()->back();
-     
-       
+
+
     }// end of update
 
     public function destroy($id){
@@ -118,9 +118,8 @@ class StoUnitRepository  implements StoUnitInterface
             alert()->success('The Recourd Deleted Successfully', 'Good Work');
         }
         return redirect()->back();
-      
-    }// end of destroy 
+
+    }// end of destroy
 } // end of class
 
 ?>
- 

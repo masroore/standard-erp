@@ -9,10 +9,10 @@ use Illuminate\Support\Str;
 use Image;
 
 
-class StoCategoryRepository  implements StoCategoryInterface 
+class StoCategoryRepository  implements StoCategoryInterface
 {
-    //use ApiDesignTrait; 
-    private $model; 
+    //use ApiDesignTrait;
+    private $model;
 
     public function __construct(StoCategory $model)
     {
@@ -20,13 +20,13 @@ class StoCategoryRepository  implements StoCategoryInterface
     }
 
     public function index(){
-     
-        $rows = $this->model::get();
+
+        $rows = $this->model::orderBy('id','desc')->get();
         $categories = StoCategory::where('parent_id', 0)
             ->with('childrenCategories')
             ->get();
         return view('backend.stores.categories.index', compact('rows','categories'));
-  
+
     }//end of index
 
     public function create(){
@@ -38,14 +38,14 @@ class StoCategoryRepository  implements StoCategoryInterface
     }
 
     public function store($request){
-       
+
         //dd($request->all());
 
         $request->validate([
             'title_ar' => 'required|unique:sto_categories,title_ar',
             'title_en' => 'required|unique:sto_categories,title_en',
             'parent_id'=> 'required',
-        ]);  
+        ]);
 
         if($request->parent_id != 0){
             $catLevel = $this->model::where('id' , $request->parent_id)->first();
@@ -56,8 +56,8 @@ class StoCategoryRepository  implements StoCategoryInterface
             //dd($catLevel);
         }
 
-        $requestArray = ['level' => $catLevel ] + $request->all() ; 
-            
+        $requestArray = ['level' => $catLevel ] + $request->all() ;
+
         $row =  $this->model->create($requestArray);
 
         if( config('app.locale') == 'ar'){
@@ -85,8 +85,8 @@ class StoCategoryRepository  implements StoCategoryInterface
             'title_ar' => 'required|unique:sto_categories,title_ar,' . $id,
             'parent_id'=> 'required',
         ]);
-       
-    
+
+
         if($request->parent_id != 0){
             $catLevel = $this->model::where('id' , $request->parent_id)->first();
             $catLevel = $catLevel->level +1 ;
@@ -95,12 +95,12 @@ class StoCategoryRepository  implements StoCategoryInterface
             $catLevel = 1 ;
             //dd($catLevel);
         }
-    
-        $requestArray = ['level' => $catLevel ] + $request->all() ; 
 
-        
+        $requestArray = ['level' => $catLevel ] + $request->all() ;
+
+
         $row =  $this->model->FindOrFail($id);
-        
+
         $row->update($requestArray);
 
         if( config('app.locale') == 'ar'){
@@ -109,8 +109,8 @@ class StoCategoryRepository  implements StoCategoryInterface
             alert()->success('The Recourd Updated Successfully', 'Good Work');
         }
         return redirect()->back();
-     
-       
+
+
     }// end of update
 
     public function destroy($id){
@@ -124,9 +124,8 @@ class StoCategoryRepository  implements StoCategoryInterface
             alert()->success('The Recourd Deleted Successfully', 'Good Work');
         }
         return redirect()->back();
-      
-    }// end of destroy 
+
+    }// end of destroy
 } // end of class
 
 ?>
- 

@@ -4,93 +4,160 @@
 @endphp
 
 @section('title')
-        @lang('site.invoices')
+       @lang('site.purchases_invoices')
 @endsection
  @section('modelTitlie')
-
+ @lang('site.purchases_invoices')
  @endsection
 @section('content')
 
+@component('backend.partials._pagebar')
 
-<div class="row layout-top-spacing">
-    <div id="breadcrumbDefault" class="col-xl-12 col-lg-12 layout-spacing">
-        <div class="statbox widget box box-shadow">
-            <div class="widget-content widget-content-area">
-                <nav class="breadcrumb-one p-3" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">@lang('site.invoices')</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.list_invoices')</span></li>
+    <li class="breadcrumb-item"><a href="javascript:void(0);">  @lang('site.purchases')</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.purchases_list')</span></li>
 
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
+@endcomponent
+
 
 <div class="row layout-top-spacing" id="cancel-row">
-    <div class="col-md-5"></div>
-    <div class="col-md-2">
-        <a href="{{route('dashboard.invoices.create')}}" class="btn btn-primary center">@lang('site.create_new_invoice')</a>
-    </div>
+
+    {{--  fillter data  --}}
+
+    <div class="row">
+
+
+        <div class="col-lg-12 col-12 layout-spacing p-3">
+            <div class="statbox widget box box-shadow">
+                <div class="widget-header">
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6 col-sm-6 col-6">
+                            <h4>@lang('site.fillter_date')</h4>
+                        </div>
+                        <div class="col-xl-6 col-md-6 col-sm-6 col-6 pt-2">
+                            <a href="{{ route('dashboard.purchases.create') }}" class="btn btn-primary float-right mr-5"> <i class="fa fa-plus" aria-hidden="true"></i> @lang('site.add_new') </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content widget-content-area p-3">
+                   <form>
+                    <div class="row">
+
+                        <div class="form-group col mb-0">
+                            <label for="date">@lang('site.from_date')</label>
+                            <input id="basicFlatpickr" class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date..">
+                        </div>
+                        <div class="form-group col mb-0">
+                            <label for="date">@lang('site.to_date')</label>
+                            <input id="basicFlatpickr2"  class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date..">
+                        </div>
+                        <div class="form-group col ">
+                            <label for="">@lang('site.supplier')</label>
+                            <select class="form-control basic">
+                                <option disabled selected > @lang('site.select_supplier') </option>
+                                @foreach ($suppliers as $supplier)
+                                    <option value="{{ $supplier->id }}" >{{ $supplier->company_name }} ({{ $supplier->contact_person }})</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+                        <div class="form-group col ">
+                            <label for="">@lang('site.paid_status')</label>
+                            <select class="form-control  basic">
+                                <option selected="selected">@lang('site.all')</option>
+                                <option>@lang('site.paid')</option>
+                                <option>@lang('site.unpaid')</option>
+                                <option>@lang('site.partial')</option>
+                                <option>@lang('site.due')</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                        <button class="btn btn-primary" type="submit" >@lang('site.show') </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    {{-- show data  --}}
 
     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
         <div class="widget-content widget-content-area br-6">
             <table id="zero-config" class="table dt-table-hover" style="width:100%">
                 <thead>
                     <tr>
-                            <th>#</th>
-                            <th>@lang('site.name') </th>
-                            <th >@lang('site.permissions')</th>
-                            <th >@lang('site.user_count') </th>
-                            <th class="no-content">@lang('site.action')</th>
-
-
+                        <th>#</th>
+                        <th>@lang('site.invoice_code')</th>
+                        <th>@lang('site.created_at')</th>
+                        <th>@lang('site.supplier')</th>
+                        <th>@lang('site.amount')</th>
+                        <th>@lang('site.paid_status')</th>
+                        <th class="no-content text-center">@lang('site.actions')</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($roles as $key => $role)
+
+                    @foreach ($rows as $key => $row)
 
 
                     <tr>
                         <td>{{$key+1}}</td>
+                        <td class="sorting_1 sorting_2">
+                            <div class="d-flex">
 
-
-                        <td>{{$role->name}}</td>
-                        <td  @if($role->permissions->count()>0) style="display: contents;"@endif>
-                                @foreach ($role->permissions as $permission)
-                                <span class=" badge badge-primary m-1"> {{ $permission->name }} </span>
-                            @endforeach
-
+                                <p class="align-self-center mb-0 admin-name"> {{$row->reference_no}} </p>
+                            </div>
                         </td>
-                        <td class="text-center"> <span class=" badge badge-success ">{{$role->users_count}}</span></td>
+                        <td class="sorting_1 sorting_2">
+                            <div class="d-flex">
+
+                                <p class="align-self-center mb-0 admin-name"> {{$row->date}} </p>
+                            </div>
+                        </td>
+
+                        <td class="sorting_1 sorting_2">
+                            <div class="d-flex">
+
+                                <p class="align-self-center mb-0 admin-name"> {{$row->supplier->company_name}} </p>
+                            </div>
+                        </td>
+
+                        <td class="sorting_1 sorting_2">
+                            <div class="d-flex">
+
+                                <p class="align-self-center mb-0 admin-name"> {{$row->grand_total}} </p>
+                            </div>
+                        </td>
+
+                        <td class="sorting_1 sorting_2">
+                            @if ($row->status == 1)
+                            <span class="badge badge-success"> {{$lang == 'ar' ? 'مدفوع' : ' paid '}} <i class="fa fa-check" aria-hidden="true"></i> </span>
+                            @else
+                            <span class="badge badge-danger"> {{$lang == 'ar' ? 'غير مدفوع' : ' unpaid '}} <i class="fa fa-times" aria-hidden="true"></i> </span>
+                            @endif
+                        </td>
 
 
-                        <td>
-                              <a href="{{route('dashboard.roles.edit', $role->id)}}" class="btn btn-warning" title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                <form action="{{ route('dashboard.roles.destroy' , $role->id) }}" method="post" style="display:inline-block">
-                                    @csrf
-                                    @method('delete')
 
-                                <button type="submit" class="mr-2 btn btn-danger show_confirm" title="{{$lang == 'ar' ? 'حذف ' : 'Delete  '}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                              </form>
+                        <td class="text-center">
+                            <a href="{{ route('dashboard.purchases.show',$row->id ) }}" class="mr-2 btn btn-info" title="@lang('site.show')"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a class="mr-2 btn btn-warning" title="@lang('site.edit')"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                            <a class="mr-2 btn btn-primary" title="@lang('site.download')"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+                            <form action="{{route('dashboard.purchases.destroy', $row->id)}}" method="POST" style="display:inline-block">
+                                @csrf
+                                @method('delete')
+                            <button type="submit" class="mr-2 btn btn-danger show_confirm" title="@lang('site.delete')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </form>
                         </td>
                     </tr>
 
-                    @endforeach --}}
+                    @endforeach
+
+
 
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th>#</th>
-                        <th>@lang('site.name') </th>
-                        <th >@lang('site.permissions')</th>
-                        <th >@lang('site.user_count') </th>
-                        <th class="no-content">@lang('site.action')</th>
 
-                    </tr>
-                </tfoot>
             </table>
         </div>
     </div>
@@ -98,11 +165,13 @@
 </div>
 
 
+
+
 @endsection
 
+
+
 @push('js')
-
-
 <script type="text/javascript">
 
      $('.show_confirm').click(function(event) {
@@ -110,8 +179,8 @@
           var name = $(this).data("name");
           event.preventDefault();
           swal({
-              title: @if($lang == 'ar') ` هل انت متأكد سوف يتم حذف هذا الدور !!` @else  `Are you sure you want to delete this role ?` @endif,
-              text:  @if($lang == 'ar') "اذا قمت بحذف هذا الدور لم تتمكن من استعادته مره اخري" @else  "If you delete this, it will be gone forever." @endif,
+              title: @if($lang == 'ar') ` هل انت متأكد سوف يتم الحذف   !!` @else  `Are you sure you want to delete this row ?` @endif,
+              text:  @if($lang == 'ar') "اذا قمت بحذف هذا العنصر لم تتمكن من استعادته مره اخري" @else  "If you delete this, it will be gone forever." @endif,
               icon: "warning",
               buttons: true,
               dangerMode: true,
@@ -124,8 +193,5 @@
       });
 
 </script>
-
-
-
 @endpush
 

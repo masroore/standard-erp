@@ -1,6 +1,9 @@
 <?php
 
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Date;
+
 function is_active(string $routeName){
 
     return null !== request()->segment(3) && request()->segment(3) == $routeName ? 'active' : '' ;
@@ -20,6 +23,13 @@ function is_true(array $routeName){
 function userName(int $id){
     // $user = User::where('id',$id)->first();
     // return $user->name ;
+}
+
+function autoCode($company,$type){
+
+    ///$date = Carbon::now()->toDateString();
+    $date = date("his");
+    return $company."-".$date."-".$type;
 }
 
 ?>

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use DB;
-use Image;
+use Image; 
 class SupplierRepository  implements SupplierInterface
 {
     private $supplierModel;

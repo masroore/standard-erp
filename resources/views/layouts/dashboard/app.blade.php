@@ -240,6 +240,7 @@
     <script src="{{asset('public/backend/crock/plugins/dropify/dropify.min.js') }}"></script>
     <script src="{{asset('public/backend/crock/plugins/flatpickr/flatpickr.js') }}"></script>
     <script src="{{asset('public/backend/crock/plugins/flatpickr/custom-flatpickr.js') }}"></script>
+
     <script>
         $('#zero-config').DataTable({
             "dom": "<'dt--top-section'<'row'<'col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center'l><'col-12 col-sm-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3'f>>>" +
@@ -259,8 +260,10 @@
     </script>
 
     <script src="{{asset('public/backend/crock/plugins/treeview/custom-jstree.js') }}"></script>
-     @stack('js')
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 
+    @stack('js')
     @endif
 
     @include('sweet::alert')

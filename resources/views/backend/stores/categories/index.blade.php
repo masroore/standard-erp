@@ -32,11 +32,14 @@
 
 @include('backend.partials._errors')
 
-<div class="text-center">
+
+@include('backend.stores.categories.create')
+
+{{-- <div class="text-center">
     <a href="{{route('dashboard.categories.create')}}" class="btn btn-primary mb-2 mr-2" >
         {{$lang == 'ar' ? 'اضافة جديد' : ' Add new'}}
     </a>
-</div>
+</div> --}}
 
 
 
@@ -85,15 +88,23 @@
                                     @if ($row->parent_id != 0 )
                                         @php
                                             $catName =  App\Models\Store\StoCategory::where('id', $row->parent_id)->first();
-
+                                            if ($catName !=null) {
+                                                $catName = $catName
+                                            }else {
+                                                $catName
+                                            }
                                         @endphp
                                         {{$lang == 'ar' ? $catName->title_ar : $catName->title_en}}
                                     @elseif($row->parent_id == 0)
                                         ____
+                                        @else
+                                        ----------
                                     @endif
                                 </p>
                             </div>
                         </td>
+
+                        
 
                         <td class="sorting_1 sorting_2">
                             <div class="d-flex">
@@ -108,8 +119,9 @@
                               {{-- handel edit   --}}
 
 
+                              @include('backend.stores.categories.edit')
 
-                              <a href="{{route('dashboard.categories.edit', $row->id)}}" class="btn btn-warning" title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                              {{-- <a href="{{route('dashboard.categories.edit', $row->id)}}" class="btn btn-warning" title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a> --}}
                               {{-- end of edit --}}
                                 <form action="{{route('dashboard.categories.destroy', $row->id)}}" method="POST" style="display:inline-block">
                                     @csrf
@@ -172,10 +184,13 @@
 
 <script type="text/javascript">
     $(".nested").select2({
-        tags: true
+        tags: true,
+        dropdownParent: $("#exampleModal"),
     });
 </script>
+
 @endpush
+
 
 
 

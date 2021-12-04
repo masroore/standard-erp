@@ -114,6 +114,21 @@ class RepositoryServicesProvider extends ServiceProvider
         );
 
         $this->app->bind(
+            'App\Http\Interfaces\Purchases\PurchaseRequisitionInterface',
+            'App\Http\Repositories\Purchases\PurchaseRequisitionRepository'
+        );
+
+        $this->app->bind(
+            'App\Http\Interfaces\Purchases\PurchaseOrderInterface',
+            'App\Http\Repositories\Purchases\PurchaseOrderRepository'
+        );
+
+        $this->app->bind(
+            'App\Http\Interfaces\Sales\SalQuotationInterface',
+            'App\Http\Repositories\Sales\SalQuotationRepository'
+        );
+
+        $this->app->bind(
             'App\Http\Interfaces\Sales\SalInvoiceInterface',
             'App\Http\Repositories\Sales\SalInvoiceRepository'
         );
@@ -127,6 +142,9 @@ class RepositoryServicesProvider extends ServiceProvider
             'App\Http\Interfaces\Stores\PriceListInterface',
             'App\Http\Repositories\Stores\PriceListRepository'
         );
+
+
+
 
 
 

@@ -12,7 +12,8 @@ class SupplierController extends Controller
 
     public function __construct(SupplierInterface $supplierInterface){
         $this->supplierInterface = $supplierInterface ;
-    }// end of constructor 
+        $this->middleware('auth');
+    }// end of constructor
 
     public function index(){
       return $this->supplierInterface->index();
@@ -32,5 +33,5 @@ class SupplierController extends Controller
 
     public function destroy($id){
       return $this->supplierInterface->destroy($id);
-    }// end of destroy 
+    }// end of destroy
 }

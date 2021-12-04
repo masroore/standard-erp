@@ -37,26 +37,50 @@
 
 
             <li class="menu">
-                <a href="#suppliers" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <a href="#purchase-requisitions" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
 
-                        <span>@lang('site.suppliers')</span>
+                        <span>@lang('site.purchase_requisitions')</span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled" id="suppliers" data-parent="#accordionExample">
+                <ul class="collapse submenu list-unstyled" id="purchase-requisitions" data-parent="#accordionExample">
                     <li>
-                        <a class="text-white" href="{{route('dashboard.suppliers.index')}}">  @lang('site.all_suppliers') </a>
+                        <a class="text-white" href="{{route('dashboard.purchase-requisitions.index')}}">  @lang('site.all_purchase_requisitions') </a>
                     </li>
                     <li>
-                        <a class="text-white" href="{{route('dashboard.suppliers.create')}}">  @lang('site.add_supplier') </a>
+                        <a class="text-white" href="{{route('dashboard.purchase-requisitions.create')}}">  @lang('site.add_purchase_requisitions') </a>
                     </li>
 
                 </ul>
             </li>
+
+            <li class="menu">
+                <a href="#purchase-orders" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+
+                        <span>@lang('site.purchase_orders')</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="purchase-orders" data-parent="#accordionExample">
+                    <li>
+                        <a class="text-white" href="{{route('dashboard.purchase-orders.index')}}">  @lang('site.all_purchase_orders') </a>
+                    </li>
+                    <li>
+                        <a class="text-white" href="{{route('dashboard.purchase-orders.create')}}">  @lang('site.add_purchase_orders') </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
 
             <li class="menu">
                 <a href="#purchases" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -75,6 +99,29 @@
                     </li>
                     <li>
                         <a class="text-white" href="{{route('dashboard.purchases.create')}}">  @lang('site.add_invoice') </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+            <li class="menu">
+                <a href="#suppliers" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+
+                        <span>@lang('site.suppliers')</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="suppliers" data-parent="#accordionExample">
+                    <li>
+                        <a class="text-white" href="{{route('dashboard.suppliers.index')}}">  @lang('site.all_suppliers') </a>
+                    </li>
+                    <li>
+                        <a class="text-white" href="{{route('dashboard.suppliers.create')}}">  @lang('site.add_supplier') </a>
                     </li>
 
                 </ul>
@@ -104,7 +151,10 @@
                         <a class="text-white" href="{{route('dashboard.invoices.create')}}"> @lang('site.create_invoice') </a>
                     </li>
                     <li class="{{is_active('invoices')}}">
-                        <a class="text-white" href="{{route('dashboard.invoices.create')}}"> @lang('site.create_offer_price') </a>
+                        <a class="text-white" href="{{route('dashboard.quotations.index')}}"> @lang('site.quotatiions') </a>
+                    </li>
+                    <li class="{{is_active('invoices')}}">
+                        <a class="text-white" href="{{route('dashboard.quotations.create')}}"> @lang('site.create_offer_price') </a>
                     </li>
                 </ul>
             </li>
@@ -305,10 +355,15 @@
                 </a>
                 <ul class="collapse submenu list-unstyled {{is_show(['tax',''])}}" id="setting" data-parent="#accordionExample">
 
+                    <li class="{{is_active('tax')}}">
+                        <a href="{{route('dashboard.settings.general')}}">@lang('site.general') </a>
+                    </li>
 
                     <li class="{{is_active('tax')}}">
                         <a href="{{route('dashboard.tax.index')}}">@lang('site.tax') </a>
                     </li>
+
+
                 </ul>
             </li>
 

@@ -65,7 +65,19 @@
                             @php
                                 (isset($customer->photo))? $image =$customer->photo : $image ='public/uploads/customers/photos/default.png';
                             @endphp
-                        <img width="70px" height="70px" src="{{asset($image)}}">
+
+
+                            <div class="d-flex">
+                                <div class="usr-img-frame mr-2 rounded-circle">
+                                    @if($image)
+                                    <img alt="avatar" class="img-fluid rounded-circle" src="{{asset($image)}}">
+                                    @else
+                                    <img alt="avatar" class="img-fluid rounded-circle" src="{{asset('public/uploads/stores/items/product.png')}}">
+                                    @endif
+
+                                </div>
+
+                            </div>
 
                         </td>
 
@@ -83,18 +95,7 @@
                     @endforeach
 
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th>#</th>
-
-                        <th>@lang('site.name')</th>
-                        {{-- <th>@lang('site.company_name')</th> --}}
-                        <th>@lang('site.phone')</th>
-                        <th>@lang('site.email')</th>
-                        <th>@lang('site.status')</th>
-                        <th class="no-content">@lang('site.actions')</th>
-                    </tr>
-                </tfoot>
+                
             </table>
         </div>
     </div>

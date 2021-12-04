@@ -12,7 +12,8 @@ class ParentCompanyController extends Controller
 
     public function __construct(ParentCompanyInterface $parentCompanyInterface){
         $this->parentCompanyInterface = $parentCompanyInterface ;
-    }// end of constructor 
+        $this->middleware('auth');
+    }// end of constructor
 
     public function index(){
       return $this->parentCompanyInterface->index();
@@ -28,5 +29,5 @@ class ParentCompanyController extends Controller
 
     public function destroy($id){
       return $this->parentCompanyInterface->destroy($id);
-    }// end of destroy 
+    }// end of destroy
 }

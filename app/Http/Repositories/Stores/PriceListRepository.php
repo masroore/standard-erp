@@ -13,8 +13,8 @@ use Image;
 
 class PriceListRepository  implements PriceListInterface
 {
-    //use ApiDesignTrait; 
-    private $model; 
+    //use ApiDesignTrait;
+    private $model;
 
     public function __construct(PriceList $model)
     {
@@ -23,27 +23,27 @@ class PriceListRepository  implements PriceListInterface
 
     public function index(){
        $routeName ='priceList';
-        $rows = $this->model::get();
+        $rows = $this->model::orderBy('id','desc')->get();
         return view('backend.stores.priceList.index', compact('rows','routeName'));
-  
+
     }//end of index
     public function create(){
         $routeName ='priceList';
         $StoItem = StoItem::paginate(15);
         return view('backend.stores.priceList.create', compact('StoItem','routeName'));
-  
+
     }//end of index
 
     public function store($request){
-       
+
        // dd($request->all());
 
         $request->validate([
             'title_ar' => 'required|unique:sto_brands,title_ar',
             'title_en' => 'required|unique:sto_brands,title_en',
-        ]);  
+        ]);
 
-         
+
         $requestArray =  $request->all() ;
            //dd($requestArray);
         $row =  $this->model->create($requestArray);
@@ -59,10 +59,10 @@ class PriceListRepository  implements PriceListInterface
 
 
     public function edit($id){
-       
+
         $rows = $this->model::get();
         return view('backend.stores.priceList.edit', compact('rows'));
-  
+
     }//end of index
     public function update($request,$id){
        //dd($id);
@@ -71,11 +71,11 @@ class PriceListRepository  implements PriceListInterface
             'title_en' => 'required|unique:sto_brands,title_en,' . $id,
             'title_ar' => 'required|unique:sto_brands,title_ar,' . $id,
         ]);
-    
-        $requestArray = $request->all(); 
-        
+
+        $requestArray = $request->all();
+
         $row =  $this->model->FindOrFail($id);
-        
+
         $row->update($requestArray);
 
         if( config('app.locale') == 'ar'){
@@ -84,8 +84,8 @@ class PriceListRepository  implements PriceListInterface
             alert()->success('The Recourd Updated Successfully', 'Good Work');
         }
         return redirect()->back();
-     
-       
+
+
     }// end of update
 
     public function destroy($id){
@@ -99,8 +99,8 @@ class PriceListRepository  implements PriceListInterface
             alert()->success('The Recourd Deleted Successfully', 'Good Work');
         }
         return redirect()->back();
-      
-    }// end of destroy 
+
+    }// end of destroy
 
     public function search($value){
 
@@ -109,11 +109,10 @@ class PriceListRepository  implements PriceListInterface
                             ->orWhere('title_ar', 'LIKE', '%'.$value.'%');
                     })->get();
     return view('backend.stores.priceList.search', compact('StoItem'));
-        
-      
-    }// end of search 
+
+
+    }// end of search
 
 } // end of class
 
 ?>
- 

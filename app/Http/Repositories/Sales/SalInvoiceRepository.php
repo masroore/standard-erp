@@ -5,6 +5,7 @@ use App\Models\Finance\FinCategory;
 use App\Http\Interfaces\Sales\SalInvoiceInterface;
 use App\Http\Repositories\LaravelLocalization;
 use App\Models\Finance\FinSetting;
+use App\Models\Sales\SalInvoiceDetail;
 use App\Models\Store\StoItem;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,7 @@ use Illuminate\Support\Str;
 use Image;
 
 
-class SalInvoiceRepository  implements SalInvoiceInterface
+class SalQuotationRepository  implements SalInvoiceInterface
 {
 
     private $model;
@@ -25,55 +26,84 @@ class SalInvoiceRepository  implements SalInvoiceInterface
     }
 
     public function index(){
-        $routeName = 'invoices';
-
-
+        $routeName = 'sales';
+        $rows = $this->model::get();
         return view('backend.sales.invoices.index',compact('routeName'));
 
     }//end of index
 
     public function create(){
-        $routeName='invoices';
+        $routeName='sales';
         $taxes = DB::table('taxes')->get();
 
         return view('backend.sales.invoices.create',compact('routeName','taxes') );
     }// end of create
 
     public function store($request){
-
-        // dd($request->all());
-
         $request->validate([
-            'account_id'=> 'required',
-            'account_key'=>'required',
+            'reference_no'    => 'required',
+            'supplier_id'     => 'required|exists:suppliers,id' ,
+            'store_id'        => 'required|exists:sto_stores,id' ,
+            'date'            => 'required',
         ]);
 
-
-        $account_id = $request->account_id;
-        $account_key = $request->account_key;
-        $count = count($request->account_id);
-
-        for($i = 0; $i < $count; $i++){
-          $FinAccount =  FinAccount::where('id',$account_id[$i])->first();
-
-            FinSetting::create([
-                'user_id'=>Auth::user()->id,
-                'title_ar'=>$FinAccount->title_ar,
-                'title_en'=>$FinAccount->title_en,
-                'account_id'=>$account_id[$i],
-                'account_key'=>$account_key[$i],
-            ]);
-        }
+        $totalQty         = array_sum($request->qty);
+        $itemCount        = count($request->qty);
+        $taxRate          = $request->invoice_tax ;
+        $orderTax         = $request->invoice_tax_amount;
+        $totalCost        = array_sum($request->purch_price);
+        $totalDiscount    = $request->invoice_discount_amount;
+        $totalTax         = $request->invoice_tax_amount + array_sum($request->item_tax_amount);
 
 
-        // $row =  $this->model->create($requestArray);
-
-        if( config('app.locale') == 'ar'){
-            alert()->success('تم انشاء سجل جديد بنجاح', 'عمل رائع');
+        if($request->invoice_payment_type == 1 || $request->paid_amount == $request->grand_total){
+            $paid = 1;
         }else{
-            alert()->success('The Recourd Created Successfully', 'Good Work');
+            $paid = 0;
         }
-        return redirect()->back();
+
+        if($request->document){
+            $document = $request->document;
+        }else{
+            $document = "file to upload";
+        }
+
+        $monyId = 31;
+        $requestArray = ['added_by' => Auth::id(),'money_id'=> $monyId , 'items_count' => $itemCount,
+        'total_qty'=> $totalQty,'order_tax_rate'=>$taxRate,'order_tax'=>$orderTax,
+        'total_cost'=>$totalCost,'total_discount'=>$totalDiscount,'total_tax'=>$totalTax,'is_paid'=>$paid,
+        'document'=> $document] + $request->all();
+
+        $row =  $this->model->create($requestArray);
+
+        // save details
+
+        for ($i=0; $i < count($request->item_id); $i++) {
+            if (isset($request->qty[$i]) && isset($request->purch_price[$i])) {
+                SalInvoiceDetail::create([
+                    'buy_invoice_id'    => $row->id,
+                    'item_id'           => $request->item_id[$i],
+                    'qunatity'          => $request->qty[$i],
+                    'unit_price'        => $request->purch_price[$i],
+                    'tax_rate'          => $request->item_tax_rate[$i] ,
+                    'tax'               => $request->item_tax_amount[$i],
+                    'discount'          => $request->disc_value[$i],
+                    'discount_type'     => $request->disc_type[$i],
+                    'purchase_unit_id'  => $request->purchase_unit_id[$i],
+                    'total'             => $request->total_line_price[$i],
+                ]);
+            }
+        }
+
+        // handel journal details
+
+        // handel payments
+
+        // handel item quantity
+
+        if( config('app.locale') == 'ar'){ alert()->success('تم انشاء سجل جديد بنجاح', 'عمل رائع'); }
+        else{alert()->success('The Recourd Created Successfully', 'Good Work'); }
+        return redirect()->route('dashboard.purchases.index');
     }// end of store
 
 

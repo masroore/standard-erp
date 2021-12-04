@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Sales\SalInvoiceController;
+use App\Http\Controllers\Backend\Sales\SalQuotationController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['loc
         // route here
 
         Route::resource('invoices', SalInvoiceController::class);
-
+        Route::resource('quotations', SalQuotationController::class);
         Route::get('invoices/search/{value?}/{id?}', [SalInvoiceController::class,'search']);
+        Route::get('quotations/search/{value?}/{id?}', [SalQuotationController::class,'search']);
 
     });
 

@@ -7,7 +7,7 @@
         <label >@lang('site.company_name')</label>
         <input type="text" name="company_name" class="form-control" value="{{ old('company_name', isset($row) ? $row->company_name : '')}}"  required>
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-4"> 
         <label >@lang('site.contact_person')</label>
         <input type="text" name="contact_person" class="form-control" value="{{ old('contact_person', isset($row) ? $row->contact_person : '')}}"  required>
     </div>

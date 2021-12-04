@@ -12,6 +12,7 @@ class PurchaseInvoiceController extends Controller
 
     public function __construct(PurchaseInvoiceInterface $invoiceInterface){
         $this->invoiceInterface = $invoiceInterface ;
+        $this->middleware('auth');
     }// end of constructor
 
     public function index(){
@@ -25,6 +26,10 @@ class PurchaseInvoiceController extends Controller
     public function show($id){
       return $this->invoiceInterface->show($id);
     }
+
+    public function search($value,$id){
+        return $this->invoiceInterface->search($value,$id);
+      }// end of search
 
     public function edit($id){
         return $this->invoiceInterface->edit($id);

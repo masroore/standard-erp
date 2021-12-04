@@ -13,6 +13,7 @@ class TaxController  extends Controller
 
     public function __construct(TaxInterface $TaxInterface){
         $this->TaxInterface = $TaxInterface ;
+        $this->middleware('auth');
     }// end of constructor
 
     public function index(){

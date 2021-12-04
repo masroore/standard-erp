@@ -30,7 +30,7 @@ class SalInvoiceController extends Controller
 
     public function edit($id){
         return $this->SalInvoiceInterface->edit($id);
-      }// end of edit
+    }// end of edit
 
     public function update(Request $request ,$id){
       return $this->SalInvoiceInterface->update($request,$id);
@@ -42,5 +42,5 @@ class SalInvoiceController extends Controller
 
     public function search($value,$id){
         return $this->SalInvoiceInterface->search($value,$id);
-      }// end of search
+    }// end of search
 }

@@ -141,10 +141,10 @@
 
 
                         <td class="text-center">
-                            <a class="mr-2 btn btn-info" title="@lang('site.show')"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="{{ route('dashboard.purchases.show',$row->id ) }}" class="mr-2 btn btn-info" title="@lang('site.show')"><i class="fa fa-eye" aria-hidden="true"></i></a>
                             <a class="mr-2 btn btn-warning" title="@lang('site.edit')"><i class="fa fa-edit" aria-hidden="true"></i></a>
                             <a class="mr-2 btn btn-primary" title="@lang('site.download')"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
-                            <form action="{{route('dashboard.brands.destroy', $row->id)}}" method="POST" style="display:inline-block">
+                            <form action="{{route('dashboard.purchases.destroy', $row->id)}}" method="POST" style="display:inline-block">
                                 @csrf
                                 @method('delete')
                             <button type="submit" class="mr-2 btn btn-danger show_confirm" title="@lang('site.delete')"><i class="fa fa-trash" aria-hidden="true"></i></button>

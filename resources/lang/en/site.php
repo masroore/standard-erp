@@ -2,7 +2,7 @@
 
 return [
 
-    // genral translation
+// genral translation
 
     'fill_form_data'   => 'Please Fill Form Data',
     'add'              => 'Add',
@@ -30,9 +30,23 @@ return [
     'unpaid'           => 'UnPaid',
     'partial'          => 'Partial',
     'due'              => 'Due',
+    'docment'          => 'Documnet',
+    'no'               => 'No',
+    'pending'          => 'Pending',
+    'accepted'         => 'Accepted',
+    'rejected'         => 'Rejected',
+    'write_note'       => 'Write Note',
+    'select_date'      => 'Select Date',
+    'notes'            => 'Notes',
+    'general'          => 'General',
+    'to'               => 'To',
+    'date'             => 'Date',
+    'from'             => 'From',
+    'reply'            => 'Reply',
+    'submission_date'  => 'Submission Date',
+    'delivery_date'    => 'Delivery Date',
 
-
-    // Accounts module
+// Accounts module
 
     'accounts'         => 'Accounts',
     'create account'   => 'Create Account',
@@ -53,7 +67,7 @@ return [
     'add item'         => 'Add Item',
     'journal description'   => 'Journal Description',
 
-    // purchases module
+// purchases module
 
     'purchases'             => 'Purchases',
     'purchases_mangment'    => 'Purchases Mangement',
@@ -92,31 +106,92 @@ return [
     'select_supplier'       => 'Select Supplier',
     'select_unit'           => 'Select Unit',
     'select_purchase_unit'  => 'Select Purchase Unit',
-    'select_sale_unit'     => 'Select Sale Unit',
+    'select_sale_unit'      => 'Select Sale Unit',
+    'for_items'             => 'On THe Invoice items only',
+    'for_invoice'           => 'On The Whole Invoice',
+    'for_both'              => 'On The Both',
+    'tax_type'              => 'Tax Type',
+    'select_supplier'       => 'Select Supplier',
+    'stores'                => 'Stores',
+    'select_store'          => 'Select Store',
+    'invoice'               => 'Invoice',
+    'invoices'              => 'Invoices',
+    'seleect_unit'          => 'Select Unit',
+    'payments'              => 'Payments',
+    'cash_payment'          => 'Cash Payment',
+    'fees_payment'          => 'Fees Payment',
+    'deferred_payment'      => 'Deferred Payment',
+    'payment_invoice_type'  => 'Invoice Pay Type',
+    'received'              => 'Received',
+    'payment_amount'        => 'Payment Amount',
+    'pay_type'              => 'Pay Type',
+    'remaining_amount'      => 'Remaining amount',
+    'cash'                  => 'Cash',
+    'bank_transfer'         => 'Bank Transfer',
+    'vezai'                 => 'Vezai',
+    'check'                 => 'Check',
+    'tax_amount'            => 'Tax Amount',
+    'received_status'       => 'Receive Status',
+    'show_purchase_nvoice'  => 'Show Purchase Invoice',
+    'invoice_date'          => 'Invoice Date',
+    'invoice_no'            => 'Invoice Num ',
 
-     // settings
+    // purchase_orders
+    'all_purchase_orders'  => 'All Purchase Order',
+    'add_purchase_orders'  => 'Add Purchase Order',
+    'purchase_orders'      => 'Purchase Orders',
+    'show_purchase_orders' => 'Show Purchase Orders',
 
-     'settings'         => 'Settings',
-     'setting_list'         => 'Setting List',
-     'please_fill_user_data'         => 'Please Fill User Data',
-     'Customer_master_account'         => 'Customer Master Account',
-     'Supplier_master_account'         => 'Supplier Master Account',
-     'Sales_master_account'         => 'Sales Master Account',
-     'Zero_sales_tax_main_account'         => 'Zero Sales Tax Min Account',
-     'Purchases_master_account'         => 'Purchases Master Account',
-     'Calculation_of_cost_of_goods_sold'         => 'Calculation of Cost of Goods Sold',
-     'Calculation_of_cost_of_services_sold'         => 'Calculation of Cost of services Sold',
-     'Store_master_account'         => 'Store Master Account',
-     'Fund_master_account'         => 'Fund Master Account',
-     'bad_debts_account'         => 'Bad Debts Account',
-     'Tax_main_account_(sales)'         => 'Tax Main Account (sales)',
-     'Tax_main_account_(purchases)'         => 'Tax Main Account (purchases)',
-     'Bank_fees_and_account_fees'         => 'Bank Fees and Account Fees',
-     'account_key' => 'Account Key',
-     'please_fill_setting_data' => 'Please Fill Setting Data',
+    //requisitions
+    'all_purchase_requisitions'  => 'All Purchase Requisitions',
+    'add_purchase_requisitions'  => 'Add Purchase Requisition',
+    'purchase_requisitions'      => 'Purchase Requisitions',
+    'requested_by'               => 'Requested By',
+    'item_count'                 => 'Items Count',
+    'total_qty'                  => 'Total Quantity',
+    'download_document'          => 'Download Document',
+    'requisition_code'           => 'Requisition Code',
+    'created_by'                 => 'Created By',
+    'show_purchase_requisitions' => 'Show Purchase Requisitions',
+    'create_purchase_requisitions' => 'Create Purchase Requisitions',
+    'edit_purchase_requisitions' => 'Edit Purchase Requisitions',
+    'edit_purchase_orders'       => 'Edit Purchase Order',
+
+    // supplier_quotations
+
+    'supplier_quotations'        => 'Supplier Quotations',
+    'add_supplier_quotations'    => 'Add Supplier Quotations' ,
+    'all_supplier_quotations'    => 'All Supplier Quotations',
+    'purchase_request_code'      => 'Purchase Request Code',
+    'request_code'               => 'Request Code',
 
 
-     // roles
+// settings
+
+     'settings'                   => 'Settings',
+     'setting_list'               => 'Setting List',
+     'please_fill_user_data'      => 'Please Fill User Data',
+     'Customer_master_account'    => 'Customer Master Account',
+     'Supplier_master_account'    => 'Supplier Master Account',
+     'Sales_master_account'       => 'Sales Master Account',
+     'Zero_sales_tax_main_account'=> 'Zero Sales Tax Min Account',
+     'Purchases_master_account'   => 'Purchases Master Account',
+     'Calculation_of_cost_of_goods_sold'   => 'Calculation of Cost of Goods Sold',
+     'Calculation_of_cost_of_services_sold'=> 'Calculation of Cost of services Sold',
+     'Store_master_account'       => 'Store Master Account',
+     'Fund_master_account'        => 'Fund Master Account',
+     'bad_debts_account'          => 'Bad Debts Account',
+     'Tax_main_account_(sales)'   => 'Tax Main Account (sales)',
+     'Tax_main_account_(purchases)'=> 'Tax Main Account (purchases)',
+     'Bank_fees_and_account_fees'  => 'Bank Fees and Account Fees',
+     'account_key'                 => 'Account Key',
+     'please_fill_setting_data'    => 'Please Fill Setting Data',
+     'company_email'               => 'Company Email',
+     'company_address'             => 'Company Address',
+     'company_phone'               => 'Company Phone',
+
+
+// roles
      'roles' => 'Roles',
      'list_roles' => 'List Roles',
      'add_role' => 'Add Role',
@@ -131,18 +206,36 @@ return [
      'edit_role' => 'Edit Role',
      'role' => 'Role',
 
-     // sales
-    'sales' => 'Sales',
-    'sales_management' => 'Sales Management',
-    'invoices' => 'Invoices',
-    'create_invoice' => 'Create Invoice',
+// sales
+    'sales'              => 'Sales',
+    'sales_management'   => 'Sales Management',
+    'invoices'           => 'Invoices',
+    'create_invoice'     => 'Create Invoice',
     'create_offer_price' => 'Create Offer Price',
     'create_new_invoice' => ' Create New Invoice',
-    'list_invoices' => 'List Invoices',
+    'list_invoices'      => 'List Invoices',
 
+// Quotations
+    'add_quotation'   => 'Add Quotation',
+    'edit_quotation'  => 'Edit Quotation',
+    'all_quotation'   => 'All Quotations',
+    'quotations'      => 'Quotations',
+    'quotations_list' => 'Quotations List',
+    'quotation'       => 'Quotation',
+    'no_tax'          => 'Without Tax',
+    'num'             => 'num',
+    'item'            => 'Item',
+    'add_item'        => 'Add Item',
+    'qty'             => 'Qty',
+    'discount'        => 'Discount',
+    'shipping_cost'   => 'Shipping Cost',
+    'subtotal'        => 'Subtotal',
+    'total'           => 'Total',
+    'show_quotation'  => 'Show Quotation',
 
-    // customers
+// customers
     'customers' => 'Customers',
+    'select_customer' => 'Select Customer',
     'customer_list' => 'Customer List',
     'customers_list' => 'Customers List',
     'customer_group' => 'Customer Group',
@@ -169,7 +262,7 @@ return [
     'active' => 'Active',
     'inactive' => 'Inactive',
 
-    // tax
+// tax
     'tax_list' => 'Tax List',
     'tax' => 'TaX',
     'add_new_tax' => 'Add New Tax',
@@ -189,12 +282,17 @@ return [
 
 // parent_company
 
-
     'parent_company' => 'Parent Company',
     'parent_company_list' => 'Parent Company List',
     'code' => 'Code',
     'edit_parent_company' => 'Edit Parent Company',
     'add_new_parent_company' => 'Add Parent Company',
+
+
+
+
+
+
 
 
 ];

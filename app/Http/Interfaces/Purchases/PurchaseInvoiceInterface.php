@@ -18,6 +18,8 @@ interface PurchaseInvoiceInterface{
 
     public function destroy($id);
 
+    public function search($value,$id);
+
 }// end of interface
 
 

@@ -1,50 +1,23 @@
-@extends('layouts.dashboard.app')
-@php 
-	$lang =  LaravelLocalization::getCurrentLocale();
-@endphp
 
-@section('title')
-        {{ $lang == 'ar' ? '  تعديل التصنيف' : ' Edit Category ' }}
-@endsection
- @section('modelTitlie')
-        {{ $lang == 'ar' ? ' التصنيفات ' : 'Categories ' }}
- @endsection
-@section('content')
+<button type="button" class="btn btn-warning changesModal" data-toggle="modal" data-target="#exampleModal_{{$row->id}}" title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+</button>
 
- 
-<div class="row layout-top-spacing">
-    <div id="breadcrumbDefault" class="col-xl-12 col-lg-12 layout-spacing">
-        <div class="statbox widget box box-shadow">
-            <div class="widget-content widget-content-area">
-                <nav class="breadcrumb-one p-3" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a></li>
-                        <li class="breadcrumb-item"><a href="{{route('dashboard.categories.index')}}"> {{ $lang == 'ar' ? ' التصنيفات ' : 'Categories ' }}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><span>{{ $lang == 'ar' ? '  تعديل التصنيف' : ' Edit Category ' }}</span></li>
-                       
-                    </ol>
-                </nav>
+<div class="modal fade" id="exampleModal_{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{$row->id}}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel{{$row->id}}"> {{ $lang == 'ar' ? '  تعديل العلامة التجارية ' : 'Edit  Brand ' }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="{{ $lang == 'ar' ? ' اغلاق' : 'Close ' }}">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
             </div>
-        </div>
-    </div>
-</div>
 
+            <form action="{{ route('dashboard.categories.update',$row->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('put')
+                <div class="modal-body">
 
-<div class="row ">
-    <div id="flFormsGrid" class="col-lg-12 layout-spacing">
-        <div class="statbox widget box box-shadow">
-            <div class="widget-header">
-                <div class="row">
-                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <h4>{{$lang == 'ar' ? 'الرجاء ادخال البيانات الاتية' : ' Please Fill User Data '}}</h4>
-                    </div>                                                                        
-                </div>
-            </div>
-            <div class="widget-content widget-content-area p-3">
-                <form action="{{ route('dashboard.categories.update',$row->id) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('put')
-                    @include('backend.partials._errors')
                     <div class="form-group">
                         <select class="form-control nested select2" name="parent_id" >
                             <option value="0" {{ $row->parent_id == 0 ? 'selected'  : '' }} >{{$lang == 'ar' ? 'تصنيف رئيسي' : 'No Parent'}}</option>
@@ -56,47 +29,53 @@
                             @endforeach
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <input  type="text" name="title_ar" value="{{ $row->title_ar }}" class="form-control" required>
-                       
+
                     </div>
-    
+
                     <div class="form-group">
                         <input type="text" name="title_en" value="{{ $row->title_en }}" class="form-control" required>
                     </div>
-    
-                    <button type="submit" class="btn btn-primary mt-3">{{$lang == 'ar' ? ' حفظ ' : 'Save  '}}</button>
-                </form>
 
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> @lang('site.cancel')</button>
+                    <button type="submit" class="btn btn-warning">@lang('site.update')</button>
+                </div>
+
+            </form>
+
+
         </div>
     </div>
 </div>
 
 
 
-@endsection
-
-
-@push('css')
-    <style>
-       
-        .select2-dropdown{
-            z-index:1050 !important;
-        }
-
-        
-    </style>
-@endpush
-
 @push('js')
+
 <script type="text/javascript">
-    $(".nested").select2({
-        tags: true
-    });  
+    $(document).on('click','.changesModal',function(){
+
+        id_arr          = $(this).attr('data-target');
+
+        id              = id_arr.split("_");
+        console.log(id);
+
+        $(".nested").select2({
+            tags: true,
+            dropdownParent: $("#exampleModal_"+id[1]),
+        });
+
+    });
 </script>
+
+
 @endpush
+
+
 
 
 

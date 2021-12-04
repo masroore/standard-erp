@@ -13,7 +13,8 @@ class CustomerGroupController extends Controller
 
     public function __construct(CustomerGroupInterface $customerGroupInterface){
         $this->customerGroupInterface = $customerGroupInterface ;
-    }// end of constructor 
+        $this->middleware('auth');
+    }// end of constructor
 
     public function index(){
       return $this->customerGroupInterface->index();
@@ -29,5 +30,5 @@ class CustomerGroupController extends Controller
 
     public function destroy($id){
       return $this->customerGroupInterface->destroy($id);
-    }// end of destroy 
+    }// end of destroy
 }

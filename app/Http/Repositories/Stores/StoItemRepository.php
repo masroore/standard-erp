@@ -5,6 +5,7 @@ use App\Models\Store\StoCategory;
 use App\Models\Store\StoBrand;
 use App\Http\Interfaces\Stores\StoItemInterface;
 use App\Http\Repositories\LaravelLocalization;
+use App\Models\Settings\Tax;
 use App\Models\Store\StoUnit;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -23,7 +24,7 @@ class StoItemRepository  implements StoItemInterface
 
     public function index(){
 
-        $rows = $this->model::get();
+        $rows = $this->model::orderBy('id','desc')->get();
         return view('backend.stores.items.index', compact('rows'));
 
     }//end of index
@@ -33,9 +34,10 @@ class StoItemRepository  implements StoItemInterface
         ->with('childrenCategories')
         ->get();
         $brands     = StoBrand::get();
+        $taxes     = Tax::get();
         $units      = StoUnit::where('base_unit', '=', 0)->get();
 
-        return view('backend.stores.items.create', compact('categories','brands','units'));
+        return view('backend.stores.items.create', compact('categories','brands','units','taxes'));
     }
 
 
@@ -81,8 +83,9 @@ class StoItemRepository  implements StoItemInterface
         ->get();
         $brands     = StoBrand::get();
         $units      = StoUnit::where('base_unit', '=', 0)->get();
+        $taxes     = Tax::get();
         $row        =  $this->model->FindOrFail($id);
-        return view('backend.stores.items.edit', compact('categories','brands','row','units'));
+        return view('backend.stores.items.edit', compact('categories','brands','row','units','taxes'));
     }
 
     public function update($request,$id){
@@ -148,7 +151,6 @@ class StoItemRepository  implements StoItemInterface
 
     public function selectUnits($request)
     {
-
 
         if (!$request->unit_id) {
             $html = '<option value=""> @lang("site.select_unit")</option>';
