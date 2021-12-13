@@ -151,7 +151,14 @@ class RepositoryServicesProvider extends ServiceProvider
             'App\Http\Repositories\Hr\HrMedicalRepository'
         );
 
-
+        $this->app->bind(
+            'App\Http\Interfaces\Hr\Payroll\HrSalaryTypeInterface',
+            'App\Http\Repositories\Hr\Payroll\HrSalaryTypeRepository'
+        );
+        $this->app->bind(
+            'App\Http\Interfaces\Hr\Payroll\HrSalarySetupInterface',
+            'App\Http\Repositories\Hr\Payroll\HrSalarySetupRepository'
+        );
 
     }
 

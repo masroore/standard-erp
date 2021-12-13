@@ -10,12 +10,12 @@ class TicketReply extends Model
         'ticket_id', 'user_id', 'reply_content'
     ];
     public function replyAttachments(){
-        return $this->hasMany(TicketAttachment::class, 'reply_id', 'id');
+        return $this->hasOne(TicketAttachment::class, 'reply_id', 'id');
     }
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-    
+
 }

@@ -4,13 +4,13 @@ namespace App\Http\Interfaces\Tickets;
 
 interface TicketInterface{
 
-    public function index();  
+    public function index();
 
     public function show($request);
 
     public function store($id);
 
-    public function update($request);
+    public function update($request,$id);
 
     public function moveTicket($request);
 
@@ -18,7 +18,7 @@ interface TicketInterface{
 
     public function updatePriority($request);
 
-    public function destroy($id); 
+    public function destroy($id);
 
     public function AddTicketReplay($request);
 
@@ -26,7 +26,7 @@ interface TicketInterface{
 
     public function getTicketAttachment($id);
 
-}// end of interface  
+}// end of interface
 
 
-?> 
+?>

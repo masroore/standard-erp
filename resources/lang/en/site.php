@@ -274,4 +274,53 @@ return [
     'add_new_medical'=> 'Add New Medical',
     'edit_medical'=> 'Edit Medical',
 
+
+    // tickets
+    'tickets'=> 'Tickets',
+    'ticket'=> 'Ticket',
+    'subject'=> 'Subject',
+    'start_at'=> 'Start at',
+    'customer'=> 'Customer',
+    'priority'=> 'Priority',
+    'open'=> 'Open',
+    'pending'=> 'Pending',
+    'resolved'=> 'Resolved',
+    'closed'=> 'Closed',
+    'low'=> 'low',
+    'medium'=> 'Medium',
+    'high'=> 'high',
+    'urgent'=> 'urgent',
+    'edit_ticket'=> 'Edit Ticket',
+    'add_new_ticket'=> 'Add New Ticket',
+    'ticket_list' => 'Ticket List',
+    'ticket_details' => 'Ticket Details',
+    'files' => 'Files',
+    'replies' => 'Replies',
+    'add_replay' => 'Add Replay',
+    'files' => 'Files',
+    'add_comment' => 'Add Comment',
+    'delete_ticket' => 'Delete Ticket',
+    'move_ticket' => 'Move Ticket',
+    'assignee' => 'Assignee',
+    'ticket_moved' => 'Ticket Moved ',
+    'done' => 'Done ',
+
+
+    // payroll
+
+    'payroll' => 'Payroll ',
+    'salary_type' => 'Salary Type ',
+    'salaryTypes' => 'Salary Types ',
+    'salaryTypes_list' => 'Salary Types List ',
+    'salary_benefits' => 'Salary Benefits ',
+    'benefit_type' => 'Benefit Type ',
+    'add_new_salaryType' => 'Add New Salary Type ',
+    'edit_salaryType' => 'Edit Salary Type ',
+    'deduct' => 'Deduct ',
+    'salary_setup' => 'Salary Setup ',
+
+
+
+
+
 ];
