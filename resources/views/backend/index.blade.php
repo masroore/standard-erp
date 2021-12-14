@@ -1,5 +1,5 @@
 @extends('layouts.backend.app')
-@php 
+@php
 	$current_lang =  LaravelLocalization::getCurrentLocale();
 @endphp
 

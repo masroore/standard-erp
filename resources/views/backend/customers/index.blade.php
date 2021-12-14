@@ -20,7 +20,7 @@
 
 <div class="row layout-top-spacing" id="cancel-row">
     <div class="col-md-5"></div>
-    <div class="col-md-2">
+    <div class="col-md-4 mb-3">
         <a href="{{route('dashboard.customers.create')}}" class="btn btn-primary center">@lang('site.add_customers')</a>
     </div>
 
@@ -31,11 +31,12 @@
                     <tr>
                         <th>#</th>
                         <th>@lang('site.name')</th>
+                        <th>@lang('site.photo')</th>
                         {{-- <th>@lang('site.company_name')</th> --}}
                         <th>@lang('site.phone')</th>
                         <th>@lang('site.email')</th>
                         <th>@lang('site.status')</th>
-                        <th>@lang('site.photo')</th>
+
                         <th class="no-content">@lang('site.actions')</th>
                     </tr>
                 </thead>
@@ -51,6 +52,25 @@
                                 <p class="align-self-center mb-0"> {{$customer->name}} </p>
                             </div>
                         </td>
+                        <td>
+                            @php
+                                (isset($customer->photo))? $image =$customer->photo : $image ='public/uploads/customers/photos/default.png';
+                            @endphp
+
+
+                            <div class="d-flex">
+                                <div class="usr-img-frame mr-2 rounded-circle">
+                                    @if($image)
+                                    <img alt="avatar" class="img-fluid rounded-circle" src="{{asset('public/uploads/customers/photos/'.$image)}}">
+                                    @else
+                                    <img alt="avatar" class="img-fluid rounded-circle" src="{{asset('public/uploads/stores/items/product.png')}}">
+                                    @endif
+
+                                </div>
+
+                            </div>
+
+                        </td>
                         {{-- <td>{{$customer->company_name}}</td> --}}
                         <td>{{$customer->phone}}</td>
                         <td>{{$customer->email}}</td>
@@ -61,25 +81,7 @@
                             <span class="badge badge-danger">  @lang('site.inactive') <i class="fa fa-times" aria-hidden="true"></i> </span>
                             @endif
                         </td>
-                        <td>
-                            @php
-                                (isset($customer->photo))? $image =$customer->photo : $image ='public/uploads/customers/photos/default.png';
-                            @endphp
 
-
-                            <div class="d-flex">
-                                <div class="usr-img-frame mr-2 rounded-circle">
-                                    @if($image)
-                                    <img alt="avatar" class="img-fluid rounded-circle" src="{{asset($image)}}">
-                                    @else
-                                    <img alt="avatar" class="img-fluid rounded-circle" src="{{asset('public/uploads/stores/items/product.png')}}">
-                                    @endif
-
-                                </div>
-
-                            </div>
-
-                        </td>
 
                         <td>
                               <a href="{{route('dashboard.customers.show', $customer->id)}}" class="btn btn-info" title="@lang('site.show')"> <i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -95,7 +97,7 @@
                     @endforeach
 
                 </tbody>
-                
+
             </table>
         </div>
     </div>

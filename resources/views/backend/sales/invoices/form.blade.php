@@ -1,7 +1,7 @@
 
         <div class="invoice-detail-title">
-            <h4 class="font-weight-bold"> @lang('site.add_purchases')</h4>
-            <a href="{{ route('dashboard.purchases.index') }}" class="btn btn-primary float-right"><i class="fa fa-list"></i> @lang('site.purchases_list')</a>
+            <h4 class="font-weight-bold"> @lang('site.add_sales')</h4>
+            <a href="{{ route('dashboard.sales.index') }}" class="btn btn-primary float-right"><i class="fa fa-list"></i> @lang('site.sales_list')</a>
 
         </div>
 
@@ -30,11 +30,11 @@
 
 
                 <div class="form-group col-md-4">
-                    <label for="">@lang('site.suppliers')</label>
-                    <select class="form-control basic" name="supplier_id">
-                        <option disabled selected > @lang('site.select_supplier') </option>
-                        @foreach ($suppliers as $supplier)
-                            <option value="{{ $supplier->id }}" >{{ $supplier->company_name }} ({{ $supplier->contact_person }})</option>
+                    <label for="">@lang('site.customer')</label>
+                    <select class="form-control basic" name="customer_id">
+                        <option disabled selected > @lang('site.select_customer') </option>
+                        @foreach ($customers as $customer)
+                            <option value="{{ $customer->id }}" >{{ $customer->company_name }} ({{ $customer->name }})</option>
                         @endforeach
 
                     </select>
@@ -129,7 +129,7 @@
                                 <button type="button" class="  btn-xs  modali" style="background-color: #fafafa !important; border:none" data-toggle="modal"
                                         data-target="#exampleModal1" title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}"> <i class="fa fa-edit"></i>
                                 </button>
-                                @include('backend.purchases.invoices.itemmodal')
+                                @include('backend.sales.invoices.itemmodal')
 
 
                                 <div class="content-search1"> </div>
@@ -141,8 +141,8 @@
                             </td>
 
                             <td class="description">
-                                <input type="hidden" id="priceinput1"    name="purch_price[]">
-                                <span class="purch_price1" id="purch_price1">0.00</span>
+                                <input type="hidden" id="priceinput1"    name="sale_price[]">
+                                <span class="sale_price1" id="sale_price1">0.00</span>
                             </td>
 
 

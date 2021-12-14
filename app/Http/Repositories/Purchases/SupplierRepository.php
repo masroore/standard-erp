@@ -5,10 +5,10 @@ use App\Http\Interfaces\Purchases\SupplierInterface;
 use App\Models\Finance\FinAccount;
 use App\Models\Finance\FinSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
-use DB;
-use Image; 
+use Image;
 class SupplierRepository  implements SupplierInterface
 {
     private $supplierModel;
@@ -44,23 +44,44 @@ class SupplierRepository  implements SupplierInterface
             'contact_person'  => 'required|string',
             'company_name'    => 'required|string',
             'phone'           => 'required|digits:11',
-            'fax'             => 'numeric',
+            'fax'             => 'numeric|nullable',
             'email'           => 'required|email|unique:suppliers',
             'address'         => 'required',
-            'tax_id'          => 'required|unique:suppliers',
-            'tax_file_number' => 'required|unique:suppliers',
        ]);
 
        // create account for supplier
-
         $accountId = $this->createAccount($request->company_name);
+
+        if($request->taxclient == 1){
+            $taxclient = 1;
+        }else{
+            $taxclient = 2;
+        }
 
         if($request->is_active == 1){
             $status = 1;
         }else{
             $status = 0; }
 
-        $requestArray =   ['is_active' => $status , 'account_id' => $accountId] +$request->all() ;
+        $fileName = '';
+        if ($request->hasFile('photo')) {
+            $fileName = $this->uploadImage($request->file('photo'));
+            }
+
+        if($request->document){
+            $fileName = time().'.'.$request->document->extension();
+            $request->document->move(public_path('uploads/suppliers/documents/'), $fileName);
+            $document =  $fileName ;
+        }else{
+            $document = "";
+        }
+
+        $requestArray = ['is_active'        => $status ,
+                         'account_id'       => $accountId ,
+                         'document'         => $document,
+                         'photo'            => $fileName
+                         ,'is_tax_supplier' => $taxclient
+                         ] +$request->all() ;
 
         $row =  $this->supplierModel::create($requestArray);
 
@@ -134,6 +155,15 @@ class SupplierRepository  implements SupplierInterface
         return redirect()->back();
 
     }// end of destroy
+
+    protected function uploadImage($file){
+        // $file     = $request->file('photo');
+         $fileName = time().Str::random(15).'.'.$file->getClientOriginalExtension();
+         $img      = Image::make($file);
+         $img->fit(150, 150);
+         $img->save(public_path('uploads/suppliers/photos/'. $fileName));
+        return $fileName ;
+     }//end of uploadImage
 
 
 } // end of class

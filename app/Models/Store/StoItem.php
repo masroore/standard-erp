@@ -4,15 +4,17 @@ namespace App\Models\Store;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 class StoItem extends Model
 {
     use HasFactory;
 
     protected $fillable =
-                    ['title_ar','title_en','barcode','cost','sale_price','purchase_unit_id',
-                    'alert_quantity','cat_id','brand_id','branch_id','code','sale_unit_id',
-                    'created_by','updated_by','tax_id','tax_method','image','unit_id',
-                    'description','barcode_symbology','is_batch','is_variant'];
+                    ['title_ar','title_en','barcode','cost','sale_price','purchase_unit_id','weight','made_in',
+                    'alert_quantity','cat_id','brand_id','branch_id','code','sale_unit_id','width','height','qty_list',
+                    'created_by','updated_by','tax_id','tax_method','image','unit_id','lenght','discount_group',
+                    'description','barcode_symbology','is_batch','is_variant','price_list','is_active','product_list'];
 
 
     /**
@@ -54,5 +56,10 @@ class StoItem extends Model
     public function baseUnit()
     {
         return $this->belongsTo(StoUnit::class, 'unit_id');
+    }
+
+    public function tags(){
+
+        return $this->belongsToMany(StoTag::class);
     }
 }

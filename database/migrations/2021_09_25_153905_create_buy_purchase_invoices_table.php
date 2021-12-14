@@ -37,7 +37,7 @@ class CreateBuyPurchaseInvoicesTable extends Migration
             $table->text('note')->nullable();
             $table->timestamps();
         });
-    } 
+    }
 
     /**
      * Reverse the migrations.

@@ -81,11 +81,11 @@
                         <tr>
                             
                             <th ></th>
-                            <th >@lang('site.item')</th>
-                            <th >@lang('site.price')</th>
-                            <th >@lang('site.qty')</th>
+                            <th width="30%">@lang('site.item')</th>
+                            <th width="15%">@lang('site.price')</th>
+                            <th width="10%">@lang('site.qty')</th>
                             <th >@lang('site.discount')</th>
-                            <th >@lang('site.tax')</th>
+                            <th width="10%">@lang('site.tax')</th>
                             <th >@lang('site.amount')</th>
 
                         </tr>

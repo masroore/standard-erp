@@ -16,10 +16,6 @@ class CreatePriceListsTable extends Migration
         Schema::create('price_lists', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('item_id');
-            $table->integer('unit_id');
-            $table->string('price');
-            $table->string('custom_price');
             $table->text('details');
             $table->timestamps();
         });

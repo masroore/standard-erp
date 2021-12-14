@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class SalInvoiceController extends Controller
 {
     private $SalInvoiceInterface;
-
+ 
     public function __construct(SalInvoiceInterface $SalInvoiceInterface){
 
         $this->SalInvoiceInterface = $SalInvoiceInterface ;

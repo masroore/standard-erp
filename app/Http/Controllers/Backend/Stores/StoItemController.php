@@ -19,6 +19,11 @@ class StoItemController extends Controller
       return $this->stoItemInterface->index();
     }
 
+    public function search($value,$id){
+        return $this->stoItemInterface->search($value,$id);
+    }// end of search
+
+
     public function create(){
         return $this->stoItemInterface->create();
     }

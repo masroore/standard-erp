@@ -21,9 +21,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['loc
 
         // route here
 
-        Route::resource('invoices', SalInvoiceController::class);
+        Route::resource('sales', SalInvoiceController::class);
         Route::resource('quotations', SalQuotationController::class);
-        Route::get('invoices/search/{value?}/{id?}', [SalInvoiceController::class,'search']);
+        Route::get('sales/search/{value?}/{id?}', [SalInvoiceController::class,'search']);
         Route::get('quotations/search/{value?}/{id?}', [SalQuotationController::class,'search']);
 
     });

@@ -49,6 +49,7 @@
 
                                     <input type="text" class="form-control form-control-sm" name="date" id="date" placeholder="Add date picker">
                                 </div>
+
                             </div>
 
                             <div class="col-md-3">

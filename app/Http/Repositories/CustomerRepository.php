@@ -57,17 +57,15 @@ class CustomerRepository  implements CustomerInterface
         return $this->ApiResponse(200, 'Done', null,  $row);
     }
     public function store($request){
-
+     //   dd($request->all());
         $request->validate([
             'name'            => 'required|string',
             'company_name'    => 'required|string',
             'photo'           => 'mimes:jpeg,jpg,png,gif',
             'phone'           => 'required|digits:11',
-            'fax'             => 'numeric',
+            'fax'             => 'numeric|nullable',
             'email'           => 'required|email|unique:customers',
             'address'         => 'required',
-            'tax_id'          => 'required|unique:customers',
-            'tax_file_number' => 'required|unique:customers',
             'parent_id'       => 'exists:parent_companies,id',
             'group_id'        => 'exists:customer_groups,id',
 
@@ -80,26 +78,30 @@ class CustomerRepository  implements CustomerInterface
         if($request->is_active == 1){
             $status = 1;
         }else{
-            $status = 0; }
+            $status = 0;
+        }
 
-        $requestArray = ['is_active' => $status ,'account_id' => $accountId] + $request->all();
-        // dd($requestArray);
+        if($request->taxclient == 1){
+            $taxclient = 1;
+        }else{
+            $taxclient = 2;
+        }
 
+
+        $fileName = '';
          if ($request->hasFile('photo')) {
-                $file     = $request->file('photo');
-                $fileName = time().Str::random(15).'.'.$file->getClientOriginalExtension();
-                $img      = Image::make($request->file('photo'));
-                $img->fit(150, 150);
-
-                $img->save(public_path('uploads/customers/photos/'. $fileName));
-
-                $url =  url('public/uploads/customers/photos/' . $fileName);
-
-                $requestArray = ['photo' => $url] + $request->all() ;
-            $file_bath = 'public/uploads/customers/photos/'.$fileName;
-         $requestArray = ['photo' => $file_bath] + $request->all() ;
-
+             $fileName = $this->uploadImage($request->file('photo'));
             }
+
+        if($request->document){
+            $fileName = time().'.'.$request->document->extension();
+            $request->document->move(public_path('uploads/customers/documents/'), $fileName);
+            $document =  $fileName ;
+        }else{
+            $document = "";
+        }
+
+        $requestArray = ['is_active' => $status ,'account_id' => $accountId, 'photo' =>$fileName ,'document'=>$document,'is_tax_customer'=> $taxclient] + $request->all();
 
         $this->customerModel->create($requestArray);
 
@@ -186,6 +188,19 @@ class CustomerRepository  implements CustomerInterface
         ]);
 
         return $customerAccount -> id ;
+    }// end of createAccount
+
+    protected function uploadImage($file){
+       // $file     = $request->file('photo');
+        $fileName = time().Str::random(15).'.'.$file->getClientOriginalExtension();
+        $img      = Image::make($file);
+        $img->fit(150, 150);
+        $img->save(public_path('uploads/customers/photos/'. $fileName));
+       return $fileName ;
+    }//end of uploadImage
+
+    protected function uploadDocument($doument){
+
     }
 
 

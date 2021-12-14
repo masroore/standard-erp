@@ -4,7 +4,7 @@
 @endphp
 
 @section('title')
-       @lang('site.sales_invoices')
+       @lang('site.add_sales')
 @endsection
 @section('modelTitlie')
  @lang('site.sales_invoices')

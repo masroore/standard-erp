@@ -16,6 +16,8 @@ interface StoItemInterface{
 
     public function destroy($id);
     
+    public function search($value,$id);
+
     public function selectUnits($request);
 
 }// end of interface

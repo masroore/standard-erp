@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <label> @lang('site.unit')</label>
 
-                    <select id="modalunit_1" class="form-control form-control-sm"  name="purchase_unit_id[]" >
+                    <select id="modalunit_1" class="form-control form-control-sm"  name="sale_unit_id[]" >
                         <option  disabled selected>@lang('site.seleect_unit')</option>
                         @foreach ($units as $unit)
                         <option value="{{ $unit->id }}" >{{$unit->unit_name}}</option>
@@ -92,7 +92,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label> @lang('site.price')</label>
-                    <input type="number" id="modalprice_`+id+`"   class="form-control purch_price`+id+`" placeholder="0.00">
+                    <input type="number" id="modalprice_`+id+`"   class="form-control sale_price`+id+`" placeholder="0.00">
                 </div>
 
                 <div class="form-group">
@@ -102,7 +102,7 @@
 
                 <div class="form-group">
                     <label> @lang('site.unit')</label>
-                    <select id="modalunit_`+id+`" class="form-control form-control-sm "  name="purchase_unit_id[]" >
+                    <select id="modalunit_`+id+`" class="form-control form-control-sm "  name="sale_unit_id[]" >
                         <option  disabled selected>@lang('site.seleect_unit')</option>
                         @foreach ($units as $unit)
                         <option value="{{ $unit->id }}" >{{$unit->unit_name}}</option>

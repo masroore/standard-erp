@@ -5,6 +5,7 @@ use App\Http\Interfaces\Stores\PriceListInterface;
 //use App\Http\Traits\ApiDesignTrait;
 use App\Http\Repositories\LaravelLocalization;
 use App\Models\Store\PriceList;
+use App\Models\Store\PriceListItem;
 use App\Models\Store\StoItem;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -29,24 +30,32 @@ class PriceListRepository  implements PriceListInterface
     }//end of index
     public function create(){
         $routeName ='priceList';
-        $StoItem = StoItem::paginate(15);
-        return view('backend.stores.priceList.create', compact('StoItem','routeName'));
+        $stoItem = StoItem::with('saleUnit')->get();
+        return view('backend.stores.priceList.create', compact('stoItem','routeName'));
 
     }//end of index
 
     public function store($request){
 
-       // dd($request->all());
-
         $request->validate([
-            'title_ar' => 'required|unique:sto_brands,title_ar',
-            'title_en' => 'required|unique:sto_brands,title_en',
+            'name' => 'required|unique:price_lists,name',
         ]);
 
-
         $requestArray =  $request->all() ;
-           //dd($requestArray);
         $row =  $this->model->create($requestArray);
+
+        // save pricelist items
+        for ($i=0; $i < count($request->item_id); $i++) {
+            if (isset($request->sale_price[$i]) && isset($request->custom_price[$i])) {
+                PriceListItem::create([
+                    'list_id'      => $row->id,
+                    'item_id'      => $request->item_id[$i],
+                    'unit_id'      => $request->unit_id[$i],
+                    'price'        => $request->sale_price[$i],
+                    'custom_price' => $request->custom_price[$i],
+                ]);
+            }
+        }
 
         if( config('app.locale') == 'ar'){
             alert()->success('تم انشاء سجل جديد بنجاح', 'عمل رائع');
@@ -60,8 +69,11 @@ class PriceListRepository  implements PriceListInterface
 
     public function edit($id){
 
+       
+        $stoItem = StoItem::with('saleUnit')->get();
+
         $rows = $this->model::get();
-        return view('backend.stores.priceList.edit', compact('rows'));
+        return view('backend.stores.priceList.edit', compact('rows','routeName'));
 
     }//end of index
     public function update($request,$id){

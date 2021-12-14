@@ -10,7 +10,7 @@
  @lang('site.price_list')
  @endsection
 @section('content')
-
+ 
 
 <div class="row layout-top-spacing">
     <div id="breadcrumbDefault" class="col-xl-12 col-lg-12 layout-spacing">
@@ -53,7 +53,7 @@
                         <th>@lang('site.name')</th>
                         <th>@lang('site.details')</th>
                         <th>@lang('site.actions')</th>
-                   
+
                     </tr>
                 </thead>
                 <tbody>

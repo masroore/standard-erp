@@ -20,46 +20,7 @@ class SupplierRepository  implements SupplierInterface
     }
 
     public function index(){
-        /**  All supplier
-        * url   : https://store.prohussein.com/api/admin/all-suppliers
-        * Method : POST 
-        response
-            "status": 200,
-            "message": "Done",
-            "data": [
-                {
-                "id": 2,
-                "contact_person": "test supplier",
-                "company_name": "testcompany",
-                "photo": "http://localhost/emtech/public/uploads/suppliers/photos/1622838496ehGct4mHTNfgurP.png",
-                "phone": "01157809060",
-                "fax": "1236589",
-                "email": "mohamed@add.com",
-                "address": "test address",
-                "is_active": "1",
-                "tax_id": "123456",
-                "tax_file_number": "12365",
-                "created_at": "2021-06-04T14:28:16.000000Z",
-                "updated_at": "2021-06-04T14:28:16.000000Z"
-                },
-                {
-                "id": 3,
-                "contact_person": "test supplier 3",
-                "company_name": "testc ompany",
-                "photo": "https://store.prohussein.com/public/uploads/suppliers/photos/1623186609PP869l1QFmYyQLv.png",
-                "phone": "01236547895",
-                "fax": "1236589",
-                "email": "mohamed@add.com0",
-                "address": "test address",
-                "is_active": "1",
-                "tax_id": "1234656",
-                "tax_file_number": "102365",
-                "created_at": "2021-06-08T21:04:40.000000Z",
-                "updated_at": "2021-06-08T21:10:09.000000Z"
-                }
-            ]
-            }
-        */
+
         $suppliers =  $this->supplierModel::get();
         return $this->ApiResponse(200, 'Done', null,  $suppliers);
     }//end of index
@@ -72,14 +33,14 @@ class SupplierRepository  implements SupplierInterface
 
 
     public function store($request){
-      
+
         /**  Add Supplier
         * url   : https://store.prohussein.com/api/admin/add-supplier
-        * Method : POST 
-        
+        * Method : POST
+
         */
         $validation = Validator::make($request->all(),[
-            'contact_person'  => 'required|string', 
+            'contact_person'  => 'required|string',
             'company_name'    => 'required|string',
             'is_active'       => 'required|numeric',  // 0 => not active , 1 => active
             'photo'           => 'mimes:jpeg,jpg,png,gif',
@@ -89,9 +50,9 @@ class SupplierRepository  implements SupplierInterface
             'address'         => 'required',
             'tax_id'          => 'required|unique:suppliers',
             'tax_file_number' => 'required|unique:suppliers',
-       ]); 
+       ]);
 
-       // success response 
+       // success response
            /* {
             "status": 200,
             "message": "Done",
@@ -110,9 +71,9 @@ class SupplierRepository  implements SupplierInterface
                 "created_at": "2021-06-08T21:35:50.000000Z",
                 "id": 4
             }
-            } 
-            
-            // failed response 
+            }
+
+            // failed response
 
             {
                 "status": 422,
@@ -129,7 +90,7 @@ class SupplierRepository  implements SupplierInterface
                     ]
                 }
                 }
-            
+
             */
 
 
@@ -142,22 +103,22 @@ class SupplierRepository  implements SupplierInterface
         $requestArray =  $request->all() ;
 
          if ($request->hasFile('photo')) {
-                $file     = $request->file('photo');                                     
+                $file     = $request->file('photo');
                 $fileName = time().Str::random(15).'.'.$file->getClientOriginalExtension();
                 $img      = Image::make($request->file('photo'));
                 $img->fit(150, 150);
                 $img->save(public_path('uploads/suppliers/photos/'. $fileName));
-                $url =  url('public/uploads/suppliers/photos/' . $fileName);  
+                $url =  url('public/uploads/suppliers/photos/' . $fileName);
 
                 $requestArray = ['photo' => $url] + $request->all() ;
             }
-        
+
         $row =  $this->supplierModel::create($requestArray);
-      
+
          return $this->ApiResponse(200, 'Done', null,  $row);
-       
-       
-    }// end of store 
+
+
+    }// end of store
 
     public function update($request,$id){
 
@@ -165,10 +126,10 @@ class SupplierRepository  implements SupplierInterface
 
             /**   update supplier
             * url   : https://store.prohussein.com/api/admin/update-supplier/id
-            * Method : POST 
+            * Method : POST
             */
             $validation = Validator::make($request->all(),[
-                'contact_person'  => 'required|string', 
+                'contact_person'  => 'required|string',
                 'company_name'    => 'required|string',
                 'is_active'       => 'required|numeric', // 0 => not active , 1 => active
                 'photo'           => 'mimes:jpeg,jpg,png,gif',
@@ -176,12 +137,12 @@ class SupplierRepository  implements SupplierInterface
                 'fax'             => 'numeric',
                 'email'           => 'required|email|unique:suppliers,email,'.$id,
                 'address'         => 'required',
-                'tax_id'          => 'required|unique:suppliers,tax_id,'.$id, 
+                'tax_id'          => 'required|unique:suppliers,tax_id,'.$id,
                 'tax_file_number' => 'required|unique:suppliers,tax_file_number,'.$id,
-               
+
             ]);
 
-            // success response 
+            // success response
             //                 {
             //   "status": 200,
             //   "message": "Updated Successfully"
@@ -193,28 +154,28 @@ class SupplierRepository  implements SupplierInterface
             {
                 return $this->ApiResponse(422,'Validation Error', $validation->errors());
             }
-        
-        $requestArray = $request->all();   
+
+        $requestArray = $request->all();
 
         if ($request->hasFile('photo')) {
-                $file     = $request->file('photo');                                     
+                $file     = $request->file('photo');
                 $fileName = time().Str::random(15).'.'.$file->getClientOriginalExtension();
                 $img      = Image::make($request->file('photo'));
                 $img->fit(150, 150);
                 $img->save(public_path('uploads/suppliers/photos/'. $fileName));
-                $url =  url('public/uploads/suppliers/photos/' . $fileName);  
+                $url =  url('public/uploads/suppliers/photos/' . $fileName);
                 $requestArray = ['photo' => $url] + $request->all() ;
             }
 
         $row->update($requestArray);
 
         return $this->ApiResponse(200, 'Updated Successfully');
-    }// end of update 
+    }// end of update
 
     public function destroy($id){
         $this->supplierModel::FindOrFail($id)->delete();
         return $this->ApiResponse(200, 'Deleted Successfully', null);
-    }// end of destroy 
+    }// end of destroy
 
 
 } // end of class

@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PriceList extends Model
 {
     use HasFactory;
+
+    protected $table    = 'price_lists';
+    protected $fillable = ['name','details'];
 }

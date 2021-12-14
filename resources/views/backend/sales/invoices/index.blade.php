@@ -4,17 +4,17 @@
 @endphp
 
 @section('title')
-       @lang('site.purchases_invoices')
+       @lang('site.sales_invoices')
 @endsection
  @section('modelTitlie')
- @lang('site.purchases_invoices')
+ @lang('site.sales_invoices')
  @endsection
 @section('content')
 
 @component('backend.partials._pagebar')
 
-    <li class="breadcrumb-item"><a href="javascript:void(0);">  @lang('site.purchases')</a></li>
-    <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.purchases_list')</span></li>
+    <li class="breadcrumb-item"><a href="javascript:void(0);">  @lang('site.sales')</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.sales_list')</span></li>
 
 @endcomponent
 
@@ -34,7 +34,7 @@
                             <h4>@lang('site.fillter_date')</h4>
                         </div>
                         <div class="col-xl-6 col-md-6 col-sm-6 col-6 pt-2">
-                            <a href="{{ route('dashboard.purchases.create') }}" class="btn btn-primary float-right mr-5"> <i class="fa fa-plus" aria-hidden="true"></i> @lang('site.add_new') </a>
+                            <a href="{{ route('dashboard.sales.create') }}" class="btn btn-primary float-right mr-5"> <i class="fa fa-plus" aria-hidden="true"></i> @lang('site.add_new') </a>
                         </div>
                     </div>
                 </div>
@@ -51,11 +51,11 @@
                             <input id="basicFlatpickr2"  class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date..">
                         </div>
                         <div class="form-group col ">
-                            <label for="">@lang('site.supplier')</label>
+                            <label for="">@lang('site.customer')</label>
                             <select class="form-control basic">
-                                <option disabled selected > @lang('site.select_supplier') </option>
-                                @foreach ($suppliers as $supplier)
-                                    <option value="{{ $supplier->id }}" >{{ $supplier->company_name }} ({{ $supplier->contact_person }})</option>
+                                <option disabled selected > @lang('site.select_customer') </option>
+                                @foreach ($customers as $customer)
+                                    <option value="{{ $customer->id }}" >{{ $customer->company_name }} ({{ $customer->name }})</option>
                                 @endforeach
 
                             </select>
@@ -90,7 +90,7 @@
                         <th>#</th>
                         <th>@lang('site.invoice_code')</th>
                         <th>@lang('site.created_at')</th>
-                        <th>@lang('site.supplier')</th>
+                        <th>@lang('site.customer')</th>
                         <th>@lang('site.amount')</th>
                         <th>@lang('site.paid_status')</th>
                         <th class="no-content text-center">@lang('site.actions')</th>
@@ -119,7 +119,7 @@
                         <td class="sorting_1 sorting_2">
                             <div class="d-flex">
 
-                                <p class="align-self-center mb-0 admin-name"> {{$row->supplier->company_name}} </p>
+                                <p class="align-self-center mb-0 admin-name"> {{$row->customer->company_name}} </p>
                             </div>
                         </td>
 
@@ -141,10 +141,10 @@
 
 
                         <td class="text-center">
-                            <a href="{{ route('dashboard.purchases.show',$row->id ) }}" class="mr-2 btn btn-info" title="@lang('site.show')"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="{{ route('dashboard.sales.show',$row->id ) }}" class="mr-2 btn btn-info" title="@lang('site.show')"><i class="fa fa-eye" aria-hidden="true"></i></a>
                             <a class="mr-2 btn btn-warning" title="@lang('site.edit')"><i class="fa fa-edit" aria-hidden="true"></i></a>
                             <a class="mr-2 btn btn-primary" title="@lang('site.download')"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
-                            <form action="{{route('dashboard.purchases.destroy', $row->id)}}" method="POST" style="display:inline-block">
+                            <form action="{{route('dashboard.sales.destroy', $row->id)}}" method="POST" style="display:inline-block">
                                 @csrf
                                 @method('delete')
                             <button type="submit" class="mr-2 btn btn-danger show_confirm" title="@lang('site.delete')"><i class="fa fa-trash" aria-hidden="true"></i></button>

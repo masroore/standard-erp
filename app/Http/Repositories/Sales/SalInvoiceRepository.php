@@ -4,9 +4,13 @@ use App\Models\Finance\FinAccount;
 use App\Models\Finance\FinCategory;
 use App\Http\Interfaces\Sales\SalInvoiceInterface;
 use App\Http\Repositories\LaravelLocalization;
+use App\Models\Customer;
 use App\Models\Finance\FinSetting;
+use App\Models\Sales\SalInvoice;
 use App\Models\Sales\SalInvoiceDetail;
 use App\Models\Store\StoItem;
+use App\Models\Store\StoStore;
+use App\Models\Store\StoUnit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
@@ -15,34 +19,38 @@ use Illuminate\Support\Str;
 use Image;
 
 
-class SalQuotationRepository  implements SalInvoiceInterface
+class SalInvoiceRepository  implements SalInvoiceInterface
 {
 
     private $model;
 
-    public function __construct(FinSetting $model)
+    public function __construct(SalInvoice $model)
     {
         $this->model = $model;
     }
 
     public function index(){
         $routeName = 'sales';
-        $rows = $this->model::get();
-        return view('backend.sales.invoices.index',compact('routeName'));
+        $rows      = $this->model::get();
+        $customers =  Customer::get();
+        return view('backend.sales.invoices.index',compact('routeName','customers','rows'));
 
     }//end of index
 
     public function create(){
-        $routeName='sales';
-        $taxes = DB::table('taxes')->get();
-
-        return view('backend.sales.invoices.create',compact('routeName','taxes') );
+        $routeName ='sales';
+        $taxes     = DB::table('taxes')->get();
+        $customers = Customer::get();
+        $stores    = StoStore::get();
+        $units     = StoUnit::get();
+         return view('backend.sales.invoices.create',compact('routeName','taxes','customers','stores','units') );
     }// end of create
 
     public function store($request){
+       // dd($request->all());
         $request->validate([
             'reference_no'    => 'required',
-            'supplier_id'     => 'required|exists:suppliers,id' ,
+            'customer_id'     => 'required|exists:customers,id' ,
             'store_id'        => 'required|exists:sto_stores,id' ,
             'date'            => 'required',
         ]);
@@ -51,7 +59,7 @@ class SalQuotationRepository  implements SalInvoiceInterface
         $itemCount        = count($request->qty);
         $taxRate          = $request->invoice_tax ;
         $orderTax         = $request->invoice_tax_amount;
-        $totalCost        = array_sum($request->purch_price);
+        $totalCost        = array_sum($request->sale_price);
         $totalDiscount    = $request->invoice_discount_amount;
         $totalTax         = $request->invoice_tax_amount + array_sum($request->item_tax_amount);
 
@@ -65,11 +73,11 @@ class SalQuotationRepository  implements SalInvoiceInterface
         if($request->document){
             $document = $request->document;
         }else{
-            $document = "file to upload";
+            $document = "";
         }
 
-        $monyId = 31;
-        $requestArray = ['added_by' => Auth::id(),'money_id'=> $monyId , 'items_count' => $itemCount,
+        $monyId = 31; 
+        $requestArray = ['added_by' => Auth::id(),'money_id'=> $monyId ,'items_count' => $itemCount,
         'total_qty'=> $totalQty,'order_tax_rate'=>$taxRate,'order_tax'=>$orderTax,
         'total_cost'=>$totalCost,'total_discount'=>$totalDiscount,'total_tax'=>$totalTax,'is_paid'=>$paid,
         'document'=> $document] + $request->all();
@@ -79,17 +87,17 @@ class SalQuotationRepository  implements SalInvoiceInterface
         // save details
 
         for ($i=0; $i < count($request->item_id); $i++) {
-            if (isset($request->qty[$i]) && isset($request->purch_price[$i])) {
+            if (isset($request->qty[$i]) && isset($request->sale_price[$i])) {
                 SalInvoiceDetail::create([
-                    'buy_invoice_id'    => $row->id,
+                    'sal_invoice_id'    => $row->id,
                     'item_id'           => $request->item_id[$i],
                     'qunatity'          => $request->qty[$i],
-                    'unit_price'        => $request->purch_price[$i],
+                    'unit_price'        => $request->sale_price[$i],
                     'tax_rate'          => $request->item_tax_rate[$i] ,
                     'tax'               => $request->item_tax_amount[$i],
                     'discount'          => $request->disc_value[$i],
                     'discount_type'     => $request->disc_type[$i],
-                    'purchase_unit_id'  => $request->purchase_unit_id[$i],
+                    'sale_unit_id'      => $request->sale_unit_id[$i],
                     'total'             => $request->total_line_price[$i],
                 ]);
             }
@@ -103,7 +111,7 @@ class SalQuotationRepository  implements SalInvoiceInterface
 
         if( config('app.locale') == 'ar'){ alert()->success('تم انشاء سجل جديد بنجاح', 'عمل رائع'); }
         else{alert()->success('The Recourd Created Successfully', 'Good Work'); }
-        return redirect()->route('dashboard.purchases.index');
+        return redirect()->route('dashboard.sales.index');
     }// end of store
 
 

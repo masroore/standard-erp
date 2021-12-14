@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Hr;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class HrDepartment extends Model
 {
     protected $fillable = [
         'name_ar', 'name_en'
     ];
+
+
 }

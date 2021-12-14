@@ -9,13 +9,13 @@
 @endsection
 
 @section('modelTitlie')
- @lang('site.purchases')
+ @lang('site.sales')
 @endsection
 
 @section('content')
 @component('backend.partials._pagebar')
 
-    <li class="breadcrumb-item"><a href="{{ route('dashboard.purchases.index') }}">  @lang('site.purchases')</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard.sales.index') }}">  @lang('site.sales')</a></li>
     <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.show_purchase_nvoice')</span></li>
 
 @endcomponent

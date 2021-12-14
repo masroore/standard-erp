@@ -9,7 +9,7 @@ class FinAccount extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'cat_id' , 'title_ar','title_en','start_amount','parent_id','level','description'
+        'cat_id' , 'title_ar','title_en','start_amount','parent_id','level','description','order_account'
     ];
 
     public function categories()

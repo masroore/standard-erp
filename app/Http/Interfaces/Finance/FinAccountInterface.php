@@ -8,7 +8,7 @@ public function index();
 
 public function create();
 
-public function edit();
+public function edit($id);
 
 public function store($request);
 
@@ -19,4 +19,4 @@ public function destroy($id);
 }// end of interface
 
 
-?>  
+?>

@@ -19,10 +19,11 @@ class StoUnitRepository  implements StoUnitInterface
     }
 
     public function index(){
-
+        
         $rows = $this->model::orderBy('id','desc')->get();
+        $units = StoUnit::where('base_unit', 0)->get();
 
-        return view('backend.stores.units.index', compact('rows'));
+        return view('backend.stores.units.index', compact('rows','units'));
 
     }//end of index
 

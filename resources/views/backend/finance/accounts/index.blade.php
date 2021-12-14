@@ -23,7 +23,7 @@
             <div class="widget-header">
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <h4>Animated</h4>
+                        <span class="h4 p-4 mr-2">@lang('site.account list')</span><a class="btn btn-primary" title="@lang('site.create account')" href="{{route('dashboard.accounts.create')}}"><i class="fa fa-plus"></i></a>
                     </div>
                 </div>
             </div>
@@ -66,6 +66,30 @@
 
 @endsection
 
+@push('js')
+<script type="text/javascript">
+
+     $('.show_confirm').click(function(event) {
+          var form =  $(this).closest("form");
+          var name = $(this).data("name");
+          event.preventDefault();
+          swal({
+              title: @if($lang == 'ar') ` هل انت متأكد سوف يتم الحذف   !!` @else  `Are you sure you want to delete this row ?` @endif,
+              text:  @if($lang == 'ar') "اذا قمت بحذف هذا العنصر لم تتمكن من استعادته مره اخري" @else  "If you delete this, it will be gone forever." @endif,
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              form.submit();
+            }
+          });
+      });
+
+</script>
+
+@endpush
 
 
 

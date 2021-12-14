@@ -52,7 +52,7 @@
                                     data-target="#exampleModal`+id+`" title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}"> <i class="fa fa-edit"></i>
                                 </button>
 
-                                @include('backend.purchases.invoices.itemmodal')
+                                @include('backend.sales.invoices.itemmodal')
                                 <div class="content-search`+id+`"></div>
 
 
@@ -65,8 +65,8 @@
                             </td>
 
                             <td>
-                                <input type="hidden" id="priceinput`+id+`"    name="purch_price[]">
-                                <span class="purch_price`+id+`" id="purch_price`+id+`">0.00</span>
+                                <input type="hidden" id="priceinput`+id+`"    name="sale_price[]">
+                                <span class="sale_price`+id+`" id="sale_price`+id+`">0.00</span>
                             </td>
 
 
@@ -138,7 +138,7 @@
             quantity        = $('#quantity_'+id[1]).val();
             $('#modalquantity_'+id[1]).val(quantity);
             price           = $('#modalprice_'+id[1]).val();
-            $('#purch_price'+id[1]).text(price);
+            $('#sale_price'+id[1]).text(price);
             $('#priceinput'+id[1]).val(price);
             total           = (parseFloat(price)*parseFloat(quantity)).toFixed(2);
 
@@ -194,7 +194,7 @@
             quantity        = $('#modalquantity_'+id[1]).val();
             $('#quantity_'+id[1]).val(quantity);
             price           = $('#modalprice_'+id[1]).val();
-            $('#purch_price'+id[1]).text(price);
+            $('#sale_price'+id[1]).text(price);
             $('#priceinput'+id[1]).val(price);
 
             total           = (parseFloat(price)*parseFloat(quantity)).toFixed(2);
@@ -239,7 +239,7 @@
                 $('#total_'+id[1]).text(parseFloat(total).toFixed(2));
 
             }
-
+            pu
             calculateTotal();
 
             $('#exampleModal'+id[1]).modal('hide');

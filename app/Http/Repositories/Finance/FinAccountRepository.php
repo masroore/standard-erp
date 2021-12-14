@@ -24,7 +24,7 @@ class FinAccountRepository  implements FinAccountInterface
         $rows      = $this->model::get();
         $routeName = 'accounts';
 
-        $categories  = $this->model::where('parent_id', 0)
+        $categories  = $this->model::orderBy('order_account','asc')->where('parent_id', 0)
         ->with('childrenCategories')
         ->get();
 
@@ -61,7 +61,7 @@ class FinAccountRepository  implements FinAccountInterface
         }elseif($request->parent_id == 0){
             $accountLevel = 1 ;
         }
- 
+
         $requestArray = ['level' => $accountLevel ] + $request->all() ;
 
         $row =  $this->model->create($requestArray);
@@ -75,19 +75,34 @@ class FinAccountRepository  implements FinAccountInterface
     }// end of store
 
 
-    public function edit(){
+    public function edit($id){
+        $cats      = FinCategory::get();
+        $routeName = 'accounts';
+        $categories  = $this->model::where('parent_id', 0)
+        ->with('childrenCategories')
+        ->get();
+        $row = $this->model::where('id', $id)->first();
 
+        return view('backend.finance.accounts.edit' , compact('categories','cats','routeName','row'));
     }// end of edit
 
     public function update($request,$id){
-       //dd($id);
+     //  dd($id);
 
         $request->validate([
-            'title_en' => 'required',
-            'title_ar' => 'required',
+            'title_en' => 'required|unique:fin_accounts,title_en,'.$id,
+            'title_ar' => 'required|unique:fin_accounts,title_ar,'.$id,
+            'parent_id'=> 'required',
         ]);
 
-        $requestArray = $request->all();
+        if($request->parent_id != 0){
+            $accountLevel = $this->model::where('id' , $request->parent_id)->first();
+            $accountLevel = $accountLevel->level + 1 ;
+        }elseif($request->parent_id == 0){
+            $accountLevel = 1 ;
+        }
+
+        $requestArray = $requestArray = ['level' => $accountLevel ] + $request->all() ;
 
         $row =  $this->model->FindOrFail($id);
 

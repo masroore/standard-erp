@@ -3,7 +3,6 @@
 return [
 
 // genral translation
-
     'fill_form_data'   => 'Please Fill Form Data',
     'add'              => 'Add',
     'save'             => 'Save',
@@ -45,15 +44,50 @@ return [
     'reply'            => 'Reply',
     'submission_date'  => 'Submission Date',
     'delivery_date'    => 'Delivery Date',
+//items
+    'category'         => 'Category',
+    'brand'            => 'Brand',
+    'sale_price'       => 'Sale Price',
+    'alert_qty'        => 'Alert Qty',
+    'cost'             => 'Cost',
+    'upload_image'     => 'Upload Image  ',
+    'barcode'          => 'Barcode',
+    'made_in'          => 'Oringin',
+    'discount_group'   => 'Discount Group',
+    'weight'           => 'Weight',
+    'height'           => 'Height',
+    'width'            => 'Width',
+    'lenght'           => 'Lenght',
+    'item_type'        => 'Product Type',
+    'standard'         =>'Standard',
+    'service'          => 'Service',
+    'collection'       =>'Collection',
+    'products'         => 'Products',
+    'product'          => 'Product',
+    'add_product'      => 'Add Product',
+    'edit_product'     => 'Edit Product',
+    'list_product'     => 'Products List',
+    'is_active'        => 'Is Active',
+    'product_place'    => 'Product Place',
+    'add_place'        => 'Add Place',
+    'project'          => 'Project',
+    'title'            => 'Title',
+    'add_new_tag'      => 'Add New Tag',
+    'tag_list'         => 'Tag List',
+    'please_fill_product_data'   => 'Please Fill Product Data',
+    'define_places_in_stores'    => 'Define Places In Stores',
+    'select item for new projct' => 'Select Items For New Projct.',
 
 // Accounts module
-
     'accounts'         => 'Accounts',
     'create account'   => 'Create Account',
+    'edit account'     => 'Edit Account',
     'account list'     => 'Account List',
     'account type'     => 'Account Type',
     'name arabic'      => 'Enter Name in Arabic',
     'name english'     => 'Enter Name in English',
+    'name_ar'          => 'Name Arabic',
+    'name_en'          => 'Name  English',
     'description'      => 'Description',
     'start amount'     => 'Start Amount',
     'parent account'   => 'Parent Account',
@@ -65,10 +99,10 @@ return [
     'account name'     => 'Account Name',
     'journal list'     => 'Journal List',
     'add item'         => 'Add Item',
-    'journal description'   => 'Journal Description',
+    'journal description'       => 'Journal Description',
+    'please_fill_account_date'  => 'Please Fill Account Date',
 
 // purchases module
-
     'purchases'             => 'Purchases',
     'purchases_mangment'    => 'Purchases Mangement',
     'suppliers'             => 'Suppliers',
@@ -84,7 +118,7 @@ return [
     'contact_info'          => 'Contact Info',
     'tax_id'                => 'Tax Id',
     'tax_file_num'          => 'Tax File Number',
-    'cr_id'                 => 'Commercial Register',
+    'cr_id'                 => 'Commercial Register No.',
     'id_for_orginaztion'    => 'Id For Orginaztion',
     'status'                => 'Status',
     'address'               => 'Address',
@@ -135,14 +169,15 @@ return [
     'show_purchase_nvoice'  => 'Show Purchase Invoice',
     'invoice_date'          => 'Invoice Date',
     'invoice_no'            => 'Invoice Num ',
+    'social_media'          => 'Social media Info.',
 
-    // purchase_orders
+// purchase_orders
     'all_purchase_orders'  => 'All Purchase Order',
     'add_purchase_orders'  => 'Add Purchase Order',
     'purchase_orders'      => 'Purchase Orders',
     'show_purchase_orders' => 'Show Purchase Orders',
 
-    //requisitions
+//requisitions
     'all_purchase_requisitions'  => 'All Purchase Requisitions',
     'add_purchase_requisitions'  => 'Add Purchase Requisition',
     'purchase_requisitions'      => 'Purchase Requisitions',
@@ -157,15 +192,28 @@ return [
     'edit_purchase_requisitions' => 'Edit Purchase Requisitions',
     'edit_purchase_orders'       => 'Edit Purchase Order',
 
-    // supplier_quotations
+// supplier_quotations
 
     'supplier_quotations'        => 'Supplier Quotations',
     'add_supplier_quotations'    => 'Add Supplier Quotations' ,
     'all_supplier_quotations'    => 'All Supplier Quotations',
     'purchase_request_code'      => 'Purchase Request Code',
     'request_code'               => 'Request Code',
-
-
+//stores
+    'brand'      => 'Brand',
+    'brands'     => 'Brands',
+    'category'   => 'Category',
+    'categories' => 'Categories',
+    'tags'       => 'Tags',
+    'tag'        => 'Tag',
+// units
+    'units'     => 'Units',
+    'unit'      => 'Unit',
+    'base_unit' => 'Base Unit',
+    'unit_name' => 'Unit Name',
+    'unit_code' => 'Unit Code',
+    'value'     => 'Value',
+    'operator'  => 'Operator',
 // settings
 
      'settings'                   => 'Settings',
@@ -210,10 +258,14 @@ return [
     'sales'              => 'Sales',
     'sales_management'   => 'Sales Management',
     'invoices'           => 'Invoices',
+    'sales_invoices'     => 'Sales Invoices',
     'create_invoice'     => 'Create Invoice',
     'create_offer_price' => 'Create Offer Price',
-    'create_new_invoice' => ' Create New Invoice',
+    'create_new_invoice' => 'Create New Invoice',
     'list_invoices'      => 'List Invoices',
+    'sales_list'         => 'Sales List',
+    'add_sales'          => 'Add Sales',
+    'edit_sales'         => 'Edit Sales',
 
 // Quotations
     'add_quotation'   => 'Add Quotation',
@@ -235,6 +287,7 @@ return [
 
 // customers
     'customers' => 'Customers',
+    'customer'  => 'Customer',
     'select_customer' => 'Select Customer',
     'customer_list' => 'Customer List',
     'customers_list' => 'Customers List',
@@ -253,15 +306,30 @@ return [
     'company_name' => 'Company Name',
     'fax' => 'Fax',
     'address' => 'Address',
-    'tax_file_num' => 'Tax file num',
+    'tax_file_num' => 'Tax File No.',
     'tax_id' => 'Tax id',
     'percent' => 'percent',
     'add_new' => 'Add New',
     'add_new_customer_group' => 'Add new customer group',
     'edit_customer_group' => 'Edit customer group',
-    'active' => 'Active',
-    'inactive' => 'Inactive',
-
+    'active'              => 'Active',
+    'inactive'            => 'Inactive',
+    'main_info'           => 'Main Information',
+    'start_amount'        => 'Start Amount',
+    'address_info'        => 'Address Information',
+    'longitude'           => 'Longitude',
+    'latitude'            => 'Latitude',
+    'taxs_ofice'          => 'Taxs Office',
+    'opening_balance'     => 'Opening Balance',
+    'website'             => 'Website',
+    'facbook'             => 'Facbook',
+    'linkedin'            => 'Linkedin',
+    'twitter'             => 'Twitter',
+    'location_on_map'     => 'Location On Map',
+    'document'            => 'Document',
+    'tax_client'          => 'Is Tax Client',
+    'tax_supplier'        => 'Is Tax Supplier',
+    
 // tax
     'tax_list' => 'Tax List',
     'tax' => 'TaX',
@@ -290,9 +358,77 @@ return [
 
 
 
+// hrm
+    'hrm' => 'HRM',
+    'employees' => 'Employees',
+    'employee' => 'Employee',
+    'employee_list' => 'Employee List',
+    'add_new_employee' => 'Add New Employee',
+    'birthday' => 'Birthday',
+    'add_user' => 'Add User',
+    'please_fill_employee_data' => 'Please Fill Employee Data',
+    'edit_employee' => 'Edit Employee',
+    'date_of_joining' => 'Date Of Joining',
+    'department' => 'Department',
+    'gender' => 'Gender',
+    'male' => 'Male',
+    'female' => 'Female',
+
+    'departments_list' => 'Departments List',
+    'departments' => 'Departments',
+    'add_new_department' => 'Add New Department',
+    'edit_department' => 'Edit Department',
 
 
+// attendances
+    'attendances' =>'Attendances',
+    'attendance' =>'Attendance',
+    'attendances_list' =>'Attendances List',
+    'check_in' =>'Check In',
+    'check_out' =>'Check Out',
+    'date' =>'Date',
+    'created_by' =>'Created By',
+    'edit_attendance' =>'Edit Attendance',
+    'note' =>'Note',
+    'add_new_attendance' =>'Add New Attendance',
+    'daedit_attendancete' =>'Edit Attendance',
+    'late' =>'Late',
+    'present' =>'Present ',
+    'from' =>'From ',
+    'to' =>'To ',
+    'search' =>'Search',
 
 
+// rewards
+    'rewards' => 'Rewards',
+    'reward' => 'Reward',
+    'rewards_list' => 'Rewards List',
+    'title_en' => 'Part No. / Title ',
+    'title_ar' => 'Part No. / Title',
+    'reward_type' => 'Reward Type',
+    'add_new_reward' => 'Add New Reward',
+    'edit_reward' => 'Edit Reward',
+    'sanction' => 'Sanction ',
+    'reason' => 'Reason ',
+    'select_category' => 'Select Category',
+
+// employee files
+
+    'employeeFiles' => 'Employee Files',
+    'employeeFile' => 'Employee File',
+    'employeeFiles_list' => 'Employee Files List',
+    'file' => 'file',
+    'add_new_employeeFile' => 'Add New Employee File',
+    'edit_employeeFile' => 'Edit Employee File',
+
+
+// employee medical
+
+    'medicals'=> 'Medicals',
+    'medical'=> 'Medical',
+    'medicals_list'=> 'Medicals List',
+    'image'=> 'Image',
+    'add_new_medical'=> 'Add New Medical',
+    'edit_medical'=> 'Edit Medical',
 
 ];

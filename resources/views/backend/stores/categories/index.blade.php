@@ -88,11 +88,7 @@
                                     @if ($row->parent_id != 0 )
                                         @php
                                             $catName =  App\Models\Store\StoCategory::where('id', $row->parent_id)->first();
-                                            if ($catName !=null) {
-                                                $catName = $catName
-                                            }else {
-                                                $catName
-                                            }
+                                          
                                         @endphp
                                         {{$lang == 'ar' ? $catName->title_ar : $catName->title_en}}
                                     @elseif($row->parent_id == 0)
@@ -104,7 +100,7 @@
                             </div>
                         </td>
 
-                        
+
 
                         <td class="sorting_1 sorting_2">
                             <div class="d-flex">

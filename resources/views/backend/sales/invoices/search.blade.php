@@ -1,10 +1,10 @@
 @php
 	$lang =  LaravelLocalization::getCurrentLocale();
 @endphp
-{{-- purchase_unit_id --}}
+{{-- sale_unit_id --}}
 <div class="widget-content widget-content-area{{ $id }} p-3"
 style="overflow-y: scroll;height: 350px; background-color: #ccc; position: absolute; z-index: 9000000; width:350px">
-
+ 
     <i class="fa fa-times mb-3 btn-danger p-1 close-search" style="cursor: pointer"></i>
     @if ($StoItem->count() > 0)
     <ul class="file-tree">
@@ -18,10 +18,10 @@ style="overflow-y: scroll;height: 350px; background-color: #ccc; position: absol
             <li style="cursor: pointer;" class="item"
             title="{{$lang == 'ar' ? $row->title_ar: $row->title_en}}({{ $row->code }})"
             item_id="{{$row->id}}"
-            cost="{{$row->cost}}"
+            sale_price="{{$row->sale_price}}"
             tax="{{$row->tax_id}}"
-            unit="{{$row->purchUnit->unit_name}}"
-            unit_id="{{$row->purchase_unit_id}}"
+            unit="{{$row->saleUnit->unit_name}}"
+            unit_id="{{$row->sale_unit_id}}"
 
 
 
@@ -48,12 +48,12 @@ style="overflow-y: scroll;height: 350px; background-color: #ccc; position: absol
        var title = $(this).attr('title');
        var item_id = $(this).attr('item_id');
        var qty = $(this).attr('qty');
-       var purch_price = $(this).attr('cost');
+       var sale_price = $(this).attr('sale_price');
        var unit = $(this).attr('unit');
        var unit_id =  $(this).attr('unit_id');
        var taxRate = $(this).attr('tax');
-       var taxAmount = purch_price * (taxRate / 100);
-       var totalPrice = taxAmount + parseFloat(purch_price) ;
+       var taxAmount = sale_price * (taxRate / 100);
+       var totalPrice = taxAmount + parseFloat(sale_price) ;
        var id = {{ $id }};
         //alert(unit_id);
 
@@ -63,10 +63,10 @@ style="overflow-y: scroll;height: 350px; background-color: #ccc; position: absol
        $('.tax_amount'+id).text(parseFloat(taxAmount).toFixed(2));
        $('.unit'+id).val(unit);
        $('.unit'+id).text(unit);
-       $('#modalprice_'+id).val(purch_price);
-       $('#priceinput'+id).val(purch_price);
-       $('.purch_price'+id).text(purch_price);
-       $('.amount'+id).val(purch_price);
+       $('#modalprice_'+id).val(sale_price);
+       $('#priceinput'+id).val(sale_price);
+       $('.sale_price'+id).text(sale_price);
+       $('.amount'+id).val(sale_price);
        $('#tax_'+id).val(taxRate);
        $('#taxAmount_'+id).val(parseFloat(taxAmount).toFixed(2));
        $('#modeltax_'+id).val(taxRate);
