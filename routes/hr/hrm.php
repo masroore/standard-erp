@@ -4,8 +4,12 @@ use App\Http\Controllers\BackEnd\Hr\HrAttendanceController;
 use App\Http\Controllers\BackEnd\Hr\HrDepartmentController;
 use App\Http\Controllers\Backend\Hr\HrEmployeeController;
 use App\Http\Controllers\BackEnd\Hr\HrEmployeeFileController;
+use App\Http\Controllers\BackEnd\Hr\HrHolidayController;
 use App\Http\Controllers\BackEnd\Hr\HrMedicalController;
 use App\Http\Controllers\BackEnd\Hr\HrRewardController;
+use App\Http\Controllers\BackEnd\Hr\HrWorkdayController;
+use App\Http\Controllers\BackEnd\Hr\Payroll\HrSalaryEmployeeController;
+use App\Http\Controllers\BackEnd\Hr\Payroll\HrSalaryGenerateController;
 use App\Http\Controllers\BackEnd\Hr\Payroll\HrSalarySetupController;
 use App\Http\Controllers\BackEnd\Hr\Payroll\HrSalaryTypeController;
 use Illuminate\Support\Facades\Route;
@@ -43,7 +47,16 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['loc
         // Payroll routes
         Route::resource('salaryTypes', HrSalaryTypeController::class);
         Route::resource('salarySetups', HrSalarySetupController::class);
+        Route::resource('salaryGenerate', HrSalaryGenerateController::class);
+        Route::resource('salaryEmployee', HrSalaryEmployeeController::class);
+        Route::get('salaryEmployee/index/{id?}', [HrSalaryEmployeeController::class,'index'])->name('salaryEmployee.index');
+        Route::get('salaryEmployee/invoice/{id?}', [HrSalaryEmployeeController::class,'invoice'])->name('salaryEmployee.invoice');
 
+        // Holiday
+        Route::resource('workdays', HrWorkdayController::class);
+        Route::post('workdays/status/{id?}', [HrWorkdayController::class,'update']);
+
+        Route::resource('holidays', HrHolidayController::class);
 
 
 

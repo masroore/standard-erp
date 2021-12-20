@@ -318,7 +318,66 @@ return [
     'edit_salaryType' => 'Edit Salary Type ',
     'deduct' => 'Deduct ',
     'salary_setup' => 'Salary Setup ',
+    'message' => 'All addition and deduction open amount should be empty!',
 
+    'salarySetups' => 'Salary Setups ',
+    'salarySetups_list' => 'Salary Setups List ',
+    'basic_salary' => 'Basic Salary ',
+    'gross_salary' => 'Gross Salary ',
+    'add_new_salarySetup' => 'Add New Salary Setup ',
+    'percentage' => 'Percentage ',
+    'addition' => 'Addition ',
+    'deduction' => 'Deduction ',
+    'edit_salarySetup' => 'Edit SalarySetup ',
+
+
+    'salaryGenerates' => 'Salary Generate',
+    'salary_generate' => 'Salary Generate',
+    'salaryGenerates_list' => 'Salary Generate List',
+    'sl_no' => 'SL No',
+    'salary_name' => 'Salary Name',
+    'generate_date' => 'Generate Date',
+    'generate_by' => 'Generate By',
+
+    'generate' => ' Generate',
+    'reset' => ' Reset',
+    'salary_month' => ' Salary Month',
+    'pay_now' => 'Pay Now ??',
+    'employee_name' => 'Employee Name',
+    'total_salary' => 'Total Salary',
+    'working_hour' => 'Working Our',
+    'working_day' => 'Working Day',
+    'paid_by' => 'Paid By',
+    'salary_employees' => 'Salary Employees',
+    'salary_employee' => 'Salary Employee',
+    'salary_employees_list' => 'Salary Employees List',
+    'payment_form' => 'Payment Form',
+    'payment_type' => 'Payment Type',
+    'select_payment_option' => 'Select Payment Option',
+    'cash_payment' => 'Cash Payment',
+    'bank_payment' => 'Bank Payment',
+    'pay' => 'Pay',
+    'payslip' => 'Payslip',
+    'salary_date'=> 'Salary Date',
+    'total_addition' => 'Total Addition',
+    'total_deduction' => 'Total Deduction',
+    'earnings' => 'Earnings',
+    'employee_signature' => 'Employee Signature',
+
+    // workdays
+    'workdays' => 'WorkDays',
+    'workday' => 'WorkDay',
+    'workdays_list' => 'WorkDays List',
+
+
+      // workdays
+      'holidays' => 'HoliDays',
+      'holiday' => 'HoliDay',
+      'holidays_list' => 'HoliDays List',
+      'add_new_holiday' => 'Add New Holiday',
+      'edit_holiday' => 'Edit Holiday',
+      'date_from' => 'Date From',
+      'date_to' => 'Date To',
 
 
 

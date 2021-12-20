@@ -4,10 +4,10 @@
 @endphp
 
 @section('title')
-        @lang('site.salarySetups')
+        @lang('site.holidays')
 @endsection
  @section('modelTitlie')
-        @lang('site.salarySetups')
+        @lang('site.holidays')
  @endsection
 @section('content')
 
@@ -19,8 +19,8 @@
                 <nav class="breadcrumb-one p-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);"> @lang('site.salarySetups')</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.salarySetups_list')</span></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);"> @lang('site.holidays')</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.holidays_list')</span></li>
 
                     </ol>
                 </nav>
@@ -30,7 +30,7 @@
 </div>
 @include('backend.partials._errors')
 
-@include('backend.hrm.payroll.salarySetups.create')
+@include('backend.hrm.holidays.create')
 
 
 <div class="row layout-top-spacing" id="cancel-row">
@@ -42,10 +42,9 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>@lang('site.employee')</th>
-                        <th>@lang('site.basic_salary')</th>
-                        <th>@lang('site.gross_salary')</th>
-                        <th>@lang('site.date')</th>
+                        <th>@lang('site.note')</th>
+                        <th>@lang('site.date_from')</th>
+                        <th>@lang('site.date_to')</th>
                         <th class="no-content">@lang('site.actions')</th>
                     </tr>
                 </thead>
@@ -59,41 +58,32 @@
                         <td class="sorting_1 sorting_2">
                             <div class="d-flex">
 
-                                <p class="align-self-center mb-0 admin-name"> {{$row->employee_name}} </p>
+                                <p class="align-self-center mb-0 admin-name"> {{$row->note}} </p>
                             </div>
                         </td>
 
                         <td class="sorting_1 sorting_2">
                             <div class="d-flex">
 
-                                <p class="align-self-center mb-0 admin-name"> {{$row->basic}} </p>
+                                <p class="align-self-center mb-0 admin-name"> {{$row->date_from}} </p>
                             </div>
                         </td>
-                        <td class="sorting_1 sorting_2">
-                            <div class="d-flex">
 
-                                <p class="align-self-center mb-0 admin-name"> {{$row->gross_salary}} </p>
-                            </div>
-                        </td>
 
                         <td class="sorting_1 sorting_2">
                             <div class="d-flex">
 
-                                <p class="align-self-center mb-0 admin-name"> {{ \Carbon\Carbon::parse($row->date)->format('d-m-Y') }} </p>
+                                <p class="align-self-center mb-0 admin-name"> {{$row->date_to}} </p>
                             </div>
                         </td>
-
-
 
                         <td>
 
 
-                              {{-- @include('backend.hrm.payroll.salarySetups.edit') --}}
-                              <a href="{{ route('dashboard.salarySetups.edit',$row->id) }}" class="btn btn-warning"  title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </a>
+                              @include('backend.hrm.holidays.edit')
 
-                                <form action="{{route('dashboard.salarySetups.destroy', $row->id)}}" method="POST" style="display:inline-block">
+
+                                <form action="{{route('dashboard.holidays.destroy', $row->id)}}" method="POST" style="display:inline-block">
                                     @csrf
                                  @method('delete')
                                 <button type="submit" class="mr-2 btn btn-danger show_confirm" title="@lang('site.delete')"><i class="fa fa-trash" aria-hidden="true"></i></button>
@@ -103,8 +93,10 @@
 
                     @push('js')
                         <script>
-                            var id ='basicFlatpickr'+{{  $row->id }};
-                            var f2 = flatpickr(document.getElementById(id));
+                            var from ='basicFlatpickrFrom'+{{  $row->id }};
+                            var to ='basicFlatpickrTo'+{{  $row->id }};
+                            var f3 = flatpickr(document.getElementById(from));
+                            var f4 = flatpickr(document.getElementById(to));
                         </script>
                     @endpush
                     @endforeach
@@ -130,27 +122,18 @@
         .select2-dropdown{
             z-index:1055 !important;
         }
-
-
-        @media (min-width: 576px){
-            .modal-dialog {
-            max-width: 50% !important;
-            margin: 1.75rem auto;
-        }
-        }
-
     </style>
 @endpush
 
 @push('js')
-<script src="{{asset('public/backend/crock/assets/js/apps/add_purchase.js') }}"></script>
-<script src="{{asset('public/backend/crock/assets/js/payroll.js') }}"></script>
+
 <script type="text/javascript">
     var ss = $(".basic").select2({
          tags: true,
          dropdownParent: $("#exampleModal"),
      });
 </script>
+
 <script type="text/javascript">
 
     $('.show_confirm').click(function(event) {
@@ -174,7 +157,8 @@
 </script>
 
 <script>
-    var f1 = flatpickr(document.getElementById('basicFlatpickr'));
+    var f1 = flatpickr(document.getElementById('basicFlatpickrFrom'));
+    var f2 = flatpickr(document.getElementById('basicFlatpickrTo'));
 </script>
 
 @endpush

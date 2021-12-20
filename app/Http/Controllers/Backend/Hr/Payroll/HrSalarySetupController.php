@@ -21,7 +21,9 @@ class HrSalarySetupController extends Controller
     public function store(Request $request){
       return $this->SalarySetupInterface->store($request);
     }
-
+    public function edit($id){
+        return $this->SalarySetupInterface->edit($id);
+    }
     public function update(Request $request,$id){
       return $this->SalarySetupInterface->update($request,$id);
     }

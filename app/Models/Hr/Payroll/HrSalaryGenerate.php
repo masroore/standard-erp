@@ -4,9 +4,9 @@ namespace App\Models\Hr\Payroll;
 
 use Illuminate\Database\Eloquent\Model;
 
-class HrSalarySetup extends Model
+class HrSalaryGenerate extends Model
 {
     protected $fillable = [
-        'employee_id','basic','is_percentage', 'addition','deduction', 'gross_salary',
+        'salary_name','date','user_id'
     ];
 }

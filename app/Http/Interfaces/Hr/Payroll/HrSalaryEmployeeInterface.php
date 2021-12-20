@@ -2,15 +2,15 @@
 
 namespace App\Http\Interfaces\Hr\Payroll;
 
-interface HrSalarySetupInterface{
+interface HrSalaryEmployeeInterface{
 
-    public function index();
+    public function index($generate_id);
 
 
     public function store($request);
-    public function edit($id);
 
     public function update($request,$id);
+    public function invoice($id);
 
     public function destroy($id);
 

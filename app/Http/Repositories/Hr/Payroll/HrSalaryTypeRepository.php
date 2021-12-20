@@ -1,22 +1,22 @@
 <?php
 namespace App\Http\Repositories\Hr\Payroll;
 
-use App\Http\Interfaces\Hr\Payroll\HrsalaryTypeInterface;
+use App\Http\Interfaces\Hr\Payroll\HrSalaryTypeInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Hr\Payroll\HrsalaryType;
+use App\Models\Hr\Payroll\HrSalaryType;
 use Illuminate\Support\Facades\Auth;
 use Image;
 
 
-class HrsalaryTypeRepository implements HrsalaryTypeInterface
+class HrsalaryTypeRepository implements HrSalaryTypeInterface
 {
 
 
     private $salarTypeModel;
 
-    public function __construct(HrsalaryType $salaryType)
+    public function __construct(HrSalaryType $salaryType)
     {
         $this->salarTypeModel = $salaryType;
 
@@ -37,8 +37,12 @@ class HrsalaryTypeRepository implements HrsalaryTypeInterface
             'benefits' => 'required|string|unique:hr_salary_types,benefits',
             'type' => 'required|string',
        ]);
+        $requestArray = [
+           'benefits' => str_replace(" ","",ucwords($request->benefits)),
+        ]+$request->all();
 
-            $this->salarTypeModel::create($request->all());
+
+            $this->salarTypeModel::create($requestArray);
 
         if( config('app.locale') == 'ar'){
             alert()->success('تم الإنشاء  بنجاح', 'عمل رائع');
@@ -58,8 +62,10 @@ class HrsalaryTypeRepository implements HrsalaryTypeInterface
        ]);
 
        $salarTypeModel = $this->salarTypeModel::FindOrFail($id);
-
-       $salarTypeModel->update($request->all());
+       $requestArray = [
+        'benefits' => str_replace(" ","",ucwords($request->benefits)),
+        ]+$request->all();
+       $salarTypeModel->update($requestArray);
 
         if( config('app.locale') == 'ar'){
             alert()->success('تم التعديل   بنجاح', 'عمل رائع');

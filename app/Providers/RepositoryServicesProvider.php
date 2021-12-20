@@ -159,7 +159,23 @@ class RepositoryServicesProvider extends ServiceProvider
             'App\Http\Interfaces\Hr\Payroll\HrSalarySetupInterface',
             'App\Http\Repositories\Hr\Payroll\HrSalarySetupRepository'
         );
+        $this->app->bind(
+            'App\Http\Interfaces\Hr\Payroll\HrSalaryGenerateInterface',
+            'App\Http\Repositories\Hr\Payroll\HrSalaryGenerateRepository'
+        );
+        $this->app->bind(
+            'App\Http\Interfaces\Hr\Payroll\HrSalaryEmployeeInterface',
+            'App\Http\Repositories\Hr\Payroll\HrSalaryEmployeeRepository'
+        );
 
+        $this->app->bind(
+            'App\Http\Interfaces\Hr\HrWorkdayInterface',
+            'App\Http\Repositories\Hr\HrWorkdayRepository'
+        );
+        $this->app->bind(
+            'App\Http\Interfaces\Hr\HrHolidayInterface',
+            'App\Http\Repositories\Hr\HrHolidayRepository'
+        );
     }
 
     /**

@@ -278,7 +278,7 @@
             </li>
 
             <li class="menu">
-                <a href="#payroll" data-toggle="collapse" aria-expanded="{{is_true(['salaryTypes','salarySetups'])}}" class="dropdown-toggle text-white">
+                <a href="#payroll" data-toggle="collapse" aria-expanded="{{is_true(['salaryTypes','salarySetups','salaryGenerate','salaryEmployee'])}}" class="dropdown-toggle text-white">
 
 
 
@@ -292,16 +292,48 @@
                     </div>
 
                 </a>
-                <ul class="collapse submenu list-unstyled {{is_show(['salaryTypes','salarySetups'])}}" id="payroll" data-parent="#accordionExample">
+                <ul class="collapse submenu list-unstyled {{is_show(['salaryTypes','salarySetups','salaryGenerate','salaryEmployee'])}}" id="payroll" data-parent="#accordionExample">
                     <li class="{{is_active('salaryTypes')}}">
                         <a href="{{route('dashboard.salaryTypes.index')}}">   @lang('site.salary_type') </a>
                     </li>
                     <li class="{{is_active('salarySetups')}}">
                         <a href="{{route('dashboard.salarySetups.index')}}">   @lang('site.salary_setup') </a>
                     </li>
+                    <li class="{{is_active('salaryGenerate')}}">
+                        <a href="{{route('dashboard.salaryGenerate.index')}}">   @lang('site.salary_generate') </a>
+                    </li>
+
 
                 </ul>
             </li>
+
+            <li class="menu">
+                <a href="#holidays" data-toggle="collapse" aria-expanded="{{is_true(['workdays','holidays'])}}" class="dropdown-toggle text-white">
+
+
+
+                     <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+
+                        <span> @lang('site.holidays')</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+
+                </a>
+                <ul class="collapse submenu list-unstyled {{is_show(['workdays','holidays'])}}" id="holidays" data-parent="#accordionExample">
+                    <li class="{{is_active('workdays')}}">
+                        <a href="{{route('dashboard.workdays.index')}}">   @lang('site.workdays') </a>
+                    </li>
+                    <li class="{{is_active('holidays')}}">
+                        <a href="{{route('dashboard.holidays.index')}}">   @lang('site.holidays') </a>
+                    </li>
+
+
+                </ul>
+            </li>
+
             <li class="menu">
                 <a href="{{route('dashboard.tickets.index')}}"  aria-expanded="{{is_true(['tickets'])}}" class="dropdown-toggle">
                     <div class="">

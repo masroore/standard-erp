@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Interfaces\Hr\Payroll;
+namespace App\Http\Interfaces\Hr;
 
-interface HrSalarySetupInterface{
+interface HrHolidayInterface{
 
     public function index();
 
 
     public function store($request);
-    public function edit($id);
 
     public function update($request,$id);
 
