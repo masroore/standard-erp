@@ -4,10 +4,10 @@
 @endphp
 
 @section('title')
-        {{ $lang == 'ar' ? '  تعديل الصنف' : ' Edit Item ' }}
+@lang('site.edit_product')
 @endsection
  @section('modelTitlie')
-        {{ $lang == 'ar' ? ' الاصناف ' : 'Items ' }}
+       @lang('site.products')
  @endsection
 @section('content')
 
@@ -19,9 +19,8 @@
                 <nav class="breadcrumb-one p-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a></li>
-                        <li class="breadcrumb-item"><a href="{{route('dashboard.stores.items.index')}}"> {{ $lang == 'ar' ? ' الاصناف ' : 'Items ' }}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><span>{{ $lang == 'ar' ? '  تعديل الصنف' : ' Edit Item ' }}</span></li>
-
+                        <li class="breadcrumb-item"><a href="{{route('dashboard.stores.items.index')}}"> @lang('site.products')</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.edit_product')</span></li>
                     </ol>
                 </nav>
             </div>
@@ -36,12 +35,13 @@
             <div class="widget-header">
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <h4>{{$lang == 'ar' ? 'الرجاء ادخال البيانات الاتية' : ' Please Fill User Data '}}</h4>
+                        <h4>@lang('site.please_fill_product_data')</h4>
                     </div>
                 </div>
             </div>
             <div class="widget-content widget-content-area p-3">
-                <form action="{{ route('dashboard.stores.items.update',$row->id) }}" method="POST" enctype="multipart/form-data">
+
+                <form action="{{ route('dashboard.stores.items.update', $row->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     @include('backend.partials._errors')

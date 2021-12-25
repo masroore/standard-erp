@@ -42,7 +42,7 @@ class HrEmployeeFileRepository implements HrEmployeeFileInterface
             'employee_id' => 'required|numeric',
             'title_en'    => 'required|string',
             'title_ar'    => 'required|string',
-            'file'        => 'required|mimes:jpeg,jpg,png,gif,doc,pdf,docx,zip',
+            'file'        => 'required|mimes:jpeg,jpg,png,gif,doc,pdf,docx,zip,xls,xlsx',
        ]);
 
        if($request->file){
@@ -74,7 +74,7 @@ class HrEmployeeFileRepository implements HrEmployeeFileInterface
             'employee_id' => 'required|numeric',
             'title_en' => 'required|string',
             'title_ar' => 'required|string',
-            'file' => 'nullable|mimes:jpeg,jpg,png,gif,doc,pdf,docx,zip',
+            'file' => 'nullable|mimes:jpeg,jpg,png,gif,doc,pdf,docx,zip,xls,xlsx',
        ]);
 
 

@@ -10,7 +10,7 @@
 
 @component('backend.partials._pagebar')
 
-    <li class="breadcrumb-item"><a href="{{ route('dashboard.'. $routeName .'.index') }}">@lang('site.journal entries') </a></li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard.finance.'. $routeName .'.index') }}">@lang('site.journal entries') </a></li>
     <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.journal entries list')</span></li>
 
 @endcomponent
@@ -19,7 +19,7 @@
 <div class="row layout-top-spacing" id="cancel-row">
     <div class="col-md-5"></div>
     <div class="col-md-2 mb-3">
-        <a href="{{route('dashboard.journals.create')}}" class="btn btn-primary center">@lang('site.add_new')</a>
+       <a href="{{route('dashboard.finance.journals.create')}}" class="btn btn-primary center">  <i class="fa fa-plus"></i>  @lang('site.add_new')</a>
     </div>
 
     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
@@ -56,8 +56,8 @@
 
                         <td>
                            @include('backend.finance.journals.show')
-                              <a href="{{route('dashboard.journals.edit', $row->id)}}" class="btn btn-warning" title="@lang('site.edit')"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                <form action="{{ route('dashboard.journals.destroy' , $row->id) }}" method="post" style="display:inline-block">
+                              <a href="{{route('dashboard.finance.journals.edit', $row->id)}}" class="btn btn-warning" title="@lang('site.edit')"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <form action="{{ route('dashboard.finance.journals.destroy' , $row->id) }}" method="post" style="display:inline-block">
                                     @csrf
                                     @method('delete')
                                 <button type="submit" class="mr-2 btn btn-danger show_confirm" title="@lang('site.delete')"><i class="fa fa-trash" aria-hidden="true"></i></button>

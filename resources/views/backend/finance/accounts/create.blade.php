@@ -22,8 +22,14 @@
         <div class="statbox widget box box-shadow">
             <div class="widget-header">
                 <div class="row">
-                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <h4>{{$lang == 'ar' ? 'الرجاء ادخال البيانات الاتية' : 'Please Fill User Data '}}</h4>
+                    <div class="col-md-9 col-sm-12 ">
+                        <h4>@lang('site.please_fill_account_date')</h4>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12 mt-2">
+                        <a href="{{ route('dashboard.finance.'. $routeName .'.index') }}" class="btn btn-primary">
+                          <i class="fa fa-list"></i>  @lang('site.account list')
+                        </a>
                     </div>
                 </div>
             </div>

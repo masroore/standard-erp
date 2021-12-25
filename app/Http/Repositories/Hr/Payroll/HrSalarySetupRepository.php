@@ -39,26 +39,17 @@ class HrSalarySetupRepository implements HrSalarySetupInterface
 
 
     public function store($request){
+
         $request->validate([
-            'employee_id' => 'required|numeric',
-            'date' => 'required|date',
-            'title_en' => 'required|string',
-            'title_ar' => 'required|string',
-            'image' => 'required|mimes:jpeg,jpg,png,gif,',
+            'employee_id' => 'required|numeric|exists:hr_employees,id|unique:hr_salary_setups,employee_id',
+            'gross_salary' => 'required|numeric',
        ]);
 
-
-       if($request->image){
-
-                $image          = $request->image;
-                $ext  =  $image->getClientOriginalExtension();
-                $imageName     = time().Str::random('10').'.'.$ext;
-                $image->move(public_path('uploads/employee/SalarySetups/'),$imageName);
-                $imagename= 'uploads/employee/SalarySetups/'.$imageName;
-        }
-
-
-            $requestArray = ['image'=>$imagename]+$request->all();
+            $requestArray = [
+                'addition' => json_encode($request->addition),
+                'deduction' => json_encode($request->deduction),
+            ]+$request->all();
+            // dd($requestArray);
             $this->salarSetupModel::create($requestArray);
 
         if( config('app.locale') == 'ar'){
@@ -66,38 +57,34 @@ class HrSalarySetupRepository implements HrSalarySetupInterface
         }else{
             alert()->success(' Created Successfully', 'Good Work');
         }
-         return redirect()->route('dashboard.SalarySetups.index');
+         return redirect()->route('dashboard.salarySetups.index');
 
 
     }// end of store
+    public function edit($id){
+        $row =  $this->salarSetupModel::join('hr_employees', 'hr_employees.id', '=', 'hr_salary_setups.employee_id')
+        ->select('hr_salary_setups.*','hr_employees.name as employee_name')
+        ->FindOrFail($id);
+        $employees =  HrEmployee::get();
+        $salaryType =  HrSalaryType::get();
+        $routeName = 'salarySetups';
+        return view('backend.hrm.payroll.salarySetups.edit',compact('routeName','row','employees','salaryType'));
+
+     }//end of index
+
 
     public function update($request,$id){
 
         $request->validate([
-            'employee_id' => 'required|numeric',
-            'date' => 'required|date',
-            'title_en' => 'required|string',
-            'title_ar' => 'required|string',
-            'image' => 'nullable|mimes:jpeg,jpg,png,gif,',
+            'employee_id' => 'required|numeric|exists:hr_employees,id|unique:hr_salary_setups,employee_id,'.$id,
+            'gross_salary' => 'required|numeric',
        ]);
 
        $salarSetupModel = $this->salarSetupModel::FindOrFail($id);
-
-       if($request->image){
-
-            $image          = $request->image;
-            $ext  =  $image->getClientOriginalExtension();
-            $imageName     = time().Str::random('10').'.'.$ext;
-            $image->move(public_path('uploads/employee/SalarySetups/'),$imageName);
-            $imagename= 'uploads/employee/SalarySetups/'.$imageName;
-            unlink(public_path($salarSetupModel->image));
-
-        }
-
-        $requestArray = $request->all();
-        if(isset($imagename)){
-            $requestArray = ['image'=>$imagename]+$request->all();
-        }
+       $requestArray = [
+            'addition' => json_encode($request->addition),
+            'deduction' => json_encode($request->deduction),
+        ]+$request->all();
 
        $salarSetupModel->update($requestArray);
 
@@ -106,16 +93,15 @@ class HrSalarySetupRepository implements HrSalarySetupInterface
         }else{
             alert()->success(' updated Successfully', 'Good Work');
         }
-         return redirect()->route('dashboard.SalarySetups.index');
+         return redirect()->route('dashboard.salarySetups.index');
 
 
     }// end of update
 
     public function destroy($id){
 
-        $salarSetupModel =  $this->salarSetupModel::FindOrFail($id);
-        $salarSetupModel->delete();
-        unlink(public_path($salarSetupModel->image));
+    $this->salarSetupModel::FindOrFail($id)->delete();
+
         if( config('app.locale') == 'ar'){
             alert()->success('تم  الحذف  بنجاح', 'عمل رائع');
         }else{
@@ -123,7 +109,7 @@ class HrSalarySetupRepository implements HrSalarySetupInterface
         }
 
 
-         return redirect()->route('dashboard.SalarySetups.index');
+         return redirect()->route('dashboard.salarySetups.index');
     }// end of destroy
 
 } // end of class

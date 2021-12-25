@@ -31,8 +31,9 @@
 
 <div class="row layout-top-spacing" id="cancel-row">
     <div class="col-md-5"></div>
-    <div class="col-md-2">
-        <a href="{{route('dashboard.employees.create')}}" class="btn btn-primary center"> @lang('site.add_new_employee')</a>
+    <div class="col-md-5">
+        <a href="{{route('dashboard.employees.create')}}" class="btn btn-primary center">
+            <i class="fa fa-plus"></i> @lang('site.add_new_employee')</a>
     </div>
 
     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
@@ -106,18 +107,6 @@
                     @endforeach
 
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th>#</th>
-
-                        <th>{{$lang == 'ar' ? 'الاسم' : ' Name '}}</th>
-                        <th>{{$lang == 'ar' ? 'التليفون' : ' Phone '}}</th>
-                        <th>{{$lang == 'ar' ? 'البريد الالكتروني' : ' Email '}}</th>
-                        <th>{{$lang == 'ar' ? 'الحالة' : ' Status '}}</th>
-
-                        <th class="no-content">{{$lang == 'ar' ? 'اجراءت' : ' Actions '}}</th>
-                    </tr>
-                </tfoot>
             </table>
         </div>
     </div>

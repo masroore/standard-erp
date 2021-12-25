@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class HrSalarySetup extends Model
 {
     protected $fillable = [
-        'employee_id', 'addition','deduction', 'gross_salary',
+        'employee_id','basic','is_percentage', 'addition','deduction', 'gross_salary',
     ];
 }

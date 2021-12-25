@@ -24,6 +24,7 @@ class HrRewardRepository implements HrRewardInterface
     }
 
     public function index(){
+        //dd('welcome');
        $rows =  $this->rewardModel::join('hr_employees', 'hr_employees.id', '=', 'hr_rewards.employee_id')
        ->select('hr_rewards.*','hr_employees.name as employee_name')
        ->get();

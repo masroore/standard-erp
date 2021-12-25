@@ -10,7 +10,7 @@
 
 @component('backend.partials._pagebar')
 
-    <li class="breadcrumb-item"><a href="{{ route('dashboard.'. $routeName .'.index') }}">@lang('site.journal entries list') </a></li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard.finance.'. $routeName .'.index') }}">@lang('site.journal entries list') </a></li>
     <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.create journal')</span></li>
 
 @endcomponent
@@ -21,14 +21,17 @@
   @include('backend.partials._errors')
 
 
-        <div class=" invoice layout-top-spacing layout-spacing">
+        <div class="invoice layout-top-spacing layout-spacing">
             <div class="invoice-content">
 
                 <div class="invoice-detail-body">
-
-                    <form action="{{ route('dashboard.'. $routeName .'.store') }}" method="post" enctype="multipart/form-data">
+                    <h4 class="float-left pl-2">  @lang('site.create journal') </h4>
+                    <a href="{{ route('dashboard.finance.'. $routeName .'.index') }}" class="btn btn-primary float-right">
+                        <i class="fa fa-list"></i>  @lang('site.journal entries list')
+                    </a>
+                    <form action="{{ route('dashboard.finance.'. $routeName .'.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                    <h3 class="text-center">  @lang('site.create journal') </h3>
+
                     <div class="invoice-detail-terms">
 
                         <div class="row justify-content-between">

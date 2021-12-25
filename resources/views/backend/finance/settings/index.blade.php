@@ -10,7 +10,7 @@
 
 @component('backend.partials._pagebar')
 
-    <li class="breadcrumb-item"><a href="{{ route('dashboard.'. $routeName .'.index') }}">@lang('site.settings') </a></li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard.finance.'. $routeName .'.index') }}">@lang('site.settings') </a></li>
     <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.setting_list')</span></li>
 
 @endcomponent
@@ -21,7 +21,7 @@
 <div class="row ">
     <div id="flFormsGrid" class="col-lg-12 layout-spacing">
         <div class="statbox widget box box-shadow">
-            <form action="{{ route('dashboard.'. $routeName .'.update',1) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('dashboard.finance.'. $routeName .'.update',1) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
 

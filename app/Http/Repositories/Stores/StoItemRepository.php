@@ -85,6 +85,7 @@ class StoItemRepository  implements StoItemInterface
     }
 
     public function search($value,$id){
+       // dd('wecom');
         $StoItem =  StoItem::where(function ($query) use ($value){
             $query->where('title_en', 'LIKE', '%'.$value.'%')
                 ->orWhere('title_ar', 'LIKE', '%'.$value.'%');
@@ -159,21 +160,27 @@ class StoItemRepository  implements StoItemInterface
         $categories = StoCategory::where('parent_id', 0)
         ->with('childrenCategories')
         ->get();
+
         $brands     = StoBrand::get();
         $units      = StoUnit::where('base_unit', '=', 0)->get();
         $taxes      = Tax::get();
         $countries  = FacadesDB::table('countries')->get();
-        $row        =  $this->model->where('id',$id)->with('collectionProduct',
-        'category','purchUnit','saleUnit','baseUnit','tags','user')->get();
-        //dd($row);
+        $row        =  $this->model->with('collectionProduct',
+        'category','purchUnit','saleUnit','baseUnit','tags','user')->where('id',$id)->first();
+
+
+      ///dd($row);
         $stores     = StoStore::get();
         $routeName  = 'items';
         $tags       = StoTag::get();
         $selectedTags = $this->model->find($id)->tags()->get()->pluck('id')->toArray();
 
-        //dd($selectedTags);
+       // dd($selectedTags);
 
-        return view('backend.stores.items.edit', compact('categories','tags','brands','row','units','taxes','countries','stores','routeName','selectedTags'));
+        return view('backend.stores.items.edit',
+        compact('categories','tags','brands','row',
+                'units','taxes','countries','stores',
+                'routeName','selectedTags','id'));
     }
 
     public function update($request,$id){
@@ -181,7 +188,7 @@ class StoItemRepository  implements StoItemInterface
 
         $request->validate([
             'title_en' => 'required|unique:sto_items,title_en,' . $id,
-            'title_ar' => 'required|unique:sto_items,title_ar,' . $id,
+            //'title_ar' => 'required|unique:sto_items,title_ar,' . $id,
             'code'     => 'required|unique:sto_items,code,' . $id,
         ]);
         $row =  $this->model->FindOrFail($id);
@@ -207,7 +214,7 @@ class StoItemRepository  implements StoItemInterface
 
         if($request->branch_id){$branch = $request->branch_id;}else{$branch = 1;}
 
-        $requestArray =   ['updated_by' => Auth::user()->id, 'branch_id' =>$branch ] + $request->all() ;
+        $requestArray =   ['updated_by' => Auth::user()->id, 'branch_id' =>$branch ,'title_ar' => $request->title_en ] + $request->all() ;
 
 
         $row->update($requestArray);

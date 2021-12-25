@@ -8,6 +8,7 @@ interface HrSalarySetupInterface{
 
 
     public function store($request);
+    public function edit($id);
 
     public function update($request,$id);
 

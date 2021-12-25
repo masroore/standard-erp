@@ -10,7 +10,7 @@
 
 @component('backend.partials._pagebar')
 
-    <li class="breadcrumb-item"><a href="{{ route('dashboard.'. $routeName .'.index') }}">@lang('site.journal entries list') </a></li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard.finance.'. $routeName .'.index') }}">@lang('site.journal entries list') </a></li>
     <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.edit_journal')</span></li>
 
 @endcomponent
@@ -27,7 +27,7 @@
 
                 <div class="invoice-detail-body">
 
-                    <form action="{{ route('dashboard.'. $routeName .'.update',$jornal->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('dashboard.finance.'. $routeName .'.update',$jornal->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                     <h3 class="text-center">  @lang('site.edit_journal') </h3>

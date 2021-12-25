@@ -320,8 +320,8 @@
 
             <div class="col-md-12 mt-3">
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">@lang('site.description')</label>
-                    <textarea class="form-control" name="description" value="{{old('description', isset($row) ? $row->description : '')}}" id="exampleFormControlTextarea1" rows="5">
+                    <label>@lang('site.description')</label>
+                    <textarea class="form-control" name="description" value="{{old('description', isset($row) ? $row->description : '')}}"  rows="5">
                        {{old('description', isset($row) ? $row->description : '')}}
                     </textarea>
                 </div>
@@ -331,8 +331,7 @@
                 <div class="form-group">
                     <label>@lang('site.tags')</label>
                     <select  class="form-control tagging" multiple="multiple"  name="tags[]" >
-
-                        @foreach ($tags as $tag) {{-- {{ in_array( $tag->id, $selectedTags) ? 'selected' : '' }} --}}
+                        @foreach ($tags as $tag)
                         <option value="{{ $tag->id }}"  {{ in_array( $tag->id, $selectedTags) ? 'selected' : '' }}>{{  $tag->title }}</option>
                         @endforeach
                     </select>

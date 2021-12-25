@@ -204,7 +204,7 @@
 
                 $.ajax({
                     type: 'get',
-                    url: "{{ url('dashboard/'. $routeName .'/search/') }}"+'/'+value+'/'+id,
+                    url: "{{ url('dashboard/stores/'. $routeName .'/search/') }}"+'/'+value+'/'+id,
                     success: function (data) {
                         $('.content-search'+id).html(data);
 
@@ -279,7 +279,7 @@
 
                 $.ajax({
                     type: 'get',
-                    url: "{{ url('dashboard/'. $routeName .'/search/') }}"+'/'+value+'/'+id,
+                    url: "{{ url('dashboard/stores/'. $routeName .'/search/') }}"+'/'+value+'/'+id,
                     success: function (data) {
                         $('.content-search'+id).html(data);
 
@@ -297,33 +297,33 @@
         });
 
 
-    // calculat price item after tax and discond
-    $(".calculat").on('click', function(){
+        // calculat price item after tax and discond
+        $(".calculat").on('click', function(){
 
-        var id =$(this).attr('id');
-        var qty = $('.qty'+id).val();
-        var sale_price = $('.sale_price'+id).val();
-        var price = (qty * sale_price);
-        // add tax
-        var tax = $('.tax'+id).val();
-        var precentTax = price * (tax/100)  ;
-        var priceAfterTax =  (price + precentTax).toFixed(2);
+            var id =$(this).attr('id');
+            var qty = $('.qty'+id).val();
+            var sale_price = $('.sale_price'+id).val();
+            var price = (qty * sale_price);
+            // add tax
+            var tax = $('.tax'+id).val();
+            var precentTax = price * (tax/100)  ;
+            var priceAfterTax =  (price + precentTax).toFixed(2);
 
-        // add discond
-        var disc =parseInt($('.disc'+id).val());
-        var disc_type =$('.disc_type'+id).find(":selected").text();
+            // add discond
+            var disc =parseInt($('.disc'+id).val());
+            var disc_type =$('.disc_type'+id).find(":selected").text();
 
-        if(disc_type == 'num' && disc > 0){
-            var amount =  (priceAfterTax - disc).toFixed(2) ;
+            if(disc_type == 'num' && disc > 0){
+                var amount =  (priceAfterTax - disc).toFixed(2) ;
 
-        }else if(disc_type == '%' && disc > 0){
-            var discond = priceAfterTax * (disc/100);
-            var amount =  (priceAfterTax - discond).toFixed(2) ;
-        }else{
-            var amount = priceAfterTax;
-        }
+            }else if(disc_type == '%' && disc > 0){
+                var discond = priceAfterTax * (disc/100);
+                var amount =  (priceAfterTax - discond).toFixed(2) ;
+            }else{
+                var amount = priceAfterTax;
+            }
 
-        $('.amount'+id).text(amount);
+            $('.amount'+id).text(amount);
         });
 
 });

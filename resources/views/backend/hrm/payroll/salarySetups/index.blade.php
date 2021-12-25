@@ -4,10 +4,10 @@
 @endphp
 
 @section('title')
-        @lang('site.medicals')
+        @lang('site.salarySetups')
 @endsection
  @section('modelTitlie')
-        @lang('site.medicals')
+        @lang('site.salarySetups')
  @endsection
 @section('content')
 
@@ -19,8 +19,8 @@
                 <nav class="breadcrumb-one p-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);"> @lang('site.medicals')</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.medicals_list')</span></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);"> @lang('site.salarySetups')</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.salarySetups_list')</span></li>
 
                     </ol>
                 </nav>
@@ -43,10 +43,9 @@
                     <tr>
                         <th>#</th>
                         <th>@lang('site.employee')</th>
-                        <th>@lang('site.title_en')</th>
-                        <th>@lang('site.title_ar')</th>
+                        <th>@lang('site.basic_salary')</th>
+                        <th>@lang('site.gross_salary')</th>
                         <th>@lang('site.date')</th>
-                        <th>@lang('site.image')</th>
                         <th class="no-content">@lang('site.actions')</th>
                     </tr>
                 </thead>
@@ -67,39 +66,34 @@
                         <td class="sorting_1 sorting_2">
                             <div class="d-flex">
 
-                                <p class="align-self-center mb-0 admin-name"> {{$row->title_en}} </p>
+                                <p class="align-self-center mb-0 admin-name"> {{$row->basic}} </p>
                             </div>
                         </td>
                         <td class="sorting_1 sorting_2">
                             <div class="d-flex">
 
-                                <p class="align-self-center mb-0 admin-name"> {{$row->title_ar}} </p>
-                            </div>
-                        </td>
-
-                        <td class="sorting_1 sorting_2">
-                            <div class="d-flex">
-
-                                <p class="align-self-center mb-0 admin-name"> {{$row->date}} </p>
+                                <p class="align-self-center mb-0 admin-name"> {{$row->gross_salary}} </p>
                             </div>
                         </td>
 
                         <td class="sorting_1 sorting_2">
                             <div class="d-flex">
 
-                               <a href="{{ asset('public/'.$row->image) }}" target="_blank" rel="noopener noreferrer">
-                                 <img src="{{ asset('public/'.$row->image) }}" width="70" height="70">
-                                </a>
+                                <p class="align-self-center mb-0 admin-name"> {{ \Carbon\Carbon::parse($row->date)->format('d-m-Y') }} </p>
                             </div>
                         </td>
+
+
 
                         <td>
 
 
-                              @include('backend.hrm.medicals.edit')
+                              {{-- @include('backend.hrm.payroll.salarySetups.edit') --}}
+                              <a href="{{ route('dashboard.salarySetups.edit',$row->id) }}" class="btn btn-warning"  title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
 
-
-                                <form action="{{route('dashboard.medicals.destroy', $row->id)}}" method="POST" style="display:inline-block">
+                                <form action="{{route('dashboard.salarySetups.destroy', $row->id)}}" method="POST" style="display:inline-block">
                                     @csrf
                                  @method('delete')
                                 <button type="submit" class="mr-2 btn btn-danger show_confirm" title="@lang('site.delete')"><i class="fa fa-trash" aria-hidden="true"></i></button>
@@ -149,15 +143,14 @@
 @endpush
 
 @push('js')
-
+<script src="{{asset('public/backend/crock/assets/js/apps/add_purchase.js') }}"></script>
+<script src="{{asset('public/backend/crock/assets/js/payroll.js') }}"></script>
 <script type="text/javascript">
     var ss = $(".basic").select2({
          tags: true,
          dropdownParent: $("#exampleModal"),
      });
 </script>
-<script src="{{asset('public/backend/crock/assets/js/apps/add_purchase.js') }}"></script>
-
 <script type="text/javascript">
 
     $('.show_confirm').click(function(event) {

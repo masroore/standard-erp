@@ -22,8 +22,14 @@
         <div class="statbox widget box box-shadow">
             <div class="widget-header">
                 <div class="row">
-                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <span class="h4 p-4 mr-2">@lang('site.account list')</span><a class="btn btn-primary" title="@lang('site.create account')" href="{{route('dashboard.finance.accounts.create')}}"><i class="fa fa-plus"></i></a>
+                    <div class="col-md-9 col-sm-12">
+                        <h4 class="">@lang('site.account list')</h4>
+
+                    </div>
+                    <div class="col-md-3 col-sm-12 mt-2">
+                        <a class="btn btn-primary"  href="{{route('dashboard.finance.accounts.create')}}">
+                            <i class="fa fa-plus"></i> @lang('site.create account')
+                        </a>
                     </div>
                 </div>
             </div>
