@@ -10,7 +10,7 @@
 
 @component('backend.partials._pagebar')
 
-    <li class="breadcrumb-item"><a href="{{ route('dashboard.'. $routeName .'.index') }}">@lang('site.accounts') </a></li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard.finance.'. $routeName .'.index') }}">@lang('site.accounts') </a></li>
     <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.create account')</span></li>
 
 @endcomponent
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="widget-content widget-content-area p-3">
-                <form action="{{ route('dashboard.'. $routeName .'.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('dashboard.finance.'. $routeName .'.store') }}" method="POST" enctype="multipart/form-data">
                     <div class="row">
                     @csrf
                     @include('backend.partials._errors')
@@ -46,7 +46,7 @@
                     <div class="form-group col-md-6">
                         <label>@lang('site.parent account')</label>
                         <select class="form-control nested select2" name="parent_id" >
-                           
+
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
                                 @foreach ($category->childrenCategories as $childCategory)

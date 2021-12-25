@@ -22,7 +22,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['localeSessionRedirect','localizationRedirect','localeViewPath']], function()
 {
 
-    Route::prefix('dashboard')->name('dashboard.')->group(function(){
+    Route::prefix('dashboard/stores')->name('dashboard.stores.')->group(function(){
 
         // route here
 

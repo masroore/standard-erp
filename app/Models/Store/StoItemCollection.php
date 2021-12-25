@@ -11,5 +11,8 @@ class StoItemCollection extends Model
     protected $table    = 'sto_item_collections';
     protected $fillable = ['belongs_product','item_id','price','qty'];
 
+    public function items(){
+        return $this->hasMany(StoItem::class , 'item_id');
+    }
 
 }

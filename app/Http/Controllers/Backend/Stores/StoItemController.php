@@ -15,8 +15,8 @@ class StoItemController extends Controller
         $this->middleware('auth');
     }// end of constructor
 
-    public function index(){
-      return $this->stoItemInterface->index();
+    public function index(Request $request){
+      return $this->stoItemInterface->index($request);
     }
 
     public function search($value,$id){

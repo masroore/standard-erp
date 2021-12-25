@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\BackEnd\Tickets;
 
-use App\Http\Controllers\Controller; 
+use App\Http\Controllers\Controller;
 use App\Http\Interfaces\Tickets\TicketInterface;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,7 @@ class TicketController extends Controller
 
     public function __construct(TicketInterface $ticketInterface){
         $this->ticketInterface = $ticketInterface ;
-    }// end of constructor 
+    }// end of constructor
 
     public function index(){
       return $this->ticketInterface->index();
@@ -26,8 +26,8 @@ class TicketController extends Controller
       return $this->ticketInterface->store($request);
     }
 
-    public function update(Request $request){
-      return $this->ticketInterface->update($request);
+    public function update(Request $request,$id){
+      return $this->ticketInterface->update($request,$id);
     }
 
     public function moveTicket(Request $request){
@@ -44,7 +44,7 @@ class TicketController extends Controller
 
     public function destroy($id){
       return $this->ticketInterface->destroy($id);
-    }// end of destroy 
+    }// end of destroy
 
     public function AddTicketReplay(Request $request){
        return $this->ticketInterface->AddTicketReplay($request);

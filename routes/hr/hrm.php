@@ -6,6 +6,8 @@ use App\Http\Controllers\Backend\Hr\HrEmployeeController;
 use App\Http\Controllers\Backend\Hr\HrEmployeeFileController;
 use App\Http\Controllers\Backend\Hr\HrMedicalController;
 use App\Http\Controllers\Backend\Hr\HrRewardController;
+use App\Http\Controllers\Backend\Hr\Payroll\HrSalarySetupController;
+use App\Http\Controllers\Backend\Hr\Payroll\HrSalaryTypeController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 /*
@@ -36,6 +38,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['loc
         Route::resource('rewards', HrRewardController::class);
         Route::resource('employeeFiles', HrEmployeeFileController::class);
         Route::resource('medicals', HrMedicalController::class);
+
+
+        // Payroll routes
+        Route::resource('salaryTypes', HrSalaryTypeController::class);
+        Route::resource('salarySetups', HrSalarySetupController::class);
+
 
 
 

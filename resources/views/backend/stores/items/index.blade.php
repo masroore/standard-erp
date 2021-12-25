@@ -17,7 +17,7 @@
         <div class="statbox widget box box-shadow">
             <div class="widget-content widget-content-area">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                         <nav class="breadcrumb-one p-3" aria-label="breadcrumb">
 
 
@@ -29,7 +29,7 @@
                         </nav>
                     </div>
                     <div class="col-md-3 p-3">
-                        <a  href="{{route('dashboard.items.create')}}" class="btn btn-primary float-right">@lang('site.add_product') </a>
+                        <a  href="{{route('dashboard.stores.items.create')}}" class="btn btn-primary float-right"> <i class="fa fa-plus"></i> @lang('site.add_product') </a>
                     </div>
                 </div>
             </div>
@@ -37,35 +37,52 @@
     </div>
 </div>
 
+<form action="{{ route('dashboard.stores.items.index') }}" method="get">
 
-@include('backend.partials._errors')
-
-
-
-<form action="" method="get">
-    <div class="row  layout-spacing container flex">
-        <div class="col-md-2">
-            <label> @lang('site.title') </label>
+    <div class="row">
+        <div class="col-md-3">
+            <label> @lang('site.title_en') </label>
             <input type="text" name="title" class="form-control">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <label> @lang('site.code') </label>
             <input type="text" name="code" class="form-control">
         </div>
-        <div class="col-md-2">
-            <label> @lang('site.title') </label>
-            <input type="text" name="title" class="form-control">
+
+        <div class="col-md-3">
+            <label> @lang('site.categories') </label>
+            <select class="form-control  basic select2" name="cat_id" >
+                <option value="">@lang('site.select_category')</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" {{ isset($row) && $row->cat_id == $category->id ? 'selected'  : '' }}>{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
+                    @foreach ($category->childrenCategories as $childCategory)
+                        @include('backend.stores.items.child_category', ['child_category' => $childCategory])
+                    @endforeach
+                @endforeach
+            </select>
         </div>
-        <div class="col-md-2">
-            <label> @lang('site.code') </label>
-            <input type="text" name="code" class="form-control">
+
+        <div class="col-md-3">
+            <label> @lang('site.brands') </label>
+            <select class="form-control  basic select2" name="brand_id" >
+                <option value="">@lang('site.select_brand')</option>
+                @foreach ($brands as $brand)
+                    <option value="{{ $brand->id }}" {{isset($row) && $row->brand_id == $brand->id  ? 'selected' : ''}} >{{$lang == 'ar' ? $brand->title_ar: $brand->title_en}}</option>
+                @endforeach
+            </select>
         </div>
-        <div class="col-md-2">
-            <label> @lang('site.title') </label>
-            <input type="text" name="title" class="form-control">
+
+        <div class="col-md-10">
+            <label> @lang('site.tags') </label>
+            <select  class="form-control tagging" multiple="multiple"  name="tags[]" >
+                @foreach ($tags as $tag)
+                <option value="{{ $tag->id }}">{{  $tag->title }}</option>
+                @endforeach
+            </select>
         </div>
-        <div class="col-md-2 mt-4">
-            <button class="btn btn-info" type="submit"><i class="fa fa-search"></i></button>
+
+        <div class="col-md-2 mt-4 pt-2">
+            <button class="btn btn-info" type="submit"><i class="fa fa-search"></i> @lang('site.search') </button>
         </div>
     </div>
 
@@ -73,22 +90,18 @@
 
 <div class="row layout-top-spacing" id="cancel-row">
 
-
-
-
     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
         <div class="widget-content widget-content-area br-6">
             <table id="zero-config" class="table dt-table-hover" style="width:100%">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>{{$lang == 'ar' ? 'الصورة' : '  Image '}}</th>
-                        <th>{{$lang == 'ar' ? 'الكود' : ' Code '}}</th>
-                        <th>{{$lang == 'ar' ? 'الاسم باللغة العربية' : ' Name Arabic '}}</th>
-                        <th>{{$lang == 'ar' ? 'الاسم باللغة الانجليزية' : ' Name English '}}</th>
-                        <th>{{$lang == 'ar' ? '  التصنيف ' : '   Category '}}</th>
-                        <th>{{$lang == 'ar' ? '   العلامة التجارية' : '   Brand '}}</th>
-                        <th class="no-content">{{$lang == 'ar' ? 'اجراءت' : ' Actions '}}</th>
+                        <th class="no-content">@lang('site.photo')</th>
+                        <th>@lang('site.title_en')</th>
+                        <th>@lang('site.code')</th>
+                        <th>@lang('site.category')</th>
+                        <th>@lang('site.brand')</th>
+                        <th class="no-content">@lang('site.actions')</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -116,21 +129,23 @@
                         <td class="sorting_1 sorting_2">
                             <div class="d-flex">
 
+                                <p class="align-self-center mb-0 admin-name"> {{$row->title_en}} </p>
+                            </div>
+                        </td>
+
+                        <td class="sorting_1 sorting_2">
+                            <div class="d-flex">
+
                                 <p class="align-self-center mb-0 admin-name"> {{$row->code}} </p>
                             </div>
                         </td>
-                        <td class="sorting_1 sorting_2">
+                        {{-- <td class="sorting_1 sorting_2">
                             <div class="d-flex">
 
                                 <p class="align-self-center mb-0 admin-name"> {{$row->title_ar}} </p>
                             </div>
-                        </td>
-                        <td class="sorting_1 sorting_2">
-                            <div class="d-flex">
+                        </td> --}}
 
-                                <p class="align-self-center mb-0 admin-name"> {{$row->title_en}} </p>
-                            </div>
-                        </td>
 
                         <td class="sorting_1 sorting_2">
                             <div class="d-flex">
@@ -164,21 +179,22 @@
                         </td>
 
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bd-example-modal-lg{{$row->id}}" title="{{$lang == 'ar' ? ' عرض' : ' Show '}}">
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#bd-example-modal-lg{{$row->id}}" title="{{$lang == 'ar' ? ' عرض' : ' Show '}}">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </button>
 
 
-                            <a href="{{route('dashboard.items.edit', $row->id)}}" class="btn btn-warning" title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="{{route('dashboard.stores.items.edit', $row->id)}}" class="btn btn-warning btn-sm" title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
 
-                            <form action="{{route('dashboard.items.destroy', $row->id)}}" method="POST" style="display:inline-block">
+                            <form action="{{route('dashboard.stores.items.destroy', $row->id)}}" method="POST" style="display:inline-block">
                                 @csrf
                                 @method('delete')
-                            <button type="submit" class="mr-2 btn btn-danger show_confirm" title="{{$lang == 'ar' ? 'حذف ' : 'Delete  '}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <button type="submit" class="mr-2 btn btn-danger show_confirm btn-sm" title="{{$lang == 'ar' ? 'حذف ' : 'Delete  '}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </form>
                         </td>
                     </tr>
-                        @include('backend.stores.items.show')
+
+                    @include('backend.stores.items.show')
                     @endforeach
 
 
@@ -233,6 +249,9 @@
 <script type="text/javascript">
     $(".nested").select2({
         tags: true
+    });
+    $(".tagging").select2({
+    tags: true
     });
 </script>
 @endpush

@@ -3,45 +3,32 @@ namespace App\Http\Repositories\Finance;
 use App\Models\Finance\FinAccount;
 use App\Models\Finance\FinCategory;
 use App\Http\Interfaces\Finance\FinJournalInterface;
-use App\Http\Repositories\LaravelLocalization;
 use App\Models\Finance\FinJournal;
 use App\Models\Finance\FinJournalDetail;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Image;
-
+use Illuminate\Support\Facades\DB;
 
 class FinJournalRepository  implements FinJournalInterface
 {
 
     private $model;
 
-    public function __construct(FinAccount $model)
+    public function __construct(FinJournal $model)
     {
         $this->model = $model;
     }
 
     public function index(){
-        $cats           = FinCategory::get();
-        $rows      = $this->model::get();
-        $routeName = 'accounts';
-
-        $categories  = $this->model::where('parent_id', 0)
-        ->with('childrenCategories')
-        ->get();
-
-       // dd($categories);
-
-
-        return view('backend.finance.accounts.index', compact('rows','routeName','cats','categories'));
+        $rows      = $this->model::orderBy('date','desc')->with('items')->get();
+        $routeName = 'journals';
+        return view('backend.finance.journals.index', compact('rows','routeName'));
 
     }//end of index
 
     public function create(){
 
-        $rows      = $this->model::get();
-        $categories  = $this->model::where('parent_id', 0)
+        $rows        = FinAccount::get();
+        $categories  = FinAccount::where('parent_id', 0)
         ->with('childrenCategories')
         ->get();
         $routeName = 'journals';
@@ -68,9 +55,9 @@ class FinJournalRepository  implements FinJournalInterface
         if($request->attachment){
             $file =$request->attachment;
             $name = time().'.'.$file->getClientOriginalExtension();
-                        $destinationPath = public_path('/files/journal');
+                        $destinationPath = public_path('/uploads/journals');
                         $file->move($destinationPath, $name);
-            $attachment = 'files/journal/'.$name;
+            $attachment = $name;
         }
 
 
@@ -108,23 +95,58 @@ class FinJournalRepository  implements FinJournalInterface
     }// end of store
 
 
-    public function edit(){
+    public function edit($id){
 
+        $rows        = FinAccount::get();
+        $categories  = FinAccount::where('parent_id', 0)
+        ->with('childrenCategories')
+        ->get();
+        $routeName = 'journals';
+        $jornal = $this->model::where('id', $id)->with('items')->first();
+        return view('backend.finance.journals.edit' , compact('routeName','categories','rows','jornal'));
     }// end of edit
 
     public function update($request,$id){
-       //dd($id);
-
+      // dd($request->all());
         $request->validate([
-            'title_en' => 'required',
-            'title_ar' => 'required',
+            'ref' => 'required|',
+            'date' => 'required|date',
+            'account_id'=> 'required|',
+            'credit'=> 'required|',
+            'debit'=> 'required|',
+            'details'=> 'required|string',
         ]);
 
-        $requestArray = $request->all();
-
         $row =  $this->model->FindOrFail($id);
+        if($request->attachment){
+            $file =$request->attachment;
+            $name = time().'.'.$file->getClientOriginalExtension();
+                        $destinationPath = public_path('/uploads/journals');
+                        $file->move($destinationPath, $name);
+            $attachment = $name;
+        }else{
+            $attachment = $row->attachment;
+        }
+
+        $requestArray = ['attachment' =>$attachment] + $request->all();
 
         $row->update($requestArray);
+
+        //delete old item
+        DB::table('fin_journal_details')->where('journal_id', '=', $id)->delete();
+        // save details
+        for ($i=0; $i < count($request->account_id); $i++) {
+                FinJournalDetail::create([
+
+                    'journal_id'       => $row->id,
+                    'account_id'       => $request->account_id[$i],
+                    'debit'            => $request->debit[$i],
+                    'credit'           => $request->credit[$i],
+                    'created_at'       => $row->created_at,
+                    'updated_at'       => $row->updated_at,
+
+                ]);
+        }
 
         if( config('app.locale') == 'ar'){
             alert()->success('تم تعديل السجل  بنجاح', 'عمل رائع');

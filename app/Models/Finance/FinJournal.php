@@ -16,5 +16,9 @@ class FinJournal extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function items(){
+        return $this->hasMany(FinJournalDetail::class, 'journal_id');
+    }
+
 
 }

@@ -16,7 +16,7 @@
                     </button>
                 </div>
 
-                <form action="{{ route('dashboard.units.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('dashboard.stores.units.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
 

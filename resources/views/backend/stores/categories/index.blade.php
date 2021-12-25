@@ -88,7 +88,7 @@
                                     @if ($row->parent_id != 0 )
                                         @php
                                             $catName =  App\Models\Store\StoCategory::where('id', $row->parent_id)->first();
-                                          
+
                                         @endphp
                                         {{$lang == 'ar' ? $catName->title_ar : $catName->title_en}}
                                     @elseif($row->parent_id == 0)
@@ -119,7 +119,7 @@
 
                               {{-- <a href="{{route('dashboard.categories.edit', $row->id)}}" class="btn btn-warning" title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a> --}}
                               {{-- end of edit --}}
-                                <form action="{{route('dashboard.categories.destroy', $row->id)}}" method="POST" style="display:inline-block">
+                                <form action="{{route('dashboard.stores.categories.destroy', $row->id)}}" method="POST" style="display:inline-block">
                                     @csrf
                                  @method('delete')
                                 <button type="submit" class="mr-2 btn btn-danger show_confirm" title="{{$lang == 'ar' ? 'حذف ' : 'Delete  '}}"><i class="fa fa-trash" aria-hidden="true"></i></button>

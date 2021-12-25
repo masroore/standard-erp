@@ -10,7 +10,7 @@
 
 @component('backend.partials._pagebar')
 
-    <li class="breadcrumb-item"><a href="{{ route('dashboard.'. $routeName .'.index') }}">@lang('site.accounts') </a></li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard.finance.'. $routeName .'.index') }}">@lang('site.accounts') </a></li>
     <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.edit account')</span></li>
 
 @endcomponent
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="widget-content widget-content-area p-3">
-                <form action="{{ route('dashboard.'. $routeName .'.update',$row->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('dashboard.finance.'. $routeName .'.update',$row->id) }}" method="POST" enctype="multipart/form-data">
                     <div class="row">
                     @csrf
                     @method('put')

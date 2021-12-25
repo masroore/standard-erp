@@ -4,7 +4,7 @@ namespace App\Http\Interfaces\Stores;
 
 interface StoItemInterface{
 
-    public function index();
+    public function index($request);
 
     public function create();
 
@@ -15,7 +15,7 @@ interface StoItemInterface{
     public function update($request,$id);
 
     public function destroy($id);
-    
+
     public function search($value,$id);
 
     public function selectUnits($request);

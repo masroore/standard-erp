@@ -10,7 +10,7 @@
  @lang('site.price_list')
  @endsection
 @section('content')
- 
+
 
 <div class="row layout-top-spacing">
     <div id="breadcrumbDefault" class="col-xl-12 col-lg-12 layout-spacing">
@@ -33,7 +33,7 @@
 @include('backend.partials._errors')
 
 <div class="text-center">
-    <a href="{{route('dashboard.priceList.create')}}" class="btn btn-primary mb-2 mr-2" >
+    <a href="{{route('dashboard.stores.priceList.create')}}" class="btn btn-primary mb-2 mr-2" >
         @lang('site.add_new')
     </a>
 </div>
@@ -79,9 +79,9 @@
                         <td>
 
 
-                              <a href="{{route('dashboard.priceList.edit', $row->id)}}" class="btn btn-warning" title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                              <a href="{{route('dashboard.stores.priceList.edit', $row->id)}}" class="btn btn-warning" title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
                               {{-- end of edit --}}
-                                <form action="{{route('dashboard.priceList.destroy', $row->id)}}" method="POST" style="display:inline-block">
+                                <form action="{{route('dashboard.stores.priceList.destroy', $row->id)}}" method="POST" style="display:inline-block">
                                     @csrf
                                  @method('delete')
                                 <button type="submit" class="mr-2 btn btn-danger show_confirm" title="{{$lang == 'ar' ? 'حذف ' : 'Delete  '}}"><i class="fa fa-trash" aria-hidden="true"></i></button>

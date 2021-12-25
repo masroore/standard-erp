@@ -25,321 +25,319 @@
                 @csrf
                 @method('put')
 
-            <div class="widget-header">
-                <div class="row">
-                    <div class="col-xl-12 col-md-12 col-sm-12 col-12 row">
-                        <div class="form-group col-md-6">
+                <div class="widget-header">
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-12 row">
+                            <div class="form-group col-md-6">
 
-                        <h4>@lang('site.please_fill_setting_data')</h4>
-                    </div>
+                            <h4>@lang('site.please_fill_setting_data')</h4>
+                        </div>
 
-                        <div class="form-group col-md-6 text-right">
+                            <div class="form-group col-md-6 text-right">
 
 
-                            <button type="submit" class="btn btn-primary mt-3">@lang('site.save')</button>
+                                <button type="submit" class="btn btn-primary mt-3">@lang('site.save')</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="widget-content widget-content-area p-3">
-                    <div class="row">
-                    @include('backend.partials._errors')
+                <div class="widget-content widget-content-area p-3">
+                        <div class="row">
+                        @include('backend.partials._errors')
 
 
-                    @foreach ($rows as $key => $item)
-                        <input type="hidden" name="setting_id[]" value="{{$item->id}}">
-                    <div class="form-group col-md-8 row m-auto">
-                        <div class="form-group col-md-6">
+                        @foreach ($rows as $key => $item)
+                            <input type="hidden" name="setting_id[]" value="{{$item->id}}">
+                        <div class="form-group col-md-8 row m-auto">
 
-                        <label>{{$words[$key]}}</label>
 
-                        <select class="form-control  basic " name="account_id[]">
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{($item->account_id == $category->id ) ? 'selected' : ''}}>
-                                {{$lang == 'ar' ? $category->title_ar: $category->title_en}}
-                            </option>
-                            @foreach ($category->childrenCategories as $childCategory)
-                                @include('backend.finance.settings.child_account', ['child_category' => $childCategory])
-                            @endforeach
+                            <div class="form-group col-md-4">
+                                <label>@lang('site.account_key')</label>
+                                <input  type="text" name="account_key[]" value="{{$item->account_key}}"  class="form-control" required>
+
+                            </div>
+
+                            <div class="form-group col-md-6">
+
+                                <label>{{$words[$key]}}</label>
+
+                                    <select class="form-control  basic " name="account_id[]">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}" {{($item->account_id == $category->id ) ? 'selected' : ''}}>
+                                            {{$lang == 'ar' ? $category->title_ar: $category->title_en}}
+                                        </option>
+                                        @foreach ($category->childrenCategories as $childCategory)
+                                            @include('backend.finance.settings.child_account', ['child_category' => $childCategory])
+                                        @endforeach
+                                    @endforeach
+
+                                    </select>
+                            </div>
+                        </div>
                         @endforeach
+                        {{--
+                            <div class="form-group col-md-8 row m-auto">
+                                <div class="form-group col-md-6">
 
-                          </select>
-                        </div>
+                                <label>@lang('site.Supplier_master_account')</label>
+                                <select class="form-control  basic " name="account_id[]">
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
+                                    @foreach ($category->childrenCategories as $childCategory)
+                                        @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
+                                    @endforeach
+                                @endforeach
 
-                          <div class="form-group col-md-4">
-                            <label>@lang('site.account_key')</label>
-                            <input  type="text" name="account_key[]" value="{{$item->account_key}}"  class="form-control" required>
+                                </select>
+                                </div>
 
-                        </div>
-                    </div>
-                    @endforeach
-{{--
-                    <div class="form-group col-md-8 row m-auto">
-                        <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
+                                    <label>@lang('site.account_key')</label>
+                                    <input  type="text" name="account_key[]"   class="form-control" required>
 
-                        <label>@lang('site.Supplier_master_account')</label>
-                        <select class="form-control  basic " name="account_id[]">
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
-                            @foreach ($category->childrenCategories as $childCategory)
-                                @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
-                            @endforeach
-                        @endforeach
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8 row m-auto">
+                                <div class="form-group col-md-6">
 
-                          </select>
-                        </div>
+                                <label>@lang('site.Sales_master_account')</label>
+                                <select class="form-control  basic " name="account_id[]">
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
+                                    @foreach ($category->childrenCategories as $childCategory)
+                                        @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
+                                    @endforeach
+                                @endforeach
 
-                          <div class="form-group col-md-6">
-                            <label>@lang('site.account_key')</label>
-                            <input  type="text" name="account_key[]"   class="form-control" required>
+                                </select>
+                                </div>
 
-                        </div>
-                    </div>
-                    <div class="form-group col-md-8 row m-auto">
-                        <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
+                                    <label>@lang('site.account_key')</label>
+                                    <input  type="text" name="account_key[]"  class="form-control" required>
 
-                        <label>@lang('site.Sales_master_account')</label>
-                        <select class="form-control  basic " name="account_id[]">
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
-                            @foreach ($category->childrenCategories as $childCategory)
-                                @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
-                            @endforeach
-                        @endforeach
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8 row m-auto">
+                                <div class="form-group col-md-6">
 
-                          </select>
-                        </div>
+                                <label>@lang('site.Zero_sales_tax_main_account')</label>
+                                <select class="form-control  basic " name="account_id[]">
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
+                                    @foreach ($category->childrenCategories as $childCategory)
+                                        @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
+                                    @endforeach
+                                @endforeach
 
-                          <div class="form-group col-md-6">
-                            <label>@lang('site.account_key')</label>
-                            <input  type="text" name="account_key[]"  class="form-control" required>
-
-                        </div>
-                    </div>
-                    <div class="form-group col-md-8 row m-auto">
-                        <div class="form-group col-md-6">
-
-                        <label>@lang('site.Zero_sales_tax_main_account')</label>
-                        <select class="form-control  basic " name="account_id[]">
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
-                            @foreach ($category->childrenCategories as $childCategory)
-                                @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
-                            @endforeach
-                        @endforeach
-
-                          </select>
-                        </div>
+                                </select>
+                                </div>
 
 
-                          <div class="form-group col-md-6">
-                            <label>@lang('site.account_key')</label>
-                            <input  type="text" name="account_key[]"  class="form-control" required>
+                                <div class="form-group col-md-6">
+                                    <label>@lang('site.account_key')</label>
+                                    <input  type="text" name="account_key[]"  class="form-control" required>
 
-                        </div>
-                    </div>
-                    <div class="form-group col-md-8 row m-auto">
-                        <div class="form-group col-md-6">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8 row m-auto">
+                                <div class="form-group col-md-6">
 
-                        <label>@lang('site.Purchases_master_account')</label>
-                        <select class="form-control  basic " name="account_id[]">
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
-                            @foreach ($category->childrenCategories as $childCategory)
-                                @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
-                            @endforeach
-                        @endforeach
+                                <label>@lang('site.Purchases_master_account')</label>
+                                <select class="form-control  basic " name="account_id[]">
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
+                                    @foreach ($category->childrenCategories as $childCategory)
+                                        @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
+                                    @endforeach
+                                @endforeach
 
-                          </select>
+                                </select>
 
-                        </div>
+                                </div>
 
-                          <div class="form-group col-md-6">
-                            <label>@lang('site.account_key')</label>
-                            <input  type="text" name="account_key[]"  class="form-control" required>
+                                <div class="form-group col-md-6">
+                                    <label>@lang('site.account_key')</label>
+                                    <input  type="text" name="account_key[]"  class="form-control" required>
 
-                        </div>
-                    </div>
-                    <div class="form-group col-md-8 row m-auto">
-                        <div class="form-group col-md-6">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8 row m-auto">
+                                <div class="form-group col-md-6">
 
-                        <label>@lang('site.Calculation_of_cost_of_goods_sold')</label>
-                        <select class="form-control  basic " name="account_id[]">
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
-                            @foreach ($category->childrenCategories as $childCategory)
-                                @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
-                            @endforeach
-                        @endforeach
+                                <label>@lang('site.Calculation_of_cost_of_goods_sold')</label>
+                                <select class="form-control  basic " name="account_id[]">
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
+                                    @foreach ($category->childrenCategories as $childCategory)
+                                        @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
+                                    @endforeach
+                                @endforeach
 
-                          </select>
-                        </div>
+                                </select>
+                                </div>
 
-                          <div class="form-group col-md-6">
-                            <label>@lang('site.account_key')</label>
-                            <input  type="text" name="account_key[]"  class="form-control" required>
+                                <div class="form-group col-md-6">
+                                    <label>@lang('site.account_key')</label>
+                                    <input  type="text" name="account_key[]"  class="form-control" required>
 
-                        </div>
-                    </div>
-                    <div class="form-group col-md-8 row m-auto">
-                        <div class="form-group col-md-6">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8 row m-auto">
+                                <div class="form-group col-md-6">
 
-                        <label>@lang('site.Calculation_of_cost_of_services_sold')</label>
-                        <select class="form-control  basic " name="account_id[]">
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
-                            @foreach ($category->childrenCategories as $childCategory)
-                                @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
-                            @endforeach
-                        @endforeach
+                                <label>@lang('site.Calculation_of_cost_of_services_sold')</label>
+                                <select class="form-control  basic " name="account_id[]">
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
+                                    @foreach ($category->childrenCategories as $childCategory)
+                                        @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
+                                    @endforeach
+                                @endforeach
 
-                          </select>
+                                </select>
 
-                        </div>
+                                </div>
 
-                          <div class="form-group col-md-6">
-                            <label>@lang('site.account_key')</label>
-                            <input  type="text" name="account_key[]"  class="form-control" required>
+                                <div class="form-group col-md-6">
+                                    <label>@lang('site.account_key')</label>
+                                    <input  type="text" name="account_key[]"  class="form-control" required>
 
-                        </div>
-                    </div>
-                    <div class="form-group col-md-8 row m-auto">
-                        <div class="form-group col-md-6">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8 row m-auto">
+                                <div class="form-group col-md-6">
 
-                        <label>@lang('site.Store_master_account')</label>
-                        <select class="form-control  basic " name="account_id[]">
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
-                            @foreach ($category->childrenCategories as $childCategory)
-                                @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
-                            @endforeach
-                        @endforeach
+                                <label>@lang('site.Store_master_account')</label>
+                                <select class="form-control  basic " name="account_id[]">
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
+                                    @foreach ($category->childrenCategories as $childCategory)
+                                        @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
+                                    @endforeach
+                                @endforeach
 
-                          </select>
-                        </div>
+                                </select>
+                                </div>
 
 
-                          <div class="form-group col-md-6">
-                            <label>@lang('site.account_key')</label>
-                            <input  type="text" name="account_key[]"  class="form-control" required>
+                                <div class="form-group col-md-6">
+                                    <label>@lang('site.account_key')</label>
+                                    <input  type="text" name="account_key[]"  class="form-control" required>
 
-                        </div>
-                    </div>
-                    <div class="form-group col-md-8 row m-auto">
-                        <div class="form-group col-md-6">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8 row m-auto">
+                                <div class="form-group col-md-6">
 
-                        <label>@lang('site.Fund_master_account')</label>
-                        <select class="form-control  basic " name="account_id[]">
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
-                            @foreach ($category->childrenCategories as $childCategory)
-                                @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
-                            @endforeach
-                        @endforeach
+                                <label>@lang('site.Fund_master_account')</label>
+                                <select class="form-control  basic " name="account_id[]">
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
+                                    @foreach ($category->childrenCategories as $childCategory)
+                                        @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
+                                    @endforeach
+                                @endforeach
 
-                          </select>
-                        </div>
+                                </select>
+                                </div>
 
-                          <div class="form-group col-md-6">
-                            <label>@lang('site.account_key')</label>
-                            <input  type="text" name="account_key[]"  class="form-control" required>
+                                <div class="form-group col-md-6">
+                                    <label>@lang('site.account_key')</label>
+                                    <input  type="text" name="account_key[]"  class="form-control" required>
 
-                        </div>
-                    </div>
-                    <div class="form-group col-md-8 row m-auto">
-                        <div class="form-group col-md-6">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8 row m-auto">
+                                <div class="form-group col-md-6">
 
-                        <label>@lang('site.bad_debts_account')</label>
-                        <select class="form-control  basic " name="account_id[]">
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
-                            @foreach ($category->childrenCategories as $childCategory)
-                                @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
-                            @endforeach
-                        @endforeach
+                                <label>@lang('site.bad_debts_account')</label>
+                                <select class="form-control  basic " name="account_id[]">
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
+                                    @foreach ($category->childrenCategories as $childCategory)
+                                        @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
+                                    @endforeach
+                                @endforeach
 
-                          </select>
-                        </div>
+                                </select>
+                                </div>
 
-                          <div class="form-group col-md-6">
-                            <label>@lang('site.account_key')</label>
-                            <input  type="text" name="account_key[]"  class="form-control" required>
+                                <div class="form-group col-md-6">
+                                    <label>@lang('site.account_key')</label>
+                                    <input  type="text" name="account_key[]"  class="form-control" required>
 
-                        </div>
-                    </div>
-                    <div class="form-group col-md-8 row m-auto">
-                        <div class="form-group col-md-6">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8 row m-auto">
+                                <div class="form-group col-md-6">
 
-                        <label>@lang('site.Tax_main_account_(sales)')</label>
-                        <select class="form-control  basic " name="account_id[]">
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
-                            @foreach ($category->childrenCategories as $childCategory)
-                                @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
-                            @endforeach
-                        @endforeach
+                                <label>@lang('site.Tax_main_account_(sales)')</label>
+                                <select class="form-control  basic " name="account_id[]">
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
+                                    @foreach ($category->childrenCategories as $childCategory)
+                                        @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
+                                    @endforeach
+                                @endforeach
 
-                          </select>
-                        </div>
+                                </select>
+                                </div>
 
-                          <div class="form-group col-md-6">
-                            <label>@lang('site.account_key')</label>
-                            <input  type="text" name="account_key[]"  class="form-control" required>
+                                <div class="form-group col-md-6">
+                                    <label>@lang('site.account_key')</label>
+                                    <input  type="text" name="account_key[]"  class="form-control" required>
 
-                        </div>
-                    </div>
-                    <div class="form-group col-md-8 row m-auto">
-                        <div class="form-group col-md-6">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8 row m-auto">
+                                <div class="form-group col-md-6">
 
-                        <label>@lang('site.Tax_main_account_(purchases)')</label>
-                        <select class="form-control  basic " name="account_id[]">
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
-                            @foreach ($category->childrenCategories as $childCategory)
-                                @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
-                            @endforeach
-                        @endforeach
+                                <label>@lang('site.Tax_main_account_(purchases)')</label>
+                                <select class="form-control  basic " name="account_id[]">
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
+                                    @foreach ($category->childrenCategories as $childCategory)
+                                        @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
+                                    @endforeach
+                                @endforeach
 
-                          </select>
-                        </div>
+                                </select>
+                                </div>
 
-                          <div class="form-group col-md-6">
-                            <label>@lang('site.account_key')</label>
-                            <input  type="text" name="account_key[]"  class="form-control" required>
+                                <div class="form-group col-md-6">
+                                    <label>@lang('site.account_key')</label>
+                                    <input  type="text" name="account_key[]"  class="form-control" required>
 
-                        </div>
-                    </div>
-                    <div class="form-group col-md-8 row m-auto">
-                        <div class="form-group col-md-6">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8 row m-auto">
+                                <div class="form-group col-md-6">
 
-                        <label>@lang('site.Bank_fees_and_account_fees')</label>
-                        <select class="form-control  basic " name="account_id[]">
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
-                            @foreach ($category->childrenCategories as $childCategory)
-                                @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
-                            @endforeach
-                        @endforeach
+                                <label>@lang('site.Bank_fees_and_account_fees')</label>
+                                <select class="form-control  basic " name="account_id[]">
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
+                                    @foreach ($category->childrenCategories as $childCategory)
+                                        @include('backend.finance.journals.child_account', ['child_category' => $childCategory])
+                                    @endforeach
+                                @endforeach
 
-                          </select>
-                        </div>
+                                </select>
+                                </div>
 
-                          <div class="form-group col-md-6">
-                            <label>@lang('site.account_key')</label>
-                            <input  type="text" name="account_key[]"  class="form-control" required>
+                                <div class="form-group col-md-6">
+                                    <label>@lang('site.account_key')</label>
+                                    <input  type="text" name="account_key[]"  class="form-control" required>
+
+                                </div>
+                            </div>
+                        --}}
 
                         </div>
-                    </div> --}}
 
-
-
-
-
-                    </div>
-
-            </div>
-        </form>
-
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -347,3 +345,6 @@
 
 @endsection
 
+@push('js')
+
+@endpush

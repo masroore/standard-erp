@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Image;
 use Auth;
-use DB;
-
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class StoItemRepository  implements StoItemInterface
 {
@@ -27,16 +26,52 @@ class StoItemRepository  implements StoItemInterface
         $this->model = $model;
     }
 
-    public function index(){
+    public function index($request){
 
-        $rows = $this->model::orderBy('id','desc')->get();
-        return view('backend.stores.items.index', compact('rows'));
+       //dd($request->all());
+
+        $categories = StoCategory::where('parent_id', 0)->with('childrenCategories') ->get();
+        $brands     = StoBrand::get();
+        $tags       = StoTag::get();
+
+        if($request->title){
+
+            $rows = $this->model::where('title_en','LIKE', "%$request->title%");
+
+        }if($request->code){
+
+            $rows = $this->model::where('code','LIKE', "%$request->code%");
+
+        }elseif($request->cat_id){
+
+            $rows = $this->model::where('cat_id','=', $request->cat_id );
+
+        }elseif($request->brand_id){
+
+            $rows = $this->model::where('brand_id','=', $request->brand_id );
+
+        }elseif($request->tags){
+            $tagsId = $request->tags;
+            $rows = $this->model::whereHas('tags' , function ($query) use ($tagsId){
+                $query->whereIn('sto_tag_id' , $tagsId);
+            });
+
+
+        }
+        else{
+            $rows = $this->model;
+        }
+
+
+        $rows = $rows->with('user')->orderBy('id','desc')->get();
+       // dd($rows);
+        return view('backend.stores.items.index', compact('rows','categories','brands','tags'));
 
     }//end of index
 
     public function create(){
         $categories = StoCategory::where('parent_id', 0)->with('childrenCategories') ->get();
-        $countries  = DB::table('countries')->get();
+        $countries  = FacadesDB::table('countries')->get();
         $brands     = StoBrand::get();
         $taxes      = Tax::get();
         $stores     = StoStore::get();
@@ -58,45 +93,55 @@ class StoItemRepository  implements StoItemInterface
     }//end of serch
 
     public function store($request){
-       /// dd($request->all());
+
         $request->validate([
-            'title_ar' => 'required|unique:sto_items,title_ar',
             'title_en' => 'required|unique:sto_items,title_en',
-            'code'     => 'required|unique:sto_items,title_en',
+            'code'     => 'required|unique:sto_items,code',
         ]);
 
-        $fileName = null;
+
         if($request->photo){
             $fileName = $this->uploadImage($request->photo);
+        }else{
+            $fileName = null;
         }
 
         if($request->branch_id){$branch = $request->branch_id;}else{$branch = 1;}
-        $requestArray =   ['created_by' => Auth::user()->id, 'branch_id' =>$branch ,'image' => $fileName] + $request->all() ;
-           //dd($requestArray);
+
+        $requestArray = ['created_by' => Auth::user()->id,
+                        'branch_id' =>$branch ,'image' => $fileName,
+                        'title_ar' => $request->title_en
+                        ] + $request->all() ;
+
         //save new product
         $row =  $this->model->create($requestArray);
         //save product tags
-        $this->syncTags($row , $requestArray);
+        if($request->tags){
+            $this->syncTags($row , $requestArray);
+        }
         //product places
-        for ($i=0; $i < count($request->place); $i++) {
-            if (isset($request->place[$i]) && isset($request->store_id[$i])) {
-                StoItemPlace::create([
-                    'item_id'    => $row->id,
-                    'store_id'   => $request->store_id[$i],
-                    'place'      => $request->place[$i],
-                ]);
+        if($request->place){
+            for ($i=0; $i < count($request->place); $i++) {
+                if (isset($request->place[$i]) && isset($request->store_id[$i])) {
+                    StoItemPlace::create([
+                        'item_id'    => $row->id,
+                        'store_id'   => $request->store_id[$i],
+                        'place'      => $request->place[$i],
+                    ]);
+                }
             }
         }
-
         //save collection product type
-        for ($i=0; $i < count($request->item_id); $i++) {
-            if (isset($request->price[$i]) && isset($request->qty[$i])) {
-                StoItemCollection::create([
-                    'belongs_product'  => $row->id,
-                    'item_id'          => $request->item_id[$i],
-                    'price'            => $request->price[$i],
-                    'qty'              => $request->qty[$i],
-                ]);
+        if($request->item_type == 'collection'){
+            for ($i=0; $i < count($request->item_id); $i++) {
+                if (isset($request->price[$i]) && isset($request->qty[$i])) {
+                    StoItemCollection::create([
+                        'belongs_product'  => $row->id,
+                        'item_id'          => $request->item_id[$i],
+                        'price'            => $request->price[$i],
+                        'qty'              => $request->qty[$i],
+                    ]);
+                }
             }
         }
 
@@ -110,15 +155,17 @@ class StoItemRepository  implements StoItemInterface
     }// end of store
 
     public function edit($id){
-        //dd(request()->route()->parameter('items'));
+
         $categories = StoCategory::where('parent_id', 0)
         ->with('childrenCategories')
         ->get();
         $brands     = StoBrand::get();
         $units      = StoUnit::where('base_unit', '=', 0)->get();
         $taxes      = Tax::get();
-        $countries  = DB::table('countries')->get();
-        $row        =  $this->model->FindOrFail($id);
+        $countries  = FacadesDB::table('countries')->get();
+        $row        =  $this->model->where('id',$id)->with('collectionProduct',
+        'category','purchUnit','saleUnit','baseUnit','tags','user')->get();
+        //dd($row);
         $stores     = StoStore::get();
         $routeName  = 'items';
         $tags       = StoTag::get();

@@ -72,7 +72,7 @@
 
 
                               {{-- end of edit --}}
-                                <form action="{{route('dashboard.tags.destroy', $row->id)}}" method="POST" style="display:inline-block">
+                                <form action="{{route('dashboard.stores.tags.destroy', $row->id)}}" method="POST" style="display:inline-block">
                                     @csrf
                                  @method('delete')
                                 <button type="submit" class="mr-2 btn btn-danger show_confirm" title="@lang('site.delete')"><i class="fa fa-trash" aria-hidden="true"></i></button>

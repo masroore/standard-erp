@@ -74,12 +74,14 @@ return [
     'title'            => 'Title',
     'add_new_tag'      => 'Add New Tag',
     'tag_list'         => 'Tag List',
+    'select_brand'     => 'Select Brand',
     'please_fill_product_data'   => 'Please Fill Product Data',
     'define_places_in_stores'    => 'Define Places In Stores',
     'select item for new projct' => 'Select Items For New Projct.',
 
 // Accounts module
     'accounts'         => 'Accounts',
+    'account'          => 'Account ',
     'create account'   => 'Create Account',
     'edit account'     => 'Edit Account',
     'account list'     => 'Account List',
@@ -99,6 +101,12 @@ return [
     'account name'     => 'Account Name',
     'journal list'     => 'Journal List',
     'add item'         => 'Add Item',
+    'journal entries'  => 'Journal Entries',
+    'total_debit'      => 'Total Debit',
+    'total_credit'     => 'Total Credit',
+    'difference'       => 'Difference',
+    'edit_journal'     => 'Edit Journal',
+    'journal entries list'      => 'Journal Entries List',
     'journal description'       => 'Journal Description',
     'please_fill_account_date'  => 'Please Fill Account Date',
 
@@ -206,6 +214,8 @@ return [
     'categories' => 'Categories',
     'tags'       => 'Tags',
     'tag'        => 'Tag',
+    'inventory_definitions' => 'Inventory Definitions',
+    'inventory_management'  => 'Inventory Management',
 // units
     'units'     => 'Units',
     'unit'      => 'Unit',
@@ -329,7 +339,7 @@ return [
     'document'            => 'Document',
     'tax_client'          => 'Is Tax Client',
     'tax_supplier'        => 'Is Tax Supplier',
-    
+
 // tax
     'tax_list' => 'Tax List',
     'tax' => 'TaX',
@@ -338,7 +348,7 @@ return [
     'rate' => 'Rate',
 
 // price_list
-    'price_list' => 'price List',
+    'price_list' => 'Price List',
     'details' => 'Details',
     'add_price_list' => 'Add Price List',
     'please_fill_price_list_data' => 'Please Fill Price List Data',
@@ -430,5 +440,54 @@ return [
     'image'=> 'Image',
     'add_new_medical'=> 'Add New Medical',
     'edit_medical'=> 'Edit Medical',
+
+
+// tickets
+    'tickets'=> 'Tickets',
+    'ticket'=> 'Ticket',
+    'subject'=> 'Subject',
+    'start_at'=> 'Start at',
+    'customer'=> 'Customer',
+    'priority'=> 'Priority',
+    'open'=> 'Open',
+    'pending'=> 'Pending',
+    'resolved'=> 'Resolved',
+    'closed'=> 'Closed',
+    'low'=> 'low',
+    'medium'=> 'Medium',
+    'high'=> 'high',
+    'urgent'=> 'urgent',
+    'edit_ticket'=> 'Edit Ticket',
+    'add_new_ticket'=> 'Add New Ticket',
+    'ticket_list' => 'Ticket List',
+    'ticket_details' => 'Ticket Details',
+    'files' => 'Files',
+    'replies' => 'Replies',
+    'add_replay' => 'Add Replay',
+    'files' => 'Files',
+    'add_comment' => 'Add Comment',
+    'delete_ticket' => 'Delete Ticket',
+    'move_ticket' => 'Move Ticket',
+    'assignee' => 'Assignee',
+    'ticket_moved' => 'Ticket Moved ',
+    'done' => 'Done ',
+
+
+// payroll
+
+    'payroll' => 'Payroll ',
+    'salary_type' => 'Salary Type ',
+    'salaryTypes' => 'Salary Types ',
+    'salaryTypes_list' => 'Salary Types List ',
+    'salary_benefits' => 'Salary Benefits ',
+    'benefit_type' => 'Benefit Type ',
+    'add_new_salaryType' => 'Add New Salary Type ',
+    'edit_salaryType' => 'Edit Salary Type ',
+    'deduct' => 'Deduct ',
+    'salary_setup' => 'Salary Setup ',
+
+
+
+
 
 ];

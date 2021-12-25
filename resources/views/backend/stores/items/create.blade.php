@@ -19,7 +19,7 @@
                 <nav class="breadcrumb-one p-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a></li>
-                        <li class="breadcrumb-item"><a href="{{route('dashboard.items.index')}}">  @lang('site.products')</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('dashboard.stores.items.index')}}">  @lang('site.products')</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><span> @lang('site.add_product')</span></li>
 
                     </ol>
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="widget-content widget-content-area p-3">
-                <form action="{{ route('dashboard.items.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('dashboard.stores.items.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @include('backend.partials._errors')
 
@@ -99,7 +99,7 @@
 <script type="text/javascript">
     $("#units").change(function(){
         $.ajax({
-            url: "{{ route('dashboard.unitschaild') }}?unit_id=" + $(this).val(),
+            url: "{{ route('dashboard.stores.unitschaild') }}?unit_id=" + $(this).val(),
             method: 'GET',
             success: function(data) {
                 $('.unit-child').html(data.html);
@@ -176,9 +176,6 @@
         $(".show-in-collection").hide();
         $('#type').on('change', function() {
             var productType = $( "#type" ).val() ;
-
-
-
             if(productType == 'service'){
                 $(".hide-in-service").hide();
                 $(".show-in-collection").hide();
@@ -303,31 +300,31 @@
     // calculat price item after tax and discond
     $(".calculat").on('click', function(){
 
-var id =$(this).attr('id');
-var qty = $('.qty'+id).val();
-var sale_price = $('.sale_price'+id).val();
-var price = (qty * sale_price);
-// add tax
-var tax = $('.tax'+id).val();
-var precentTax = price * (tax/100)  ;
-var priceAfterTax =  (price + precentTax).toFixed(2);
+        var id =$(this).attr('id');
+        var qty = $('.qty'+id).val();
+        var sale_price = $('.sale_price'+id).val();
+        var price = (qty * sale_price);
+        // add tax
+        var tax = $('.tax'+id).val();
+        var precentTax = price * (tax/100)  ;
+        var priceAfterTax =  (price + precentTax).toFixed(2);
 
-// add discond
-var disc =parseInt($('.disc'+id).val());
-var disc_type =$('.disc_type'+id).find(":selected").text();
+        // add discond
+        var disc =parseInt($('.disc'+id).val());
+        var disc_type =$('.disc_type'+id).find(":selected").text();
 
-if(disc_type == 'num' && disc > 0){
-    var amount =  (priceAfterTax - disc).toFixed(2) ;
+        if(disc_type == 'num' && disc > 0){
+            var amount =  (priceAfterTax - disc).toFixed(2) ;
 
-}else if(disc_type == '%' && disc > 0){
-    var discond = priceAfterTax * (disc/100);
-    var amount =  (priceAfterTax - discond).toFixed(2) ;
-}else{
-    var amount = priceAfterTax;
-}
+        }else if(disc_type == '%' && disc > 0){
+            var discond = priceAfterTax * (disc/100);
+            var amount =  (priceAfterTax - discond).toFixed(2) ;
+        }else{
+            var amount = priceAfterTax;
+        }
 
-$('.amount'+id).text(amount);
-});
+        $('.amount'+id).text(amount);
+        });
 
 });
 

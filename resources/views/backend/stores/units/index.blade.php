@@ -19,7 +19,7 @@
                 <nav class="breadcrumb-one p-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a></li>
-                        <li class="breadcrumb-item"><a href="{{route('dashboard.units.index')}}"> {{ $lang == 'ar' ? ' الوحدات ' : 'Units ' }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('dashboard.stores.units.index')}}"> {{ $lang == 'ar' ? ' الوحدات ' : 'Units ' }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><span>{{$lang == 'ar' ? 'قائمة  الوحدات ' : 'Units List'}}</span></li>
 
                     </ol>
@@ -115,7 +115,7 @@
 
                               {{-- <a href="{{route('dashboard.units.edit', $row->id)}}" class="btn btn-warning" title="@lang('site.edit')"> <i class="fa fa-pencil" aria-hidden="true"></i></a> --}}
                               {{-- end of edit --}}
-                                <form action="{{route('dashboard.units.destroy', $row->id)}}" method="POST" style="display:inline-block">
+                                <form action="{{route('dashboard.stores.units.destroy', $row->id)}}" method="POST" style="display:inline-block">
                                     @csrf
                                  @method('delete')
                                 <button type="submit" class="mr-2 btn btn-danger show_confirm" title="{{$lang == 'ar' ? 'حذف ' : 'Delete  '}}"><i class="fa fa-trash" aria-hidden="true"></i></button>

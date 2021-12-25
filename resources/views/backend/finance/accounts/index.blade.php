@@ -10,7 +10,7 @@
 
 @component('backend.partials._pagebar')
 
-    <li class="breadcrumb-item"><a href="{{ route('dashboard.'. $routeName .'.index') }}">@lang('site.accounts') </a></li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard.finance.'. $routeName .'.index') }}">@lang('site.accounts') </a></li>
     <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.account list')</span></li>
 
 @endcomponent
@@ -23,7 +23,7 @@
             <div class="widget-header">
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <span class="h4 p-4 mr-2">@lang('site.account list')</span><a class="btn btn-primary" title="@lang('site.create account')" href="{{route('dashboard.accounts.create')}}"><i class="fa fa-plus"></i></a>
+                        <span class="h4 p-4 mr-2">@lang('site.account list')</span><a class="btn btn-primary" title="@lang('site.create account')" href="{{route('dashboard.finance.accounts.create')}}"><i class="fa fa-plus"></i></a>
                     </div>
                 </div>
             </div>

@@ -6,41 +6,39 @@
                 <div class="form-group">
                     <label>@lang('site.item_type') </label>
                     <select id="type" class="form-control basic"  name="item_type" >
-                        <option  value="standard">@lang('site.standard')</option>
-                        <option  value="service">@lang('site.service')</option>
-                        <option  value="collection">@lang('site.project')</option>
-
+                        <option  value="standard"   {{isset($row) && $row->item_type  == 'standard'   ? 'selected' : ''}}>@lang('site.standard')</option>
+                        <option  value="service"    {{isset($row) && $row->item_type  == 'service'    ? 'selected' : ''}}>@lang('site.service')</option>
+                        <option  value="collection" {{isset($row) && $row->item_type  == 'collection' ? 'selected' : ''}}>@lang('site.project')</option>
                     </select>
                 </div>
             </div>
+
             <div class="form-group col-md-3  text-center">
                 <div class="n-chk mt-5">
                     <label class="new-control new-checkbox checkbox-primary">
-                    <input name="" type="checkbox" class="new-control-input" checked>
+                    <input name="is_active" type="checkbox" class="new-control-input" checked>
                     <span class="new-control-indicator"></span>@lang('site.is_active')
                     </label>
                 </div>
             </div>
-
-
 
             <div class="form-group col-md-6">
                 <label for="">@lang('site.title_en')</label>
                 <input type="text" name="title_en"  value="{{old('title_en', isset($row) ? $row->title_en : '')}}" class="form-control " required>
             </div>
 
-            <div class="form-group col-md-6">
+            {{-- <div class="form-group col-md-6">
                 <label for="">@lang('site.title_ar')</label>
                 <input  type="text" name="title_ar" value="{{old('title_ar', isset($row) ? $row->title_ar : '')}}"  class="form-control " required>
 
-            </div>
+            </div> --}}
 
 
 
             <div class="form-group col-md-6">
                 <label for="">@lang('site.category')</label>
                 <select class="form-control  basic select2" name="cat_id" >
-                    <option disabled selected>@lang('site.select_category')</option>
+
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}" {{ isset($row) && $row->cat_id == $category->id ? 'selected'  : '' }}>{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
                         @foreach ($category->childrenCategories as $childCategory)
@@ -55,23 +53,21 @@
             <div class="form-group col-md-6 hide-in-service">
                 <label for="">@lang('site.brand')</label>
                 <select class="form-control  basic select2" name="brand_id" >
-                    <option disabled selected>{{$lang == 'ar' ? 'بدون علامة تجارية' : 'Without Brand'}}</option>
                     @foreach ($brands as $brand)
                         <option value="{{ $brand->id }}" {{isset($row) && $row->brand_id == $brand->id  ? 'selected' : ''}} >{{$lang == 'ar' ? $brand->title_ar: $brand->title_en}}</option>
-
                     @endforeach
                 </select>
             </div>
 
             <div class="form-group col-md-6 hide-in-service">
                 <label for="">@lang('site.barcode')</label>
-                <input type="text" name="barcode" value="{{old('barcode', isset($row) ? $row->barcode : '')}}" class="form-control " >
+                <input type="text" name="barcode" value="{{old('barcode', isset($row) ? $row->barcode : '0')}}" class="form-control " >
             </div>
 
             <div class="form-group col-md-6">
                 <label for="">@lang('site.code')</label>
                 <div class="input-group">
-                    <input  type="text" name="code" value="{{old('code', isset($row) ? $row->code : '')}}" class="form-control " id="code" aria-describedby="code" required>
+                    <input  type="text" name="code" value="{{old('code', isset($row) ? $row->code : '')}}" class="form-control " id="code" aria-describedby="code">
                     <div class="input-group-append">
                         <button id="genbutton" type="button" class="btn btn-sm btn-default" title="{{ $lang == 'ar' ? 'انشاء اتوماتيك' : 'Genrate Code' }}"><i class="fa fa-refresh"></i></button>
                     </div>
@@ -81,7 +77,7 @@
 
              {{-- collection product --}}
 
-             <div class="col-md-12 show-in-collection mb-5">
+            <div class="col-md-12 show-in-collection mb-5">
                 {{-- items details collection  --}}
                 <label> @lang('site.select item for new projct')</label>
                <div class="invoice-detail-items">
@@ -99,29 +95,67 @@
                                </tr>
                            </thead>
                            <tbody>
+                               @if(isset ($row) && $row->item_type == 'collection')
+                               @foreach ($row->collectionProduct as $collection )
+                                <tr>
+                                    <td class="delete-item-row">
+                                        <ul class="table-controls">
+                                            <li><a href="javascript:void(0);" class="delete-item"
+                                                data-toggle="tooltip" data-placement="top" title=""
+                                                data-original-title="Delete">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle>
+                                                <line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15">
+                                                </line></svg></a></li>
+                                        </ul>
+                                    </td>
+
+                                    <td class="description">
+                                        <input  type="hidden" id="item_1"  value="{{ $collection->item_id }}" name="item_id[]" class=" form-control form-control-sm search item_id1" placeholder="@lang('site.item')" autocomplete="off">
+                                        <input type="text" id="1" value="{{ $collection->items->title_en }}" class="form-control form-control-sm search title1" placeholder="@lang('site.item')" autocomplete="off">
+                                        <div class="content-search1"> </div>
+                                    </td>
+
+                                    <td class="description">
+                                        <input type="number" id="price_1" value="{{ $collection->price }}"   name="price[]"   class="form-control sale_price1 changesNo" placeholder="0.00">
+                                    </td>
+
+                                    <td class="description">
+                                        <input type="number"  id="quantity_1" name="qty[]" value="{{ $collection->qty }}" class="form-control form-control-sm qty1 calculat changesNo"  placeholder="@lang('site.qty')">
+                                    </td>
+
+
+                                </tr>
+                               @endforeach
+                               @else
                                <tr>
-                                   <td class="delete-item-row">
-                                       <ul class="table-controls">
-                                           <li><a href="javascript:void(0);" class="delete-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></a></li>
-                                       </ul>
-                                   </td>
+                                <td class="delete-item-row">
+                                    <ul class="table-controls">
+                                        <li><a href="javascript:void(0);" class="delete-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></a></li>
+                                    </ul>
+                                </td>
 
-                                   <td class="description">
-                                       <input  type="hidden" id="item_1"   name="item_id[]" class=" form-control form-control-sm search item_id1" placeholder="@lang('site.item')" autocomplete="off">
-                                       <input type="text" id="1" class="form-control form-control-sm search title1" placeholder="@lang('site.item')" autocomplete="off">
-                                       <div class="content-search1"> </div>
-                                   </td>
+                                <td class="description">
+                                    <input  type="hidden" id="item_1"   name="item_id[]" class=" form-control form-control-sm search item_id1" placeholder="@lang('site.item')" autocomplete="off">
+                                    <input type="text" id="1" class="form-control form-control-sm search title1" placeholder="@lang('site.item')" autocomplete="off">
+                                    <div class="content-search1"> </div>
+                                </td>
 
-                                   <td class="description">
-                                       <input type="number" id="price_1"    name="price[]"   class="form-control sale_price1 changesNo" placeholder="0.00">
-                                   </td>
+                                <td class="description">
+                                    <input type="number" id="price_1"    name="price[]"   class="form-control sale_price1 changesNo" placeholder="0.00">
+                                </td>
 
-                                   <td class="description">
-                                       <input type="number"  id="quantity_1" name="qty[]" class="form-control form-control-sm qty1 calculat changesNo"  placeholder="@lang('site.qty')">
-                                   </td>
+                                <td class="description">
+                                    <input type="number"  id="quantity_1" name="qty[]" class="form-control form-control-sm qty1 calculat changesNo"  placeholder="@lang('site.qty')">
+                                </td>
 
 
-                               </tr>
+                                </tr>
+                               @endif
+
+
                            </tbody>
                        </table>
                    </div>
@@ -129,7 +163,7 @@
                    <button class="btn btn-info additemcollect btn-sm" id="1">@lang('site.add_item')</button>
 
                </div>
-           </div>
+            </div>
 
             <div class="col-md-6">
                 <div class="form-group">
@@ -143,13 +177,13 @@
                 </div>
             </div>
 
+
             <div class="form-group col-md-6 hide-in-service">
                 <label for="">@lang('site.select_unit')</label>
                 <select class="form-control  basic select2" name="unit_id" id="units">
                     <option disabled selected>@lang('site.select_unit')</option>
                     @foreach ($units as $unit)
-                        <option value="{{ $unit->id }}" {{isset($row) && $row->unit_id == $unit->id  ? 'selected' : ''}} >{{$unit->unit_name}}</option>
-
+                        <option value="{{ $unit->id }}" {{isset($row) && $row->unit_id != null  && $row->unit_id == $unit->id  ? 'selected' : ''}} >{{$unit->unit_name}}</option>
                     @endforeach
                 </select>
             </div>
@@ -158,7 +192,7 @@
                 <label for="">@lang('site.select_purchase_unit')</label>
                 <select class="form-control  basic select2 unit-child" name="purchase_unit_id">
                     @if(isset($row))
-                    <option value="{{ $unit->id }}" selected>{{$row->purchUnit->unit_name}}</option>
+                    <option value="{{ $unit->id }}" selected>{{ isset($row) && $row->unit_id != null ? $row->purchUnit->unit_name : ''}}</option>
                     @else
                     <option disabled selected>@lang('site.select_unit')</option>
                     @endif
@@ -170,7 +204,7 @@
                 <label for="">@lang('site.select_sale_unit')</label>
                 <select class="form-control  basic select2 unit-child" name="sale_unit_id" >
                     @if(isset($row))
-                    <option value="{{ $unit->id }}" selected>{{$row->saleUnit->unit_name}}</option>
+                    <option value="{{ $unit->id }}" selected>{{ isset($row) && $row->unit_id != null ? $row->saleUnit->unit_name : ''}}</option>
                     @else
                     <option disabled selected>@lang('site.select_unit')</option>
                     @endif
@@ -194,16 +228,16 @@
 
             <div class="form-group col-md-6">
                 <label for="">@lang('site.sale_price')</label>
-                <input type="number" name="sale_price" value="{{old('sale_price', isset($row) ? $row->sale_price : '')}}" class="form-control " >
+                <input type="number" name="sale_price" value="{{old('sale_price', isset($row) ? $row->sale_price : '0')}}" class="form-control " >
             </div>
             <div class="form-group col-md-6">
                 <label for="">@lang('site.cost')</label>
-                <input type="number" name="cost"  value="{{old('cost', isset($row) ? $row->cost : '')}}" class="form-control " >
+                <input type="number" name="cost"  value="{{old('cost', isset($row) ? $row->cost : '0')}}" class="form-control " >
             </div>
 
             <div class="form-group col-md-6 hide-in-service">
                 <label for="">@lang('site.alert_qty')</label>
-                <input type="number" name="alert_quantity" value="{{old('alert_quantity', isset($row) ? $row->alert_quantity : '')}}" class="form-control " >
+                <input type="number" name="alert_quantity" value="{{old('alert_quantity', isset($row) ? $row->alert_quantity : '1')}}" class="form-control " >
             </div>
 
             <div class="col-md-6 hide-in-service">

@@ -115,7 +115,7 @@
 
 
                               {{-- end of edit --}}
-                                <form action="{{route('dashboard.stores.destroy', $row->id)}}" method="POST" style="display:inline-block">
+                                <form action="{{route('dashboard.stores.stores.destroy', $row->id)}}" method="POST" style="display:inline-block">
                                     @csrf
                                  @method('delete')
                                 <button type="submit" class="mr-2 btn btn-danger show_confirm" title="{{$lang == 'ar' ? 'حذف ' : 'Delete  '}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
@@ -154,7 +154,7 @@
 @push('js')
 <script type="text/javascript">
 
-     $('.show_confirm').click(function(event) {
+    $('.show_confirm').click(function(event) {
           var form =  $(this).closest("form");
           var name = $(this).data("name");
           event.preventDefault();
@@ -170,7 +170,7 @@
               form.submit();
             }
           });
-      });
+    });
 
 </script>
 

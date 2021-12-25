@@ -13,7 +13,7 @@
                 </button>
             </div>
 
-            <form action="{{ route('dashboard.categories.update',$row->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('dashboard.stores.categories.update',$row->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="modal-body">

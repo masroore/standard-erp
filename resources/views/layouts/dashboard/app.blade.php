@@ -11,8 +11,8 @@
     <link rel="icon" type="image/x-icon" href="{{asset('public/backend/crock/assets/img/favicon.ico')}}"/>
     <link href="{{asset('public/backend/crock/assets/css/loader.css')}}" rel="stylesheet" type="text/css" />
     <script src="{{asset('public/backend/crock/assets/js/loader.js')}}"></script>
-    <script src="https://use.fontawesome.com/53c80d5eef.js"></script>
-
+    {{-- <script src="https://use.fontawesome.com/53c80d5eef.js"></script> --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/backend/crock/plugins/fontawsome/css/font-awesome.min.css') }}">
     @if($current_lang == 'ar')
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
@@ -100,7 +100,9 @@
      @stack('css')
     @endif
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{ asset('public/backend/crock/plugins/sweetalerts/sweetalert.min.js') }}"></script>
+
+
 </head>
 <body class="sidebar-noneoverflow">
     <!-- BEGIN LOADER -->
@@ -179,6 +181,7 @@
     <script src="{{asset('public/backend/crock/rtl/plugins/file-upload/file-upload-with-preview.min.js')}}"></script>
     <script src="{{asset('public/backend/crock/rtl/plugins/select2/select2.min.js')}}"></script>
     <script src="{{asset('public/backend/crock/rtl/plugins/select2/custom-select2.js')}}"></script>
+
     <script src="{{asset('public/backend/crock/rtl/plugins/treeview/custom-jstree.js') }}"></script>
     <script src="{{asset('public/backend/crock/rtl/plugins/dropify/dropify.min.js') }}"></script>
     <script src="{{asset('public/backend/crock/rtl/plugins/flatpickr/flatpickr.js') }}"></script>

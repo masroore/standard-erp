@@ -2,15 +2,15 @@
 
 @php $lang =  LaravelLocalization::getCurrentLocale(); @endphp
 
-@section('title') @lang('site.account list') @endsection
+@section('title') @lang('site.journal entries') @endsection
 
-@section('modelTitlie') @lang('site.accounts') @endsection
+@section('modelTitlie') @lang('site.journal entries') @endsection
 
 @section('content')
 
 @component('backend.partials._pagebar')
 
-    <li class="breadcrumb-item"><a href="{{ route('dashboard.'. $routeName .'.index') }}">@lang('site.accounts') </a></li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard.'. $routeName .'.index') }}">@lang('site.journal entries list') </a></li>
     <li class="breadcrumb-item active" aria-current="page"><span>@lang('site.create journal')</span></li>
 
 @endcomponent
@@ -36,7 +36,7 @@
                             <div class="col-md-3">
 
                                 <div class="form-group mb-4">
-                                    <label for="number">Invoice Number</label>
+                                    <label for="number">@lang('site.code')</label>
                                     <input type="text" class="form-control form-control-sm" name="ref" id="number" placeholder="#0001">
                                 </div>
 
@@ -45,16 +45,16 @@
                             <div class="col-md-3">
 
                                 <div class="form-group mb-4">
-                                    <label for="date">Invoice Date</label>
+                                    <label for="date">@lang('site.date')</label>
 
-                                    <input type="text" class="form-control form-control-sm" name="date" id="date" placeholder="Add date picker">
+                                    <input type="text" class="form-control form-control-sm" name="date" id="date" placeholder="@lang('site.select_date')">
                                 </div>
 
                             </div>
 
                             <div class="col-md-3">
                                 <div class="form-group mb-4">
-
+                                    <label for="number">@lang('site.document')</label>
                                     <input type="file" class="form-control form-control-sm" name="attachment" id="due" placeholder="None">
                                 </div>
 
@@ -91,7 +91,7 @@
                                         </td>
 
                                         <td class="description" >
-
+                                            <input type="hidden" id="1">
                                             <select class="form-control  basic " name="account_id[]">
                                                 @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
@@ -105,19 +105,62 @@
 
                                         <td class="rate">
 
-                                            <input type="number" class="form-control form-control-sm" name="credit[]" placeholder="@lang('site.amount')">
+                                            <input type="number" id="credit_1" class="form-control form-control-sm changesNo" name="credit[]" placeholder="@lang('site.amount')">
                                         </td>
                                         <td class="text-right qty">
-                                            <input type="number" class="form-control form-control-sm" name="debit[]" placeholder="@lang('site.amount')">
+                                            <input type="number" id="debit_1" class="form-control form-control-sm changesNo" name="debit[]" placeholder="@lang('site.amount')">
                                         </td>
                                     </div>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>
 
                         <button type="button" class="btn btn-secondary additem btn-sm">@lang('site.add item')</button>
 
+                    </div>
+
+                    {{-- total --}}
+                    <div class="totals-row mt-3">
+                        <div class="invoice-totals-row invoice-summary-subtotal mt-2">
+
+                            <div class="invoice-summary-label"> @lang('site.total_credit')</div>
+
+                            <div class="invoice-summary-value">
+                                <div class="subtotal-amount">
+                                   <span class="amount" id="cridtot">0</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="invoice-totals-row invoice-summary-total mt-2">
+
+                            <div class="invoice-summary-label">@lang('site.total_debit')</div>
+
+                            <div class="invoice-summary-value">
+                                <div class="total-amount">
+                                   <span class="amount" id="debittot">0</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="invoice-totals-row invoice-summary-balance-due">
+
+                            <div class="invoice-summary-label">@lang('site.difference')</div>
+
+                            <div class="invoice-summary-value">
+                                <div class="balance-due-amount">
+                                    <span  class="amount" id="defftot">0</span>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
 
@@ -141,7 +184,7 @@
 
                     </div>
                     <div class="text-right m-5">
-                        <button type="submit" class="btn btn-primary mb-2">Save</button>
+                        <button type="submit" class="btn btn-primary mb-2">@lang('site.save')</button>
 
                     </div>
                 </form>
@@ -172,6 +215,7 @@
                 '</ul>'+
                 '</td>'+
                 `<td class="description">
+
                     <select class="form-control  basic"  name="account_id[]">
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{$lang == 'ar' ? $category->title_ar: $category->title_en}}</option>
@@ -183,23 +227,54 @@
                     </select>
                 </td>`+
                 '<td class="rate">'+
-                    '<input type="number" class="form-control form-control-sm" name="credit[]" placeholder="@lang('site.amount')">'+
+                    '<input type="number" class="form-control changesNo form-control-sm"  name="credit[]" placeholder="@lang('site.amount')">'+
             ' </td>'+
-                '<td class="text-right qty"><input type="number" class="form-control form-control-sm" name="debit[]" placeholder="@lang('site.amount')"></td>'+
+                '<td class="text-right qty"><input type="number"  class="form-control changesNo form-control-sm" name="debit[]" placeholder="@lang('site.amount')"></td>'+
 
                 '</tr>';
-        document.getElementsByClassName('additem')[0].addEventListener('click', function() {
-            console.log('dfdf')
+            document.getElementsByClassName('additem')[0].addEventListener('click', function() {
+            //console.log('dfdf')
 
             getTableElement = document.querySelector('.item-table');
             currentIndex = getTableElement.rows.length;
-
-
 
             $(".item-table tbody").append(html);
             $('.basic').select2();
             deleteItemRow();
 
+            });
+
+            $(document).on('change keyup blur','.changesNo',function(){
+
+                calculateTotal();
+            });
+
+
+
+            function calculateTotal(){
+                sumcrdit=0;
+                sumdebit=0;
+                deff    =0;
+                $("input[name^='credit']").each(function(){
+                    sumcrdit+=Number($(this).val());
+                });
+                $("#cridtot").text(sumcrdit);
+
+                $("input[name^='debit']").each(function(){
+                    sumdebit+=Number($(this).val());
+                });
+                $("#debittot").text(sumdebit);
+
+                deff = sumcrdit - sumdebit ;
+                $("#defftot").text(deff);
+
+            }
+
+            $("form").submit(function(e){
+               if(sumcrdit != sumdebit){
+                   alert('القيد غير متزن')
+                   e.preventDefault();
+               }
             });
     });
 </script>

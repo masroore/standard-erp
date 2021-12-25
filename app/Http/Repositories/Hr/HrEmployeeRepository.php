@@ -61,7 +61,7 @@ class HrEmployeeRepository implements HrEmployeeInterface
             'gender' => 'required|string',
        ]);
 
-
+       //dd($request->all());
 
        ($request->status) ? $status = $request->status : $status = 0;
        ($request->role) ? $role = $request->role : $role = null;
