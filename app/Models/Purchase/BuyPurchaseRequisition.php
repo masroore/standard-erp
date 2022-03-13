@@ -10,7 +10,8 @@ class BuyPurchaseRequisition extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['reference_no','requested_by','added_by','date','total_qty','item_counts','status','document','note'];
+    protected $fillable = ['reference_no','requested_by','added_by',
+    'date','total_qty','item_counts','status','document','note','opration_id'];
 
     public function user()
     {

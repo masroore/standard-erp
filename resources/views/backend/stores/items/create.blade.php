@@ -35,9 +35,50 @@
         <div class="statbox widget box box-shadow">
             <div class="widget-header">
                 <div class="row">
-                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                    <div class="col-md-8">
 
                         <h4> @lang('site.please_fill_product_data')</h4>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="text-center mt-3">
+                            <button type="button" class="btn btn-primary mb-2 mr-2" data-toggle="modal" data-target="#exampleModal">
+                               @lang('site.import_from_file')
+                            </button>
+                        </div>
+
+                        {{-- handel add new  --}}
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <a class="btn btn-primary" href="{{ asset('public/uploads/stores/items//import/products.xlsx') }}" download="" >@lang('site.download_ex')</a>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="@lang('site.close')">
+                                          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                        </button>
+                                    </div>
+                                    <form action="{{route('dashboard.stores.import.items.excellsheet')}}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+
+                                        <div class="modal-body">
+
+                                            <div class="form-group">
+
+                                                <input  type="file" name="items_file" placeholder="@lang('upload_file')" class="form-control" required>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> @lang('site.cancel')</button>
+                                            <button type="submit" class="btn btn-primary">@lang('site.save')</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

@@ -9,7 +9,7 @@ interface CustomerInterface{
     public function store($request);
 
     public function update($request,$id);
-
+    public function customerContacts($id);
     public function create();
     public function edit($id);
     public function show($id);

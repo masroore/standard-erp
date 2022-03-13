@@ -81,14 +81,21 @@
                                 <span class="disc`+id+`"> 0.00 </span>
                             </td>
 
+                            <td class="description">
+
+                                <input type="hidden" id="totalLineBeforTax_`+id+`" name="total_line_befor_tax_price[]" class="editable-amount form-control totalLinePriceBeforTax" >
+                                <span class="amount1" id="totalBeforTax_`+id+`">0.00</span>
+
+                            </td>
+
                             <td class="description tax-type-show">
                                 <input type="hidden" id="tax_`+id+`"    name="item_tax_rate[]"   class="form-control tax-value-reset">
-                                <input type="hidden" id="taxAmount_`+id+`"    name="item_tax_amount[]"   class="form-control tax-value-reset">
+                                <input type="hidden" id="taxAmount_`+id+`"    name="item_tax_amount[]"   class="form-control itemTaxLine tax-value-reset">
                                 <span class="tax_amount`+id+`">0.00</span>
                             </td>
 
-                            <td class=" description">
-                                <input type="hidden" id="totalLine_`+id+`" name="total_line_price[]"  class=" editable-amount form-control totalLinePrice amount`+id+`" readonly>
+                            <td class=" description tax-type-show">
+                                <input type="hidden" id="totalLine_`+id+`" name="total_line_price[]"  class="editable-amount form-control totalLinePrice amount`+id+`" readonly>
                                 <span class="amount`+id+`" id="total_`+id+`">0.00</span>
                             </td>
 
@@ -123,7 +130,7 @@
             });
 
             handelShowTax() ;
-           
+
 
         });
 
@@ -162,15 +169,25 @@
                     }
             } // end of discount handel
 
-            // handel tax
-            taxRate         = $('#modeltax_'+id[1]).val();
-            if(taxRate != '' && typeof(taxRate) != "undefined" ){
-                taxAmount   = (parseFloat(price) * taxRate / 100) * quantity;
-                $('.tax_amount'+id[1]).text(taxAmount.toFixed(2));
-                $('#taxAmount_'+id[1]).val(taxAmount.toFixed(2));
-                $('#tax_'+id[1]).val(taxRate);
-                total       = parseFloat(total) + parseFloat(taxAmount);
-            }
+            // handel amount befor tax
+
+            amountBeforTax = total   ;
+            $('#totalLineBeforTax_'+id[1]).val(amountBeforTax);
+            $('#totalBeforTax_'+id[1]).text(amountBeforTax);
+
+            taxType =  $('#taxType').val() ;
+            if( taxType == 1){
+                // handel tax
+                taxRate         = $('#modeltax_'+id[1]).val();
+                //alert(taxRate / 100 + 1);
+                if(taxRate != '' && typeof(taxRate) != "undefined" ){
+                    taxAmount   = (parseFloat(amountBeforTax) * taxRate / 100) ;
+                    $('.tax_amount'+id[1]).text( taxAmount.toFixed(2) + ' ('+ taxRate + ' %)');
+                    $('#taxAmount_'+id[1]).val(taxAmount.toFixed(2));
+                    $('#tax_'+id[1]).val(taxRate);
+                    total       = parseFloat(amountBeforTax) + parseFloat(taxAmount);
+                }
+            }// end of handel tax for item
 
             // handel selected unit
             unit  = $('#modalunit_'+id[1]).children(':selected').text();
@@ -184,7 +201,7 @@
             }
 
             calculateTotal();
-        });
+        }); // end of handel change qty and item
 
         // handel model edit
         $(document).on('click','.changesNoModal',function(){
@@ -218,15 +235,25 @@
                 }
             } // end of discount handel
 
+            // handel amount befor tax
+            amountBeforTax = total   ;
+            $('#totalLineBeforTax_'+id[1]).val(amountBeforTax);
+            $('#totalBeforTax_'+id[1]).text(amountBeforTax);
+
             // handel tax
-            taxRate         = $('#modeltax_'+id[1]).val();
-            if(taxRate != '' && typeof(taxRate) != "undefined" ){
-                taxAmount   = (parseFloat(price) * taxRate / 100) * quantity;
-                $('.tax_amount'+id[1]).text(taxAmount.toFixed(2));
-                $('#taxAmount_'+id[1]).val(taxAmount.toFixed(2));
-                $('#tax_'+id[1]).val(taxRate);
-                total       = parseFloat(total) + parseFloat(taxAmount);
-            }
+            taxType =  $('#taxType').val() ;
+            if( taxType == 1){
+
+                taxRate         = $('#modeltax_'+id[1]).val();
+                if(taxRate != '' && typeof(taxRate) != "undefined" ){
+                    taxAmount   = (parseFloat(amountBeforTax) * taxRate / 100);
+                    $('.tax_amount'+id[1]).text(taxAmount.toFixed(2) + ' ('+ taxRate + ' %)');
+                    $('#taxAmount_'+id[1]).val(taxAmount.toFixed(2));
+                    $('#tax_'+id[1]).val(taxRate);
+                    total       = parseFloat(amountBeforTax) + parseFloat(taxAmount);
+                }
+
+            }// end of handel tax for items
 
             // handel selected unit
             unit  = $('#modalunit_'+id[1]).children(':selected').text();
@@ -239,12 +266,12 @@
                 $('#total_'+id[1]).text(parseFloat(total).toFixed(2));
 
             }
-            pu
+
             calculateTotal();
 
             $('#exampleModal'+id[1]).modal('hide');
 
-        });
+        }); // end of handel edit modal item
 
 
         $(document).on('change keyup blur','#invoiceDiscount',function(){
@@ -256,6 +283,10 @@
         });
 
         $(document).on('change keyup blur','#invoiceTax',function(){
+            calculateTotal();
+        });
+
+        $(document).on('change keyup blur','#deduction_tax',function(){
             calculateTotal();
         });
 
@@ -277,6 +308,9 @@
             handelPaymentType() ;
         });
 
+        $('#taxInvoiceShow').show();
+        $('.tax-type-show').hide();
+        $('.tax-value-reset').val(0);
         //function handel taxes
         function handelShowTax(){
             taxType   = $('#taxType').val();
@@ -335,55 +369,218 @@
 
         //total price calculation
         function calculateTotal(){
-
+            itemsTotal    = 0;
             subTotal      = 0;
             shippingCost  = 0;
             total         = 0;
+            itemTaxLine   = 0;
+            totalAfterDiscount = 0;
+            taxType       = $('#taxType').val();
 
-            //calculate subtotal
-            $('.totalLinePrice').each(function(){
-                if($(this).val() != '' )subTotal += parseFloat( $(this).val() );
+            //clac subtotal without tax
+            $('.totalLinePriceBeforTax').each(function(){
+                if($(this).val() != '' )itemsTotal += parseFloat( $(this).val() );
             });
-            //console.log(subTotal);
-            $('#subTotal').val(subTotal.toFixed(2) );
-            total         = subTotal;
+
+           $('#itemsTotal').val(itemsTotal.toFixed(2) );
+           totalAfterDiscount = itemsTotal;
             //calculate discount
             discountValue   = $('#invoiceDiscount').val();
             discountType    = $('#invoiceDiscountType').val();
 
             if(discountType == 1) {
-                value = discountValue / 100 * subTotal
-                total = subTotal - value ;
+                value = discountValue / 100 * itemsTotal
+                totalAfterDiscount = itemsTotal - value ;
                 $('#invoice-discount-amount').val(value.toFixed(2));
             }
             if(discountType == 2) {
-                total = subTotal - (discountValue) ;
+                totalAfterDiscount = itemsTotal - (discountValue) ;
                 $('#invoice-discount-amount').val(discountValue);
             }
+            $('#subTotalAfterDiscount').val(totalAfterDiscount.toFixed(2) );
 
-            //calculate tax
-            taxRate   = $('#invoiceTax').val();
-            taxAmount = total * (taxRate / 100) ;
-           // taxRate         = (parseFloat(taxRate) / 100 + 1).toFixed(2);
+            //handel taxes
+            if(taxType == 2){
+                //calculate added tax for wholl invoice
+                taxRate   = $('#invoiceTax').val();
+                taxAmount = totalAfterDiscount * (taxRate / 100) ;
+                $('#invoice-tax-amount').val(taxAmount.toFixed(2));
+            }else if(taxType == 1){
+                //calculate added tax for items  taxItemAmount
 
-           $('#invoice-tax-amount').val(taxAmount.toFixed(2));
+                var amountId = $('[id^=taxAmount]');
+                var taxAmount = 0;
 
-            total           = total + taxAmount ;
+                amountId.each(function(index, value){
+                taxAmount += +($(value).val());
+                });
 
-            //calculate shipping cost
+                $('#taxItemsAmount').val(taxAmount.toFixed(2));
+            }
+
+            // calc deduction Tax Rate
+            deductionTaxRate   = $('#deduction_tax').val()
+            deductionTaxAmount =  totalAfterDiscount * (deductionTaxRate / 100) ;
+            $('#deduction-tax-amount').val(deductionTaxAmount.toFixed(2));
+
+            totalAftertaxs = totalAfterDiscount + taxAmount - deductionTaxAmount ;
+            $('#subTotalAfterTaxs').val(totalAftertaxs.toFixed(2) );
+
+            //calculate shipping cost and other expenses
             shippingCost = $('#shippingCost').val();
 
-            console.log(shippingCost);
-            if(shippingCost != '') total = parseFloat(total) + parseFloat(shippingCost);
+            //console.log(shippingCost);
+            if(shippingCost != '') totalAfterExpenses = parseFloat(totalAftertaxs) + parseFloat(shippingCost);
 
-            $('#grandTotal').val(total.toFixed(2) );
+            $('#grandTotal').val(totalAfterExpenses.toFixed(2) );
 
             handelPaymentType();
 
-        }
+        }// end of calculateTotal
+
+
+
+
+
 
 
 
     </script>
+
+
+<script>
+    $( document ).ready(function() {
+
+
+    $( "#importFromDelivers" ).click(function(event) {
+        event.preventDefault();
+
+        var customerId = $("#customerId").val();
+
+        if(customerId != null){
+
+        $.ajax({
+                url: "{{ url('dashboard/sales/delivers/') }}"+'/'+customerId,
+                type:"GET",
+                success: function (data) {
+                    $('.content-receives').html(data);
+
+                    },
+
+                error: function(data_error, exception) {
+                    if(exception == 'error'){
+                        var error_list = '' ;
+                        $.each(data_error.responseJSON.errors, function(index,v){
+                            error_list += '<li>'+v+'</li>';
+                        });
+                        $('.alert-errors ul').html(error_list)
+                    }
+                }
+            }); // end of ajax
+
+        }else{
+
+            alert('please select customer');
+
+        }
+
+
+    });
+
+
+    });
+
+
+    $(document).on('change', '#record__select-all', function () {
+
+    $('.record__select').prop('checked', this.checked);
+    getSelectedRecords();
+    });
+
+    $(document).on('click', '.close-receives', function () {
+    $('.widget-content-area').remove();
+    });
+
+    $(document).on('click', '#bulk-select', function (event) {
+    event.preventDefault();
+    var recordSelectIds = [];
+
+    $.each($(".record__select:checked"), function () {
+        recordSelectIds.push($(this).val());
+    });
+
+    if(recordSelectIds.length > 0){
+        $.ajax({
+                    url: "{{ url('dashboard/sales/delivers/items') }}"+'/'+recordSelectIds,
+                    type:"GET",
+                    success: function (data) {
+                        $('.item-receives').html(data);
+
+                        },
+                    error: function(data_error, exception) {
+                        if(exception == 'error'){
+                            var error_list = '' ;
+                            $.each(data_error.responseJSON.errors, function(index,v){
+                                error_list += '<li>'+v+'</li>';
+                            });
+                            $('.alert-errors ul').html(error_list)
+                        }
+                    }
+                }); // end of ajax
+        $('.widget-content-area').remove();
+        $('.standrd-tr').hide();
+        $('.additem').hide();
+    }else{
+        alert('please select receives');
+    }
+
+
+    });
+
+
+
+    function getSelectedRecords() {
+
+
+    var recordSelectIds = [];
+
+    $.each($(".record__select:checked"), function () {
+        recordSelectIds.push($(this).val());
+    });
+
+    recordSelectIds.length > 0
+        ? $('#bulk-select').attr('disabled', false)
+        : $('#bulk-select').attr('disabled', false)
+
+    } //$('#record-ids').val();
+
+
+
+</script>
+
+<script>
+        $('.option-visible').hide();
+        $('.transfare').hide();
+        $('.check').hide();
+
+        $(document).on('change keyup blur','#pay-mthod',function(){
+
+            payValue   = $('#pay-mthod').val();
+
+            if(payValue == 'check') {
+                $('.option-visible').show();
+                $('.check').show();
+                $('.transfare').hide();
+            }else if(payValue == 'transfare'){
+                $('.option-visible').show();
+                $('.check').hide();
+                $('.transfare').show();
+            }else{
+                $('.option-visible').hide();
+                $('.transfare').hide();
+                $('.check').hide();
+            }
+        });
+</script>
 
 

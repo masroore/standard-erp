@@ -1,7 +1,7 @@
 // Flatpickr
 
 var f1 = flatpickr(document.getElementById('basicFlatpickr'));
-var f5 = flatpickr(document.getElementById('basicFlatpickr2'));
+var b1 = flatpickr(document.getElementsByClassName('basicDate'));
 var f2 = flatpickr(document.getElementById('dateTimeFlatpickr'), {
     enableTime: true,
     dateFormat: "Y-m-d H:i",
@@ -15,3 +15,7 @@ var f4 = flatpickr(document.getElementById('timeFlatpickr'), {
     dateFormat: "H:i",
     defaultDate: "13:45"
 });
+
+var f5 = flatpickr(document.getElementById('basicFlatpickr1'));
+var f6 = flatpickr(document.getElementById('basicFlatpickr2'));
+

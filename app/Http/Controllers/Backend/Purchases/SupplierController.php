@@ -42,4 +42,8 @@ class SupplierController extends Controller
     public function destroy($id){
       return $this->supplierInterface->destroy($id);
     }// end of destroy
+
+    public function supplierContacts($id){
+        return $this->supplierInterface->supplierContacts($id);
+    }
 }

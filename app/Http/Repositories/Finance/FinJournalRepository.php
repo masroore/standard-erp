@@ -19,7 +19,7 @@ class FinJournalRepository  implements FinJournalInterface
     }
 
     public function index(){
-        $rows      = $this->model::orderBy('date','desc')->with('items')->get();
+        $rows      = $this->model::orderBy('id','desc')->with('items')->get();
         $routeName = 'journals';
         return view('backend.finance.journals.index', compact('rows','routeName'));
 

@@ -19,13 +19,11 @@
 @endcomponent
 
 
-<div class="row layout-top-spacing" id="cancel-row">
+
 
     {{--  fillter data  --}}
 
     <div class="row">
-
-
         <div class="col-lg-12 col-12 layout-spacing p-3">
             <div class="statbox widget box box-shadow">
                 <div class="widget-header">
@@ -79,96 +77,106 @@
                 </div>
             </div>
         </div>
+    </div>
 
     {{-- show data  --}}
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+            <div class="widget-content widget-content-area br-6">
+                <table id="zero-config" class="table dt-table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>@lang('site.invoice_code')</th>
+                            <th>@lang('site.created_at')</th>
+                            <th>@lang('site.supplier')</th>
+                            <th>@lang('site.amount')</th>
+                            <th>@lang('site.remaining_amount')</th>
+                            <th>@lang('site.paid_status')</th>
+                            <th class="no-content text-center">@lang('site.actions')</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-        <div class="widget-content widget-content-area br-6">
-            <table id="zero-config" class="table dt-table-hover" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>@lang('site.invoice_code')</th>
-                        <th>@lang('site.created_at')</th>
-                        <th>@lang('site.supplier')</th>
-                        <th>@lang('site.amount')</th>
-                        <th>@lang('site.paid_status')</th>
-                        <th class="no-content text-center">@lang('site.actions')</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach ($rows as $key => $row)
+                        @foreach ($rows as $key => $row)
 
 
-                    <tr>
-                        <td>{{$key+1}}</td>
-                        <td class="sorting_1 sorting_2">
-                            <div class="d-flex">
+                        <tr>
+                            <td>{{$key+1}}</td>
 
-                                <p class="align-self-center mb-0 admin-name"> {{$row->reference_no}} </p>
-                            </div>
-                        </td>
-                        <td class="sorting_1 sorting_2">
-                            <div class="d-flex">
+                            <td > {{$row->reference_no}} </td>
 
-                                <p class="align-self-center mb-0 admin-name"> {{$row->date}} </p>
-                            </div>
-                        </td>
+                            <td > {{$row->date}} </td>
 
-                        <td class="sorting_1 sorting_2">
-                            <div class="d-flex">
+                            <td> {{$row->supplier->company_name}} </td>
 
-                                <p class="align-self-center mb-0 admin-name"> {{$row->supplier->company_name}} </p>
-                            </div>
-                        </td>
+                            <td >{{$row->grand_total}} </td>
 
-                        <td class="sorting_1 sorting_2">
-                            <div class="d-flex">
+                            <td > {{$row->remaining_amount}} </td>
 
-                                <p class="align-self-center mb-0 admin-name"> {{$row->grand_total}} </p>
-                            </div>
-                        </td>
 
-                        <td class="sorting_1 sorting_2">
-                            @if ($row->status == 1)
-                            <span class="badge badge-success"> {{$lang == 'ar' ? 'مدفوع' : ' paid '}} <i class="fa fa-check" aria-hidden="true"></i> </span>
-                            @else
-                            <span class="badge badge-danger"> {{$lang == 'ar' ? 'غير مدفوع' : ' unpaid '}} <i class="fa fa-times" aria-hidden="true"></i> </span>
-                            @endif
-                        </td>
+                            <td>
+                                @if ($row->is_paid == 1)
+                                <span class="badge badge-success"> @lang('site.paid') <i class="fa fa-check" aria-hidden="true"></i> </span>
+                                @else
+                                <span class="badge badge-danger">@lang('site.unpaid') <i class="fa fa-times" aria-hidden="true"></i> </span>
+                                @endif
+                            </td>
+
+                            <td class="text-center">
+                                <a href="{{ route('dashboard.purchases.show',$row->id ) }}" class="mr-2 text-success" title="@lang('site.show')"><i class="fa fa-lg fa-search" aria-hidden="true"></i></a>
+                                <a class="mr-2 text-warning" title="@lang('site.edit')"><i class="fa fa-lg fa-edit" aria-hidden="true"></i></a>
+                                <a class="mr-2 text-primary" title="@lang('site.download')"><i class="fa fa-lg fa-arrow-down" aria-hidden="true"></i></a>
 
 
 
-                        <td class="text-center">
-                            <a href="{{ route('dashboard.purchases.show',$row->id ) }}" class="mr-2 btn btn-info" title="@lang('site.show')"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                            <a class="mr-2 btn btn-warning" title="@lang('site.edit')"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                            <a class="mr-2 btn btn-primary" title="@lang('site.download')"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
-                            <form action="{{route('dashboard.purchases.destroy', $row->id)}}" method="POST" style="display:inline-block">
-                                @csrf
-                                @method('delete')
-                            <button type="submit" class="mr-2 btn btn-danger show_confirm" title="@lang('site.delete')"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                            </form>
-                        </td>
-                    </tr>
+                                <form action="{{route('dashboard.purchases-payments.index')}}" method="get" style="display:inline-block">
+                                    <input type="hidden" name="purch_id" value="{{ $row->id }}">
+                                <button type="submit" class="mr-2 text-info btn-link" title="@lang('site.payments')"><i class="fa fa-lg fa-money" aria-hidden="true"></i></button>
+                                </form>
 
-                    @endforeach
+                                <form action="{{route('dashboard.purchases.destroy', $row->id)}}" method="POST" style="display:inline-block">
+                                    @csrf
+                                    @method('delete')
+                                <button type="submit" class="mr-2 show_confirm text-danger btn-link" title="@lang('site.delete')"><i class="fa fa-lg fa-trash" aria-hidden="true"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+
+                        @endforeach
 
 
 
-                </tbody>
+                    </tbody>
 
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 
-</div>
+
 
 
 
 
 @endsection
 
+@push('css')
+
+<style>
+    .btn-link{
+       background-color: #fafafa !important;
+       border:none;
+
+    }
+    .btn-link:hover{
+       background-color: #fafafa !important;
+       border:none;
+
+    }
+</style>
+
+@endpush
 
 
 @push('js')

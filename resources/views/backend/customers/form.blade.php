@@ -17,12 +17,13 @@
                 <label class="col-md-3" for="">@lang('site.opening_balance')</label>
                 <input type="text" name="opening_balance" class="form-control col-md-8" value="{{ old('opening_balance', isset($row) ? $row->opening_balance : '')}}" >
             </div>
- 
+
 
             <div class="form-group row">
                 <label class="col-md-3">@lang('site.customer_group')</label>
                 <div class="col-md-8">
                     <select class="form-control nested select2 ml-2" name="group_id" >
+                        <option selected disabled>@lang('site.select_group')</option>
                         @foreach ($CustomerGroup as $group)
                             <option value="{{ $group->id }}" {{(isset($row) && $row->group_id == $group->id) ? 'selected' : ''}}>{{$group->name}}</option>
                         @endforeach
@@ -34,6 +35,7 @@
                 <label class="col-md-3" for="">@lang('site.parent_company')</label>
                 <div class="col-md-8">
                 <select class="form-control nested select2" name="parent_id" >
+                    <option selected disabled>@lang('site.select_parent_company')</option>
                     @foreach ($parentCompanies as $parent)
                         <option value="{{ $parent->id }}" {{(isset($row) && $row->parent_id == $parent->id) ? 'selected' : ''}}>{{$parent->name}}</option>
                     @endforeach
@@ -166,16 +168,16 @@
             </div>
             <div class="form-group row hide-tax">
                 <label class="col-md-3" for="">@lang('site.tax_file_num')</label>
-                <input type="text" id="tax_file_number" name="tax_file_number" class="form-control col-md-8" value="{{ old('tax_file_number', isset($row) ? $row->tax_file_number : '')}}"  required>
+                <input type="text" id="tax_file_number" name="tax_file_number" class="form-control col-md-8" value="{{ old('tax_file_number', isset($row) ? $row->tax_file_number : '')}}"  >
             </div>
 
             <div class="form-group row hide-tax">
                 <label class="col-md-3" >@lang('site.cr_id')</label>
-                <input type="text" id="cr_id" name="cr_id" class="form-control col-md-8" value="{{ old('cr_id', isset($row) ? $row->cr_id : '')}}"  required>
+                <input type="text" id="cr_id" name="cr_id" class="form-control col-md-8" value="{{ old('cr_id', isset($row) ? $row->cr_id : '')}}">
             </div>
             <div class="form-group row hide-tax">
                 <label class="col-md-3">@lang('site.id_for_orginaztion')</label>
-                <input type="text" id="id_for_orginaztion" name="id_for_orginaztion" class="form-control col-md-8" value="{{ old('id_for_orginaztion', isset($row) ? $row->id_for_orginaztion : '')}}"  required>
+                <input type="text" id="id_for_orginaztion" name="id_for_orginaztion" class="form-control col-md-8" value="{{ old('id_for_orginaztion', isset($row) ? $row->id_for_orginaztion : '')}}">
             </div>
             <div class="form-group row hide-tax">
                 <label class="col-md-3">@lang('site.taxs_ofice')</label>

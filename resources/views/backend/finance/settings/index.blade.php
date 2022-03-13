@@ -19,7 +19,7 @@
 
 
 <div class="row ">
-    <div id="flFormsGrid" class="col-lg-12 layout-spacing">
+    <div id="flFormsGrid" class="col-lg-8 layout-spacing">
         <div class="statbox widget box box-shadow">
             <form action="{{ route('dashboard.finance.'. $routeName .'.update',1) }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -30,7 +30,7 @@
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12 row">
                             <div class="form-group col-md-6">
 
-                            <h4>@lang('site.please_fill_setting_data')</h4>
+                            <h4> @lang('site.setting_of_main_accounts')</h4>
                         </div>
 
                             <div class="form-group col-md-6 text-right">
@@ -48,7 +48,7 @@
 
                         @foreach ($rows as $key => $item)
                             <input type="hidden" name="setting_id[]" value="{{$item->id}}">
-                        <div class="form-group col-md-8 row m-auto">
+                        <div class="form-group col-md-12 row m-auto">
 
 
                             <div class="form-group col-md-4">
@@ -338,6 +338,54 @@
 
                 </div>
             </form>
+        </div>
+    </div>
+
+
+    <div id="flFormsGrid" class="col-lg-4 layout-spacing">
+        <div class="statbox widget box box-shadow">
+            <form action="{{ route('dashboard.settings.store') }}" method="POST">
+                @csrf
+                @method('post')
+
+                @include('backend.partials._errors')
+
+
+              <div class="widget-header">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12 row">
+                        <div class="form-group col-md-9">
+
+                        <h4> @lang('site.genral_setting')</h4>
+                    </div>
+
+                        <div class="form-group col-md-3 text-right">
+
+
+                            <button type="submit" class="btn btn-primary mt-3">@lang('site.save')</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {{-- link --}}
+                <div class="form-group p-3">
+                    <label > @lang('site.inventory_type') </label>
+                    <select class="form-control" name="inventory_type">
+                        <option class="form-control" value="1" {{ setting('inventory_type') == 1 ? 'selected' : ''}} >@lang('site.continuous_inventory')</option>
+                        <option class="form-control" value="2" {{ setting('inventory_type') == 2 ? 'selected' : ''}}>@lang('site.periodic_inventory')</option>
+                    </select>
+                </div>
+
+
+
+
+
+            {{-- <div class="form-group">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.save')</button>
+            </div> --}}
+        </form>
         </div>
     </div>
 </div>

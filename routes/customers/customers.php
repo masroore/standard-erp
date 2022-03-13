@@ -28,7 +28,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function(){
 Route::resource('customers', CustomerController::class);
 Route::resource('customerGroup', CustomerGroupController::class);
 Route::resource('parentCompany', ParentCompanyController::class);
-
+Route::get('customer-contacts/{id}', [CustomerController::class,'customerContacts'])->name('customer.contacts');
 
 
 });

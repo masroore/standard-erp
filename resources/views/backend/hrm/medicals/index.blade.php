@@ -147,10 +147,12 @@
          dropdownParent: $("#exampleModal"),
      });
 </script>
-<script src="{{asset('public/backend/crock/assets/js/apps/add_purchase.js') }}"></script>
+
 
 <script type="text/javascript">
-
+$('.dropify').dropify({
+    messages: { 'default': 'Click to Upload Photo', 'replace': 'Upload or Drag n Drop' }
+});
     $('.show_confirm').click(function(event) {
          var form =  $(this).closest("form");
          var name = $(this).data("name");

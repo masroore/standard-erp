@@ -4,10 +4,10 @@
 @endphp
 
 @section('title')
-        {{ $lang == 'ar' ? ' العلامات التجارية' : 'Brands ' }}
+    @lang('site.brands')
 @endsection
  @section('modelTitlie')
-        {{ $lang == 'ar' ? ' العلامات التجارية' : 'Brands ' }}
+        @lang('site.brands')
  @endsection
 @section('content')
 

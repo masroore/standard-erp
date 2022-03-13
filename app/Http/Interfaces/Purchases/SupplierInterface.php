@@ -5,7 +5,7 @@ namespace App\Http\Interfaces\Purchases;
 interface SupplierInterface{
 
     public function index();
-    
+
     public function create();
 
     public function edit($id);
@@ -17,6 +17,8 @@ interface SupplierInterface{
     public function update($request,$id);
 
     public function destroy($id);
+
+    public function supplierContacts($id);
 
 }// end of interface
 

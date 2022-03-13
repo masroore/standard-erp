@@ -30,11 +30,12 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>@lang('site.name')</th>
-                        <th>@lang('site.photo')</th>
+                        <th>@lang('site.company_name')</th>
+
                         {{-- <th>@lang('site.company_name')</th> --}}
                         <th>@lang('site.phone')</th>
                         <th>@lang('site.email')</th>
+                        <th>@lang('site.balance')</th>
                         <th>@lang('site.status')</th>
 
                         <th class="no-content">@lang('site.actions')</th>
@@ -49,31 +50,31 @@
                         <td class="sorting_1 sorting_2">
                             <div class="d-flex">
 
-                                <p class="align-self-center mb-0"> {{$customer->name}} </p>
-                            </div>
-                        </td>
-                        <td>
-                            @php
+                                @php
                                 (isset($customer->photo))? $image =$customer->photo : $image ='public/uploads/customers/photos/default.png';
-                            @endphp
+                                @endphp
 
 
-                            <div class="d-flex">
-                                <div class="usr-img-frame mr-2 rounded-circle">
-                                    @if($image)
-                                    <img alt="avatar" class="img-fluid rounded-circle" src="{{asset('public/uploads/customers/photos/'.$image)}}">
-                                    @else
-                                    <img alt="avatar" class="img-fluid rounded-circle" src="{{asset('public/uploads/stores/items/product.png')}}">
-                                    @endif
+                                <div class="d-flex">
+                                    <div class="usr-img-frame mr-2 rounded-circle">
+                                        @if($image)
+                                        <img alt="avatar" class="img-fluid rounded-circle" src="{{asset('public/uploads/customers/photos/'.$image)}}">
+                                        @else
+                                        <img alt="avatar" class="img-fluid rounded-circle" src="{{asset('public/uploads/stores/items/product.png')}}">
+                                        @endif
+
+                                    </div>
 
                                 </div>
 
+                                <p class="align-self-center mb-0"> {{$customer->company_name}} </p>
                             </div>
-
                         </td>
+                        
                         {{-- <td>{{$customer->company_name}}</td> --}}
                         <td>{{$customer->phone}}</td>
                         <td>{{$customer->email}}</td>
+                        <td>{{$customer->opening_balance}}</td>
                         <td>
                             @if ($customer->is_active == 1)
                             <span class="badge badge-success"> @lang('site.active') <i class="fa fa-check" aria-hidden="true"></i> </span>
@@ -85,6 +86,7 @@
 
                         <td>
                               <a href="{{route('dashboard.customers.show', $customer->id)}}" class="btn btn-info" title="@lang('site.show')"> <i class="fa fa-eye" aria-hidden="true"></i></a>
+                              <a href="{{route('dashboard.customer.contacts', $customer->id)}}" class="btn btn-success" title="@lang('site.contacts')"> <i class="fa fa-users" aria-hidden="true"></i></a>
                               <a href="{{route('dashboard.customers.edit', $customer->id)}}" class="btn btn-warning" title="@lang('site.edit')"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 <form action="{{ route('dashboard.customers.destroy' , $customer->id) }}" method="post" style="display:inline-block">
                                     @csrf

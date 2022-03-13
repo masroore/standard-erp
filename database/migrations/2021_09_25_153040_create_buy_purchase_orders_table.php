@@ -24,7 +24,7 @@ class CreateBuyPurchaseOrdersTable extends Migration
             $table->double('grand_total', 15, 3);
             $table->tinyInteger('status');
             $table->string('document')->nullable();
-            $table->text('note')->nullable();
+            $table->text('note')->nullable(); 
             $table->timestamps();
         });
     }

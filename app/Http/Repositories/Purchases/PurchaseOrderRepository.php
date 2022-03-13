@@ -3,6 +3,7 @@ namespace App\Http\Repositories\Purchases;
 use App\Models\Supplier;
 use App\Models\Purchase\BuyPurchaseOrder;
 use App\Http\Interfaces\Purchases\PurchaseOrderInterface;
+use App\Models\Purchase\BuyOperation;
 use App\Models\Purchase\BuyPurchaseOrderDetail;
 use App\Models\Settings\Tax;
 use App\Models\Store\StoItem;
@@ -36,13 +37,18 @@ class PurchaseOrderRepository  implements PurchaseOrderInterface
         return view('backend.purchases.purchaseOrders.show', compact('row'));
     }//end of show
 
-    public function create(){
+    public function create($request){
+        if($request->operration_id){
+            $operation = $request->operration_id ;
+        }else{
+            $operation = null;
+        }
         $suppliers = Supplier::get();
         $taxes     = Tax::get();
         $stores    = StoStore::get();
         $units     = StoUnit::get();
         $routeName = 'purchase-orders';
-        return view('backend.purchases.purchaseOrders.create', compact('suppliers','taxes','routeName','stores','units'));
+        return view('backend.purchases.purchaseOrders.create', compact('suppliers','operation','taxes','routeName','stores','units'));
     }//e nd of create
 
     public function search($value,$id){
@@ -107,6 +113,10 @@ class PurchaseOrderRepository  implements PurchaseOrderInterface
                 ]);
             }
         }// end of save details
+
+        if($request->opration_id != null){
+            BuyOperation::where("id", $request->opration_id)->update(["is_created_po" => 1]);
+        }
 
         if( config('app.locale') == 'ar'){ alert()->success('تم انشاء سجل جديد بنجاح', 'عمل رائع'); }
         else{alert()->success('The Recourd Created Successfully', 'Good Work'); }

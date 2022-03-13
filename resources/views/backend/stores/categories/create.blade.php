@@ -33,13 +33,12 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
-                            <input  type="text" name="title_ar" placeholder="{{ $lang == 'ar' ? ' الرجاء ادخال الاسم باللغة العربية' : 'Enter Name in Arabic ' }}" class="form-control" required>
+                        {{-- <div class="form-group">
+                            <input  type="text" name="title_ar" placeholder="@lang('site.name arabic')" class="form-control" required>
+                        </div> --}}
 
-                        </div>
-
                         <div class="form-group">
-                            <input type="text" name="title_en" placeholder="{{ $lang == 'ar' ? ' الرجاء ادخال الاسم باللغة الانجليزية' : 'Enter Name in English ' }}" class="form-control" required>
+                            <input type="text" name="title_en" placeholder="@lang('site.name')" class="form-control" required>
                         </div>
 
                     </div>

@@ -11,7 +11,8 @@ class BuySupplierQuotation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['purchase_request_id','supplier_id','added_by','date','total_qty','item_counts','status'];
+    protected $fillable = ['purchase_request_id','supplier_id','added_by','date','total_qty',
+                             'item_counts','status','opration_id'];
 
     public function user()
     {

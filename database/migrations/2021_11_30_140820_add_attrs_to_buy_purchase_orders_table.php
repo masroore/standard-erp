@@ -15,7 +15,7 @@ class AddAttrsToBuyPurchaseOrdersTable extends Migration
     {
         Schema::table('buy_purchase_orders', function (Blueprint $table) {
             //
-
+           
             $table->double('shipping_cost', 15, 3)->nullable()->after('total_cost');
             $table->integer('items_count')->nullable()->after('total_qty');
             $table->integer('tax_rate')->nullable()->after('shipping_cost');

@@ -91,7 +91,15 @@
 <div class="row layout-top-spacing" id="cancel-row">
 
     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+        <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center mt-4">
+            <div class="">
+                <button class="btn-info btn btn-sm"><span>PDF</span></button>
+                <a href="{{ route('dashboard.stores.export.items.excellsheet') }}" class="btn-info btn btn-sm"><span>Excel</span></a>
+                <button class="btn-info btn btn-sm"><span>Print</span></button>
+            </div>
+        </div>
         <div class="widget-content widget-content-area br-6">
+
             <table id="zero-config" class="table dt-table-hover" style="width:100%">
                 <thead>
                     <tr>
@@ -101,6 +109,7 @@
                         <th>@lang('site.code')</th>
                         <th>@lang('site.category')</th>
                         <th>@lang('site.brand')</th>
+                        <th>@lang('site.qty')</th>
                         <th class="no-content">@lang('site.actions')</th>
                     </tr>
                 </thead>
@@ -152,13 +161,11 @@
 
                                 <p class="align-self-center mb-0 admin-name">
 
-                                    @if ($row->cat_id != null)
 
-                                    {{$lang == 'ar' ? $row->category->title_ar :  $row->category->title_en}}
 
-                                    @else
-                                    ____
-                                    @endif
+                                    {{   $row->category->title_en ?? '___'}}
+
+
                                 </p>
                             </div>
                         </td>
@@ -167,29 +174,41 @@
 
                                 <p class="align-self-center mb-0 admin-name">
 
-                                    @if ($row->brand_id != null)
 
-                                    {{$lang == 'ar' ? $row->brand->title_ar :  $row->brand->title_en}}
 
-                                    @else
-                                    ____
-                                    @endif
+                                    {{$lang == 'ar' ? $row->brand->title_ar ?? 'بدون' :  $row->brand->title_en ?? 'No Brand'}}
+
+
+                                </p>
+                            </div>
+                        </td>
+
+                        <td class="sorting_1 sorting_2">
+                            <div class="d-flex">
+
+                                <p class="align-self-center mb-0 admin-name">
+
+                                    @foreach ($row->poductqty as $qty )
+                                    {{  $qty->quantity  }}
+                                    @endforeach
+
+
                                 </p>
                             </div>
                         </td>
 
                         <td>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#bd-example-modal-lg{{$row->id}}" title="{{$lang == 'ar' ? ' عرض' : ' Show '}}">
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#bd-example-modal-lg{{$row->id}}" title="@lang('site.show')">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </button>
 
 
-                            <a href="{{route('dashboard.stores.items.edit', $row->id)}}" class="btn btn-warning btn-sm" title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="{{route('dashboard.stores.items.edit', $row->id)}}" class="btn btn-warning btn-sm" title="@lang('site.edit')"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
 
                             <form action="{{route('dashboard.stores.items.destroy', $row->id)}}" method="POST" style="display:inline-block">
                                 @csrf
                                 @method('delete')
-                            <button type="submit" class="mr-2 btn btn-danger show_confirm btn-sm" title="{{$lang == 'ar' ? 'حذف ' : 'Delete  '}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <button type="submit" class="mr-2 btn btn-danger show_confirm btn-sm" title="@lang('site.delete')"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </form>
                         </td>
                     </tr>

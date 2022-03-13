@@ -3,6 +3,7 @@ namespace App\Http\Repositories\Purchases;
 use App\Models\Supplier;
 use App\Models\Purchase\BuyPurchaseRequisition;
 use App\Http\Interfaces\Purchases\PurchaseRequisitionInterface;
+use App\Models\Purchase\BuyOperation;
 use App\Models\Purchase\BuyPurchaseRequisitionItem;
 use App\Models\Purchase\BuySupplierQuotation;
 use App\Models\Purchase\BuySupplierQuotationDetail;
@@ -39,11 +40,16 @@ class PurchaseRequisitionRepository  implements PurchaseRequisitionInterface
         return view('backend.purchases.requisitions.show', compact('row'));
     }//end of show
 
-    public function create(){
+    public function create($request){
+        if($request->operration_id){
+            $operation = $request->operration_id ;
+        }else{
+            $operation = null;
+        }
         $units     = StoUnit::get();
         $suppliers = Supplier::get();
         $routeName = 'purchase-requisitions';
-        return view('backend.purchases.requisitions.create', compact('routeName','units','suppliers'));
+        return view('backend.purchases.requisitions.create', compact('routeName','units','operation','suppliers'));
     }//e nd of create
 
     public function search($value,$id){
@@ -105,7 +111,7 @@ class PurchaseRequisitionRepository  implements PurchaseRequisitionInterface
                     'description'       => 'description items',
                 ]);
             }
-        }// end of save details
+        }// end of save details 
 
         //save new supplier quotation
         if($request->supplier_id){
@@ -138,7 +144,9 @@ class PurchaseRequisitionRepository  implements PurchaseRequisitionInterface
         }// end of request supplier id
 
 
-        //dd('check');
+        if($request->opration_id != null){
+            BuyOperation::where("id", $request->opration_id)->update(["is_created_pr" => 1]);
+        }
 
         if( config('app.locale') == 'ar'){ alert()->success('تم انشاء سجل جديد بنجاح', 'عمل رائع'); }
         else{alert()->success('The Recourd Created Successfully', 'Good Work'); }

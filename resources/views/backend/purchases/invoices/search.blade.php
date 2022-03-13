@@ -53,9 +53,12 @@ style="overflow-y: scroll;height: 350px; background-color: #ccc; position: absol
        var unit_id =  $(this).attr('unit_id');
        var taxRate = $(this).attr('tax');
        var taxAmount = purch_price * (taxRate / 100);
-       var totalPrice = taxAmount + parseFloat(purch_price) ;
+
        var id = {{ $id }};
         //alert(unit_id);
+
+        // handel amount befor tax
+
 
        $('.title'+id).val(title);
        $('.item_id'+id).val(item_id);
@@ -73,8 +76,33 @@ style="overflow-y: scroll;height: 350px; background-color: #ccc; position: absol
        $('#modalunit_'+id).val(unit_id);
        $('#modeltitle'+id).text(title);
 
-       $('#totalLine_'+id).val(parseFloat(totalPrice).toFixed(2));
-       $('.amount'+id).text(parseFloat(totalPrice).toFixed(2));
+
+
+
+       amountBeforTax = purch_price  ;
+        $('#totalLineBeforTax_'+id).val(amountBeforTax);
+        $('#totalBeforTax_'+id).text(amountBeforTax);
+
+
+        taxType =  $('#taxType').val() ;
+
+        if (taxType == 1) {
+            var totalPrice = taxAmount + parseFloat(purch_price) ;
+            $('#totalLine_'+id).val(parseFloat(totalPrice).toFixed(2));
+            $('.amount'+id).text(parseFloat(totalPrice).toFixed(2));
+        }
+        else if (taxType == 2) {
+            ;
+            $('#totalLine_'+id).val(parseFloat(amountBeforTax).toFixed(2));
+            $('.amount'+id).text(parseFloat(amountBeforTax).toFixed(2));
+        }
+
+
+    //     var totalPrice = taxAmount + parseFloat(purch_price) ;
+    //    $('#totalLine_'+id).val(parseFloat(totalPrice).toFixed(2));
+    //    $('.amount'+id).text(parseFloat(totalPrice).toFixed(2));
+
+        //alert(amountBeforTax);
        $('.widget-content-area'+id).remove();
 
        calculateTotal();

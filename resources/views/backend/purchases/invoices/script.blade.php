@@ -48,8 +48,8 @@
 
                                 <input type="text" id="`+id+`" class=" form-control form-control-sm search title`+id+`" placeholder="@lang('site.item')" autocomplete="off">
 
-                                <button type="button" class="  btn-xs  modali" style="background-color: #fafafa !important; border:none" data-toggle="modal"
-                                    data-target="#exampleModal`+id+`" title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}"> <i class="fa fa-edit"></i>
+                                <button type="button" class="  btn-xs show-modal-invoice modali" style="background-color: #fafafa !important; border:none" data-toggle="modal"
+                                    data-target="#exampleModal_`+id+`" title="@lang('site.edit')"> <i class="fa fa-edit"></i>
                                 </button>
 
                                 @include('backend.purchases.invoices.itemmodal')
@@ -81,14 +81,21 @@
                                 <span class="disc`+id+`"> 0.00 </span>
                             </td>
 
+                            <td class="description">
+
+                                <input type="hidden" id="totalLineBeforTax_`+id+`" name="total_line_befor_tax_price[]" class="editable-amount form-control totalLinePriceBeforTax" >
+                                <span class="amount1" id="totalBeforTax_`+id+`">0.00</span>
+
+                            </td>
+
                             <td class="description tax-type-show">
                                 <input type="hidden" id="tax_`+id+`"    name="item_tax_rate[]"   class="form-control tax-value-reset">
-                                <input type="hidden" id="taxAmount_`+id+`"    name="item_tax_amount[]"   class="form-control tax-value-reset">
+                                <input type="hidden" id="taxAmount_`+id+`"    name="item_tax_amount[]"   class="form-control itemTaxLine tax-value-reset">
                                 <span class="tax_amount`+id+`">0.00</span>
                             </td>
 
-                            <td class=" description">
-                                <input type="hidden" id="totalLine_`+id+`" name="total_line_price[]"  class=" editable-amount form-control totalLinePrice amount`+id+`" readonly>
+                            <td class=" description tax-type-show">
+                                <input type="hidden" id="totalLine_`+id+`" name="total_line_price[]"  class="editable-amount form-control totalLinePrice amount`+id+`" readonly>
                                 <span class="amount`+id+`" id="total_`+id+`">0.00</span>
                             </td>
 
@@ -98,37 +105,35 @@
                 $(this).attr('id',id);
                 deleteItemRow();
 
-            // search for item  by ajax request
-            $(".search").keyup(function(){
+                // search for item  by ajax request
+                $(".search").keyup(function(){
 
-                var value =$(this).val();
-                var id =$(this).attr('id');
-                    $.ajax({
-                        type: 'get',
-                        url: "{{ url('dashboard/'. $routeName .'/search/') }}"+'/'+value+'/'+id,
-                        success: function (data) {
-                            $('.content-search'+id).html(data);
+                    var value =$(this).val();
+                    var id =$(this).attr('id');
+                        $.ajax({
+                            type: 'get',
+                            url: "{{ url('dashboard/'. $routeName .'/search/') }}"+'/'+value+'/'+id,
+                            success: function (data) {
+                                $('.content-search'+id).html(data);
 
-                            },
-                        error: function(data_error, exception) {
-                            if(exception == 'error'){
-                                var error_list = '' ;
-                                $.each(data_error.responseJSON.errors, function(index,v){
-                                    error_list += '<li>'+v+'</li>';
-                                });
-                                $('.alert-errors ul').html(error_list)
+                                },
+                            error: function(data_error, exception) {
+                                if(exception == 'error'){
+                                    var error_list = '' ;
+                                    $.each(data_error.responseJSON.errors, function(index,v){
+                                        error_list += '<li>'+v+'</li>';
+                                    });
+                                    $('.alert-errors ul').html(error_list)
+                                }
                             }
-                        }
-                    });
-            });
+                        });
+                });
 
-            handelShowTax() ;
-           
-
-        });
+                handelShowTax() ;
+            }); // end of add new items
 
 
-        });
+        }); // end of handel items search and add new
 
         // handel normal case
         $(document).on('change keyup blur','.changesNo',function(){
@@ -162,15 +167,25 @@
                     }
             } // end of discount handel
 
-            // handel tax
-            taxRate         = $('#modeltax_'+id[1]).val();
-            if(taxRate != '' && typeof(taxRate) != "undefined" ){
-                taxAmount   = (parseFloat(price) * taxRate / 100) * quantity;
-                $('.tax_amount'+id[1]).text(taxAmount.toFixed(2));
-                $('#taxAmount_'+id[1]).val(taxAmount.toFixed(2));
-                $('#tax_'+id[1]).val(taxRate);
-                total       = parseFloat(total) + parseFloat(taxAmount);
-            }
+            // handel amount befor tax
+
+            amountBeforTax = total   ;
+            $('#totalLineBeforTax_'+id[1]).val(amountBeforTax);
+            $('#totalBeforTax_'+id[1]).text(amountBeforTax);
+
+            taxType =  $('#taxType').val() ;
+            if( taxType == 1){
+                // handel tax
+                taxRate         = $('#modeltax_'+id[1]).val();
+                //alert(taxRate / 100 + 1);
+                if(taxRate != '' && typeof(taxRate) != "undefined" ){
+                    taxAmount   = (parseFloat(amountBeforTax) * taxRate / 100) ;
+                    $('.tax_amount'+id[1]).text( taxAmount.toFixed(2) + ' ('+ taxRate + ' %)');
+                    $('#taxAmount_'+id[1]).val(taxAmount.toFixed(2));
+                    $('#tax_'+id[1]).val(taxRate);
+                    total       = parseFloat(amountBeforTax) + parseFloat(taxAmount);
+                }
+            }// end of handel tax for item
 
             // handel selected unit
             unit  = $('#modalunit_'+id[1]).children(':selected').text();
@@ -184,7 +199,7 @@
             }
 
             calculateTotal();
-        });
+        }); // end of handel change qty and item
 
         // handel model edit
         $(document).on('click','.changesNoModal',function(){
@@ -218,15 +233,25 @@
                 }
             } // end of discount handel
 
+            // handel amount befor tax
+            amountBeforTax = total   ;
+            $('#totalLineBeforTax_'+id[1]).val(amountBeforTax);
+            $('#totalBeforTax_'+id[1]).text(amountBeforTax);
+
             // handel tax
-            taxRate         = $('#modeltax_'+id[1]).val();
-            if(taxRate != '' && typeof(taxRate) != "undefined" ){
-                taxAmount   = (parseFloat(price) * taxRate / 100) * quantity;
-                $('.tax_amount'+id[1]).text(taxAmount.toFixed(2));
-                $('#taxAmount_'+id[1]).val(taxAmount.toFixed(2));
-                $('#tax_'+id[1]).val(taxRate);
-                total       = parseFloat(total) + parseFloat(taxAmount);
-            }
+            taxType =  $('#taxType').val() ;
+            if( taxType == 1){
+
+                taxRate         = $('#modeltax_'+id[1]).val();
+                if(taxRate != '' && typeof(taxRate) != "undefined" ){
+                    taxAmount   = (parseFloat(amountBeforTax) * taxRate / 100);
+                    $('.tax_amount'+id[1]).text(taxAmount.toFixed(2) + ' ('+ taxRate + ' %)');
+                    $('#taxAmount_'+id[1]).val(taxAmount.toFixed(2));
+                    $('#tax_'+id[1]).val(taxRate);
+                    total       = parseFloat(amountBeforTax) + parseFloat(taxAmount);
+                }
+
+            }// end of handel tax for items
 
             // handel selected unit
             unit  = $('#modalunit_'+id[1]).children(':selected').text();
@@ -242,9 +267,9 @@
 
             calculateTotal();
 
-            $('#exampleModal'+id[1]).modal('hide');
+            $('#exampleModal_'+id[1]).modal('hide');
 
-        });
+        }); // end of handel edit modal item
 
 
         $(document).on('change keyup blur','#invoiceDiscount',function(){
@@ -259,12 +284,22 @@
             calculateTotal();
         });
 
+        $(document).on('change keyup blur','#deduction_tax',function(){
+            calculateTotal();
+        });
+
         $(document).on('change keyup blur','#shippingCost',function(){
             calculateTotal();
         });
 
         $(document).on('change keyup blur','#taxType',function(){
+            handelModelTax();
             handelShowTax() ;
+            calculateTotal();
+        });
+
+        $(document).on('click','.show-modal-invoice',function(){
+            handelTaxModalShow();
         });
 
         $(document).on('change keyup blur','#payment-invoice-type',function(){
@@ -277,7 +312,15 @@
             handelPaymentType() ;
         });
 
+        $(document).on('change keyup blur','#bankTransfareFees',function(){
+            handelPaymentType() ;
+        });
+
         //function handel taxes
+        $('#taxInvoiceShow').show();
+        $('.tax-type-show').hide();
+        $('.tax-value-reset').val(0);
+
         function handelShowTax(){
             taxType   = $('#taxType').val();
             // console.log(taxType);
@@ -296,12 +339,14 @@
                 $('#taxInvoiceShow').show();
 
             }
-        }
+        }// end of handelShowTax
 
          //function handel payments type
         function handelPaymentType(){
             payType  = $('#payment-invoice-type').val();
             total    = $("#grandTotal").val();
+            payMethod = $("#pay-mthod").val();
+            //alert(payMethod);
             // console.log(taxType); 1 => cash , 2 => fees ; 3 => deffred
 
             if(payType == 1){
@@ -309,6 +354,10 @@
                 $("#paymentAmount").attr('readonly','readonly');
                 $("#paymentType").show();
 
+                if(payMethod == 'transfare'){
+                    bankFee = $("#bankTransfareFees").val();
+                    total =   Number(bankFee) + Number(total);
+                }
 
                 $("#remainingAmount").val(0);
                 $("#paymentAmount").val(total);
@@ -331,59 +380,122 @@
                 $("#remainingAmount").val(total);
                 $("#paymentAmount").val(0);
             }
-        }
+        }// end of handelPaymentType
 
         //total price calculation
         function calculateTotal(){
-
+            itemsTotal    = 0;
             subTotal      = 0;
             shippingCost  = 0;
             total         = 0;
+            itemTaxLine   = 0;
+            totalAfterDiscount = 0;
+            taxType       = $('#taxType').val();
 
-            //calculate subtotal
-            $('.totalLinePrice').each(function(){
-                if($(this).val() != '' )subTotal += parseFloat( $(this).val() );
+            //clac subtotal without tax
+            $('.totalLinePriceBeforTax').each(function(){
+                if($(this).val() != '' )itemsTotal += parseFloat( $(this).val() );
             });
-            //console.log(subTotal);
-            $('#subTotal').val(subTotal.toFixed(2) );
-            total         = subTotal;
+
+           $('#itemsTotal').val(itemsTotal.toFixed(2) );
+           totalAfterDiscount = itemsTotal;
             //calculate discount
             discountValue   = $('#invoiceDiscount').val();
             discountType    = $('#invoiceDiscountType').val();
 
             if(discountType == 1) {
-                value = discountValue / 100 * subTotal
-                total = subTotal - value ;
+                value = discountValue / 100 * itemsTotal
+                totalAfterDiscount = itemsTotal - value ;
                 $('#invoice-discount-amount').val(value.toFixed(2));
             }
             if(discountType == 2) {
-                total = subTotal - (discountValue) ;
+                totalAfterDiscount = itemsTotal - (discountValue) ;
                 $('#invoice-discount-amount').val(discountValue);
             }
+            $('#subTotalAfterDiscount').val(totalAfterDiscount.toFixed(2) );
 
-            //calculate tax
-            taxRate   = $('#invoiceTax').val();
-            taxAmount = total * (taxRate / 100) ;
-           // taxRate         = (parseFloat(taxRate) / 100 + 1).toFixed(2);
+            //handel taxes
+            if(taxType == 2){
+                //calculate added tax for wholl invoice
+                taxRate   = $('#invoiceTax').val();
+                taxAmount = totalAfterDiscount * (taxRate / 100) ;
+                $('#invoice-tax-amount').val(taxAmount.toFixed(2));
+            }else if(taxType == 1){
+                //calculate added tax for items  taxItemAmount
 
-           $('#invoice-tax-amount').val(taxAmount.toFixed(2));
+                var amountId = $('[id^=taxAmount]');
+                var taxAmount = 0;
 
-            total           = total + taxAmount ;
+                amountId.each(function(index, value){
+                taxAmount += +($(value).val());
+                });
 
-            //calculate shipping cost
+                $('#taxItemsAmount').val(taxAmount.toFixed(2));
+            }
+
+            // calc deduction Tax Rate
+            deductionTaxRate   = $('#deduction_tax').val()
+            deductionTaxAmount =  totalAfterDiscount * (deductionTaxRate / 100) ;
+            $('#deduction-tax-amount').val(deductionTaxAmount.toFixed(2));
+
+            totalAftertaxs = totalAfterDiscount + taxAmount - deductionTaxAmount ;
+            $('#subTotalAfterTaxs').val(totalAftertaxs.toFixed(2) );
+
+            //calculate shipping cost and other expenses
             shippingCost = $('#shippingCost').val();
 
-            console.log(shippingCost);
-            if(shippingCost != '') total = parseFloat(total) + parseFloat(shippingCost);
+            //console.log(shippingCost);
+            if(shippingCost != '') totalAfterExpenses = parseFloat(totalAftertaxs) + parseFloat(shippingCost);
 
-            $('#grandTotal').val(total.toFixed(2) );
+            $('#grandTotal').val(totalAfterExpenses.toFixed(2) );
 
             handelPaymentType();
 
+        }// end of calculateTotal
+
+        //hande tax modal show
+
+        function handelTaxModalShow(){
+            taxType =  $('#taxType').val() ;
+            if(taxType == 2){
+                $('.hideTaxIfNotOnItem').hide()
+            }else{
+                $('.hideTaxIfNotOnItem').show()
+            }
         }
+
+        // handel payment type
+
+        $('.option-visible').hide();
+        $('.transfare').hide();
+        $('.check').hide();
+
+        $(document).on('change keyup blur','#pay-mthod',function(){
+
+            payValue   = $('#pay-mthod').val();
+
+            if(payValue == 'check') {
+                $('.option-visible').show();
+                $('.check').show();
+                $('.transfare').hide();
+            }else if(payValue == 'transfare'){
+                $('.option-visible').show();
+                $('.check').hide();
+                $('.transfare').show();
+            }else{
+                $('.option-visible').hide();
+                $('.transfare').hide();
+                $('.check').hide();
+            }
+
+            // cash transfare
+
+        }); // end of handel change qty and item
 
 
 
     </script>
+
+
 
 

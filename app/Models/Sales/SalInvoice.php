@@ -7,15 +7,27 @@ use App\Models\Store\StoStore;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class SalInvoice extends Model
 {
-    use HasFactory;
+    use HasFactory ,LogsActivity ;
 
     protected $fillable = ['reference_no','customer_id','money_id','added_by','store_id','date','total_qty','remaining_amount',
                         'order_tax_rate','order_tax','shipping_cost','total_discount','total_tax','tax_type','items_count',
                         'paid_amount','grand_total','status','is_paid','is_received','document','note','invoice_payment_type',
                         'total_cost'];
+
+
+                         // activity log
+    protected static $logAttributes           = ['reference_no','customer_id','money_id','added_by','store_id','date','total_qty','remaining_amount',
+    'order_tax_rate','order_tax','shipping_cost','total_discount','total_tax','tax_type','items_count',
+    'paid_amount','grand_total','status','is_paid','is_received','document','note','invoice_payment_type',
+    'total_cost'];
+    //protected static $ignoreChangedAttributes =  [''];
+    protected static $logName                 =  'SalesInvoice';
+    protected static $logOnlyDirty            =  true;
 
     // start relation
 

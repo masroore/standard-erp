@@ -14,13 +14,13 @@
                     <div class="col-md-8">
 
                         <div class="row">
-                          <div class="col-md-5">{{$lang == 'ar' ? 'الكود' : ' Code '}}</div>
+                          <div class="col-md-5">@lang('site.code')</div>
                           <div class="col-md-2"> : </div>
                           <div class="col-md-5">{{$row->code}}</div>
                         </div>
                           <hr>
                         <div class="row">
-                          <div class="col-md-5">{{$lang == 'ar' ? 'اسم الصنف  ' : ' Item Name  '}}</div>
+                          <div class="col-md-5">@lang('site.item')</div>
                           <div class="col-md-2"> : </div>
                           <div class="col-md-5">
                               {{-- {{$row->title_ar}} <br> --}}
@@ -29,66 +29,61 @@
                         <hr>
 
                         <div class="row">
-                          <div class="col-md-5">{{$lang == 'ar' ? 'التصنيف' : 'Category '}}</div>
+                          <div class="col-md-5">@lang('site.category')</div>
                           <div class="col-md-2"> : </div>
                           <div class="col-md-5">
-                              @if ($row->cat_id != null)
-                                 {{-- {{$row->category->title_ar }} <br> --}}
-                                {{$row->category->title_en }}
-                                @else
-                                -------
-                              @endif
+
+                                {{$row->category->title_en ?? '___'}}
 
                             </div>
                         </div>
                         <hr>
                         <div class="row">
-                          <div class="col-md-5">{{$lang == 'ar' ? 'العلامة التجارية' : 'Brand '}}</div>
+                          <div class="col-md-5">@lang('site.brand')</div>
                           <div class="col-md-2"> : </div>
-                          @if ($row->brand_id != null)
+
                           <div class="col-md-5">
-                              {{-- {{$row->brand->title_ar }} <br> --}}
-                              {{$row->brand->title_en }}</div>
-                          @else
-                          <div class="col-md-5">____</div>
-                          @endif
+
+                              {{$row->brand->title_en ?? '___' }}
+                            </div>
+
 
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-5">{{$lang == 'ar' ? ' سعر التكلفة  ' : '  Cost Price  '}}</div>
+                            <div class="col-md-5">@lang('site.cost')</div>
                             <div class="col-md-2"> : </div>
                             <div class="col-md-5">{{$row->cost}} </div>
                         </div>
                           <hr>
                         <div class="row">
-                            <div class="col-md-5">{{$lang == 'ar' ? ' سعر البيع  ' : '  Sale Price  '}}</div>
+                            <div class="col-md-5">@lang('site.sale_price')</div>
                             <div class="col-md-2"> : </div>
                             <div class="col-md-5">{{$row->sale_price}} </div>
                         </div>
                           <hr>
                         <div class="row">
-                            <div class="col-md-5">{{$lang == 'ar' ? ' كمية تنبيه نقص المخزون ' : ' Alert Quantity '}}</div>
+                            <div class="col-md-5">@lang('site.alert_qty')</div>
                             <div class="col-md-2"> : </div>
                             <div class="col-md-5">{{$row->alert_quantity}} </div>
                         </div>
                           <hr>
                         <div class="row">
-                            <div class="col-md-5">{{$lang == 'ar' ? ' تم الانشاء بواسطة' : ' Created By '}}</div>
+                            <div class="col-md-5">@lang('site.created_by')</div>
                             <div class="col-md-2"> : </div>
-                            <div class="col-md-5">{{$row->user->name}} </div>
+                            <div class="col-md-5">{{$row->user->name ?? '__'}} </div>
                         </div>
                           <hr>
 
                         <div class="row">
-                            <div class="col-md-5">{{$lang == 'ar' ? 'الضريبة' : '  Tax '}}</div>
+                            <div class="col-md-5">@lang('site.tax')</div>
                             <div class="col-md-2"> : </div>
                             <div class="col-md-5">{{  $row->tax_id }} %</div>
                         </div>
                           <hr>
 
                         <div class="row">
-                            <div class="col-md-5">{{$lang == 'ar' ? 'نوع الضريبة' : '  Tax Method '}}</div>
+                            <div class="col-md-5">@lang('site.tax_method')</div>
                             <div class="col-md-2"> : </div>
                             <div class="col-md-5">
                                 @if ($row->tax_method == 1)
@@ -112,7 +107,7 @@
                         </div>
 
                         <div class="col-md-12 mt-4">
-                            <label class="border-bottom" >{{$lang == 'ar' ? 'الوصف ' :  'Description'}} </label>
+                            <label class="border-bottom" >@lang('site.description') </label>
 
                             <p> {{$row->description}}</p>
                         </div>
@@ -122,8 +117,8 @@
             </div>
             <div class="modal-footer">
 
-                <button class="btn" data-dismiss="modal"> {{$lang == 'ar' ? 'اغلاق  ' :  'Close'}}</button>
-                <button class="btn btn-info" onclick="printDiv()"> {{$lang == 'ar' ? 'طباعة  ' :  'Print'}}</button>
+                <button class="btn" data-dismiss="modal"> @lang('site.close')</button>
+                <button class="btn btn-info" onclick="printDiv()"> @lang('site.print')</button>
             </div>
         </div>
 

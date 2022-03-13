@@ -4,10 +4,10 @@
 @endphp
 
 @section('title')
-        {{ $lang == 'ar' ? ' التصنيفات' : 'Categories ' }}
+    @lang('site.categories')
 @endsection
  @section('modelTitlie')
-        {{ $lang == 'ar' ? ' التصنيفات ' : 'Categories ' }}
+    @lang('site.categories')
  @endsection
 @section('content')
 
@@ -19,8 +19,8 @@
                 <nav class="breadcrumb-one p-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);"> {{ $lang == 'ar' ? ' التصنيفات ' : 'Categories ' }}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><span>{{$lang == 'ar' ? 'قائمة  التصنيفات ' : 'Categories List'}}</span></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">   @lang('site.categories')</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span>  @lang('site.categories_list')</span></li>
 
                     </ol>
                 </nav>
@@ -35,11 +35,11 @@
 
 @include('backend.stores.categories.create')
 
-{{-- <div class="text-center">
-    <a href="{{route('dashboard.categories.create')}}" class="btn btn-primary mb-2 mr-2" >
-        {{$lang == 'ar' ? 'اضافة جديد' : ' Add new'}}
+<div class="text-center">
+    <a href="{{route('dashboard.stores.export.categories.excellsheet')}}" class="btn btn-primary mb-2 mr-2" >
+       @lang('site.excell')
     </a>
-</div> --}}
+</div>
 
 
 
@@ -53,11 +53,10 @@
                     <tr>
                         <th>#</th>
 
-                        <th>{{$lang == 'ar' ? 'الاسم باللغة العربية' : ' Name Arabic '}}</th>
-                        <th>{{$lang == 'ar' ? 'الاسم باللغة الانجليزية' : ' Name English '}}</th>
-                        <th>{{$lang == 'ar' ? '  التصنيف الرئيسي' : '  Parent Category '}}</th>
-                        <th>{{$lang == 'ar' ? '   المستوي' : '   Level '}}</th>
-                        <th class="no-content">{{$lang == 'ar' ? 'اجراءت' : ' Actions '}}</th>
+                        <th>@lang('site.name')</th>
+                        <th>@lang('site.parent_category')</th>
+                        <th>@lang('site.level')</th>
+                        <th class="no-content">@lang('site.actions')</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,12 +66,7 @@
 
                     <tr>
                         <td>{{$key+1}}</td>
-                        <td class="sorting_1 sorting_2">
-                            <div class="d-flex">
 
-                                <p class="align-self-center mb-0 admin-name"> {{$row->title_ar}} </p>
-                            </div>
-                        </td>
                         <td class="sorting_1 sorting_2">
                             <div class="d-flex">
 
@@ -84,18 +78,8 @@
                             <div class="d-flex">
 
                                 <p class="align-self-center mb-0 admin-name">
+                                    {{ $row->parentCategory->title_en ?? '_____'}}
 
-                                    @if ($row->parent_id != 0 )
-                                        @php
-                                            $catName =  App\Models\Store\StoCategory::where('id', $row->parent_id)->first();
-
-                                        @endphp
-                                        {{$lang == 'ar' ? $catName->title_ar : $catName->title_en}}
-                                    @elseif($row->parent_id == 0)
-                                        ____
-                                        @else
-                                        ----------
-                                    @endif
                                 </p>
                             </div>
                         </td>

@@ -1,13 +1,8 @@
 <?php
 namespace App\Http\Repositories\Stores;
+use App\Exports\StoCategoriesExport;
 use App\Models\Store\StoCategory;
 use App\Http\Interfaces\Stores\StoCategoryInterface;
-//use App\Http\Traits\ApiDesignTrait;
-use App\Http\Repositories\LaravelLocalization;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Image;
-
 
 class StoCategoryRepository  implements StoCategoryInterface
 {
@@ -21,13 +16,19 @@ class StoCategoryRepository  implements StoCategoryInterface
 
     public function index(){
 
-        $rows = $this->model::orderBy('id','desc')->get();
+        $rows = $this->model::select('id','level','title_en','parent_id')
+        ->orderBy('id','desc')
+        ->with('parentCategory:id,level,title_en,parent_id')->get();
         $categories = StoCategory::where('parent_id', 0)
-            ->with('childrenCategories')
+            ->with('childrenCategories:id,level,title_en,parent_id')
             ->get();
         return view('backend.stores.categories.index', compact('rows','categories'));
 
     }//end of index
+
+    public function exportExcell(){
+        return new StoCategoriesExport();
+    }//end of exportExcell
 
     public function create(){
         $categories = StoCategory::where('parent_id', 0)
@@ -42,7 +43,7 @@ class StoCategoryRepository  implements StoCategoryInterface
         //dd($request->all());
 
         $request->validate([
-            'title_ar' => 'required|unique:sto_categories,title_ar',
+
             'title_en' => 'required|unique:sto_categories,title_en',
             'parent_id'=> 'required',
         ]);
@@ -56,7 +57,7 @@ class StoCategoryRepository  implements StoCategoryInterface
             //dd($catLevel);
         }
 
-        $requestArray = ['level' => $catLevel ] + $request->all() ;
+        $requestArray = ['level' => $catLevel ,'title_ar' => $request->title_en ] + $request->all() ;
 
         $row =  $this->model->create($requestArray);
 
@@ -68,21 +69,19 @@ class StoCategoryRepository  implements StoCategoryInterface
         return redirect()->back();
     }// end of store
 
-
     public function edit($id){
         $row =  $this->model->FindOrFail($id);
         $categories = StoCategory::where('parent_id', 0)
         ->with('childrenCategories')
         ->get();
         return view('backend.stores.categories.edit', compact('categories','row'));
-    }
+    }// end of edit
 
     public function update($request ,$id){
 
         //dd($id);
         $request->validate([
             'title_en' => 'required|unique:sto_categories,title_en,' . $id,
-            'title_ar' => 'required|unique:sto_categories,title_ar,' . $id,
             'parent_id'=> 'required',
         ]);
 
@@ -96,7 +95,7 @@ class StoCategoryRepository  implements StoCategoryInterface
             //dd($catLevel);
         }
 
-        $requestArray = ['level' => $catLevel ] + $request->all() ;
+        $requestArray = ['level' => $catLevel ,'title_ar' => $request->title_en ] + $request->all() ;
 
 
         $row =  $this->model->FindOrFail($id);
@@ -126,6 +125,8 @@ class StoCategoryRepository  implements StoCategoryInterface
         return redirect()->back();
 
     }// end of destroy
+
+
 } // end of class
 
 ?>

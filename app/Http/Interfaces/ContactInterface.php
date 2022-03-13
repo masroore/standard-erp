@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Interfaces;
 
@@ -12,9 +12,11 @@ interface ContactInterface{
 
     public function update($request,$id);
 
-    public function destroy($id); 
+    public function destroy($id);
+    public function search($value);
+    public function getByType($value);
 
-}// end of interface 
+}// end of interface
 
 
-?> 
+?>

@@ -13,10 +13,19 @@ class BankInfoController extends Controller
 
     public function __construct(BankInfoInterface $bankInfoInterface){
         $this->bankInfoInterface = $bankInfoInterface ;
-    }// end of constructor 
+    }// end of constructor
 
     public function index(){
       return $this->bankInfoInterface->index();
+    }
+    public function create(){
+        return $this->bankInfoInterface->create();
+    }
+    public function edit($id){
+    return $this->bankInfoInterface->edit($id);
+    }
+    public function show($id){
+    return $this->bankInfoInterface->show($id);
     }
     public function getById($id){
        return $this->bankInfoInterface->getById($id);
@@ -31,6 +40,5 @@ class BankInfoController extends Controller
 
     public function destroy($id){
       return $this->bankInfoInterface->destroy($id);
-    }// end of destroy 
+    }// end of destroy
 }
- 

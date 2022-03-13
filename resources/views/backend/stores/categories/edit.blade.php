@@ -30,10 +30,10 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <input  type="text" name="title_ar" value="{{ $row->title_ar }}" class="form-control" required>
 
-                    </div>
+                    </div> --}}
 
                     <div class="form-group">
                         <input type="text" name="title_en" value="{{ $row->title_en }}" class="form-control" required>

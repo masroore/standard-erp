@@ -2,6 +2,8 @@
 namespace App\Http\Repositories\Purchases;
 use App\Models\Supplier;
 use App\Http\Interfaces\Purchases\SupplierInterface;
+use App\Models\Contact;
+use App\Models\Country;
 use App\Models\Finance\FinAccount;
 use App\Models\Finance\FinSetting;
 use Illuminate\Http\Request;
@@ -19,17 +21,17 @@ class SupplierRepository  implements SupplierInterface
     }// end of construct
 
     public function index(){
-        $suppliers =  $this->supplierModel::get();
+        $suppliers =  $this->supplierModel::orderBy('id','desc')->select('id','contact_person','company_name','phone','email','is_active')->get();
         return view('backend.purchases.suppliers.index', compact('suppliers'));
     }//end of index
 
     public function show($id){
-        $row =  $this->supplierModel::where('id', $id)->get();
+        $row =  $this->supplierModel::where('id', $id)->first();
         return view('backend.purchases.suppliers.show', compact('row'));
     }//end of show
 
     public function create(){
-        $countries = DB::table('countries')->get();
+        $countries =  Country::all(['country_code','country_enName','country_arName']); //DB::table('countries')->get();
         return view('backend.purchases.suppliers.create', compact('countries'));
     }//e nd of create
 
@@ -39,15 +41,19 @@ class SupplierRepository  implements SupplierInterface
         return view('backend.purchases.suppliers.edit', compact('countries','row'));
     }
     public function store($request){
-
-        $validation = Validator::make($request->all(),[
+        //dd($request->all());
+        $request->validate([
             'contact_person'  => 'required|string',
             'company_name'    => 'required|string',
-            'phone'           => 'required|digits:11',
+            'phone'           => 'required',
             'fax'             => 'numeric|nullable',
-            'email'           => 'required|email|unique:suppliers',
-            'address'         => 'required',
-       ]);
+
+            ]);
+            if($request->tax_id){
+                $request->validate([
+                    'tax_id'          => 'unique:suppliers',
+                    ]);
+            }
 
        // create account for supplier
         $accountId = $this->createAccount($request->company_name);
@@ -69,9 +75,9 @@ class SupplierRepository  implements SupplierInterface
             }
 
         if($request->document){
-            $fileName = time().'.'.$request->document->extension();
-            $request->document->move(public_path('uploads/suppliers/documents/'), $fileName);
-            $document =  $fileName ;
+            $doc = time().'.'.$request->document->extension();
+            $request->document->move(public_path('uploads/suppliers/documents/'), $doc);
+            $document =  $doc ;
         }else{
             $document = "";
         }
@@ -116,23 +122,53 @@ class SupplierRepository  implements SupplierInterface
 
         $row =   $this->supplierModel::FindOrFail($id);
 
-            $validation = Validator::make($request->all(),[
-                'contact_person'  => 'required|string',
-                'company_name'    => 'required|string',
-                'phone'           => 'required|digits:11',
-                'fax'             => 'numeric',
-                'email'           => 'required|email|unique:suppliers,email,'.$id,
-                'address'         => 'required',
-                'tax_id'          => 'required|unique:suppliers,tax_id,'.$id,
-                'tax_file_number' => 'required|unique:suppliers,tax_file_number,'.$id,
+        $request->validate([
+            'contact_person'  => 'required|string',
+            'company_name'    => 'required|string',
+            'phone'           => 'required',
+            'fax'             => 'numeric|nullable',
+            'email'           => 'email',
+
             ]);
+            if($request->tax_id){
+                $request->validate([
+                    'tax_id'          => 'unique:suppliers,tax_id,'.$id,
+                    ]);
+            }
 
         if($request->is_active == 1){
             $status = 1;
         }else{
             $status = 0;
         }
-        $requestArray =   ['is_active' => $status] +$request->all() ;
+
+        if($request->taxclient == 1){
+            $taxclient = 1;
+        }else{
+            $taxclient = 2;
+        }
+
+        $fileName = '';
+        if ($request->hasFile('photo')) {
+            $fileName = $this->uploadImage($request->file('photo'));
+        }else{
+            $fileName = $row->photo;
+        }
+
+
+        if($request->document){
+            $doc = time().'.'.$request->document->extension();
+            $request->document->move(public_path('uploads/suppliers/documents/'), $doc);
+            $document =  $doc ;
+        }else{
+            $document = $row->document;
+        }
+
+
+        $requestArray =   ['is_active' => $status,
+                            'photo' => $fileName,
+                            'document' => $document,
+                            'is_tax_supplier' => $taxclient] +$request->all() ;
 
         $row->update($requestArray);
 
@@ -163,9 +199,12 @@ class SupplierRepository  implements SupplierInterface
          $img->fit(150, 150);
          $img->save(public_path('uploads/suppliers/photos/'. $fileName));
         return $fileName ;
-     }//end of uploadImage
+    }//end of uploadImage
 
-
+    public function supplierContacts($id){
+        $rows = Contact::where('supplier_id', $id)->get();
+        return view('backend.purchases.suppliers.contacts', compact('rows'));
+    }// end of customerContacts
 } // end of class
 
 ?>

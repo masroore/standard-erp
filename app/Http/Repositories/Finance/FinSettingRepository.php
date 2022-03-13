@@ -45,6 +45,17 @@ class FinSettingRepository  implements FinSettingInterface
             Lang::get('site.Tax_main_account_(sales)'),
             Lang::get('site.Tax_main_account_(purchases)'),
             Lang::get('site.Bank_fees_and_account_fees'),
+            Lang::get('site.Added_tax_value'),
+            Lang::get('site.Purchase_Expenses'),
+            Lang::get('site.DiscountEarned'),
+            Lang::get('site.TaxDeductCollect'),
+            Lang::get('site.TaxCommercialIndustrlalProfit'),
+            Lang::get('site.SalesExpenses'),
+            Lang::get('site.banks'),
+            Lang::get('site.payPayper'),
+            Lang::get('site.BankExpenses'),
+            Lang::get('site.NotesReceivables'),
+
         ];
 
     //    dd($categories);

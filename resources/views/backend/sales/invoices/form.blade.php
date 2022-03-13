@@ -10,7 +10,7 @@
 
             <div class="row justify-content-between">
 
-                <div class="col-md-4">
+                <div class="col-md-3">
 
                     <div class="form-group mb-4">
                         <label for="number">@lang('site.code')</label>
@@ -19,7 +19,7 @@
 
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
 
                     <div class="form-group mb-4">
                         <label for="date">@lang('site.date')</label>
@@ -29,9 +29,9 @@
 
 
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="">@lang('site.customer')</label>
-                    <select class="form-control basic" name="customer_id">
+                    <select class="form-control basic" name="customer_id" id="customerId">
                         <option disabled selected > @lang('site.select_customer') </option>
                         @foreach ($customers as $customer)
                             <option value="{{ $customer->id }}" >{{ $customer->company_name }} ({{ $customer->name }})</option>
@@ -40,7 +40,7 @@
                     </select>
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="">@lang('site.stores')</label>
                     <select class="form-control basic" name="store_id">
                         {{-- <option disabled selected > @lang('site.select_store') </option> --}}
@@ -51,16 +51,15 @@
                     </select>
                 </div>
 
-                <div class="form-group col-md-4">
-                    <label for="">@lang('site.received_status')</label>
+                <div class="form-group col-md-3">
+                    <label for="">@lang('site.deliver_status')</label>
                     <select class="form-control" name="is_received">
+                        <option value="1"> @lang('site.deliverd') </option>
                         <option value="0"> @lang('site.pending') </option>
-                        <option value="1"> @lang('site.received') </option>
-
                     </select>
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="">@lang('site.payment_invoice_type')</label>
                     <select class="form-control"  name="invoice_payment_type" id="payment-invoice-type">
                         <option value="1">@lang('site.cash_payment')</option>
@@ -69,24 +68,24 @@
                     </select>
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="">@lang('site.tax_type')</label>
                     <select class="form-control " name="tax_type" id="taxType">
-                        <option value="3"> @lang('site.for_both') </option>
+
                         <option value="2"> @lang('site.for_invoice') </option>
                         <option value="1"> @lang('site.for_items') </option>
 
                     </select>
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label for="">@lang('site.docment')</label>
-                    <div class="custom-file mb-4">
-                        <input type="file" class="custom-file-input" id="customFile">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    <div class="mb-4">
+                        <input type="file" class="form-control" id="">
+
                     </div>
                 </div>
-                <div class="form-group col-md-4"></div>
+
 
 
 
@@ -96,6 +95,11 @@
 
         {{-- items details --}}
         <div class="invoice-detail-items">
+
+            <a class="btn btn-info mb-2" id="importFromDelivers"> استيراد من اذون الصرف </a>
+            <div class="content-receives">
+
+            </div>
 
             <div class="table-responsive">
                 <table class="table table-bordered item-table">
@@ -108,8 +112,9 @@
                             <th >@lang('site.price')</th>
                             <th >@lang('site.unit')</th>
                             <th >@lang('site.discount')</th>
-                            <th class="tax-type-show">@lang('site.tax')</th>
                             <th >@lang('site.amount')</th>
+                            <th class="tax-type-show">@lang('site.tax')</th>
+                            <th class="tax-type-show">@lang('site.amount_after_tax')</th>
 
                         </tr>
                     </thead>
@@ -126,7 +131,7 @@
                                 <input type="text" id="1" class="form-control form-control-sm search title1" placeholder="@lang('site.item')" autocomplete="off">
 
                                 {{-- edit item data --}}
-                                <button type="button" class="  btn-xs  modali" style="background-color: #fafafa !important; border:none" data-toggle="modal"
+                                <button type="button" class="btn-xs  modali" style="background-color: #fafafa !important; border:none" data-toggle="modal"
                                         data-target="#exampleModal1" title="{{$lang == 'ar' ? ' تعديل' : ' Edit '}}"> <i class="fa fa-edit"></i>
                                 </button>
                                 @include('backend.sales.invoices.itemmodal')
@@ -157,16 +162,23 @@
                                 <span class="disc1"> 0.00 </span>
                             </td>
 
+                            <td class="description">
+
+                                <input type="hidden" id="totalLineBeforTax_1" name="total_line_befor_tax_price[]" class=" editable-amount form-control totalLinePriceBeforTax" >
+                                <span class="" id="totalBeforTax_1">0.00</span>
+
+                            </td>
+
                             <td class="description  tax-type-show">
 
                                 <input type="hidden" id="tax_1"          name="item_tax_rate[]"   class="form-control tax-value-reset">
-                                <input type="hidden" id="taxAmount_1"    name="item_tax_amount[]"   class="form-control tax-value-reset">
+                                <input type="hidden" id="taxAmount_1"    name="item_tax_amount[]"   class="form-control tax-value-reset itemTaxLine">
                                 <span class="tax_amount1">0.00</span>
                             </td>
 
 
 
-                            <td class="description">
+                            <td class="tax-type-show">
 
                                 <input type="hidden" id="totalLine_1" name="total_line_price[]" class=" editable-amount form-control totalLinePrice" >
                                 <span class="amount1" id="total_1">0.00</span>
@@ -191,7 +203,7 @@
                     <div class="form-group row">
                         <label  class="col-sm-4 col-form-label col-form-label-sm">@lang('site.subtotal')</label>
                         <div class="col-sm-8">
-                            <input type="number" id="subTotal" name="sub_total" class="form-control"  min="0" id="" placeholder="0.00" readonly>
+                            <input type="number" id="itemsTotal" name="items_total" class="form-control"  min="0" id="" placeholder="0.00" readonly>
                         </div>
                     </div>
 
@@ -218,6 +230,13 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label  class="col-sm-4 col-form-label col-form-label-sm">@lang('site.subtotal_after_discount')</label>
+                        <div class="col-sm-8">
+                            <input type="number" id="subTotalAfterDiscount" name="sub_total_after_discount" class="form-control"  min="0"  placeholder="0.00" readonly>
+                        </div>
+                    </div>
+
                     <div class="form-group row " id="taxInvoiceShow">
                         <label for="payment-method-code" class="col-sm-4 col-form-label col-form-label-sm">@lang('site.tax')</label>
                         <div class="col-sm-5">
@@ -235,12 +254,45 @@
                         </div>
                     </div>
 
+                    <div class="form-group row tax-type-show">
+                        <label  class="col-sm-4 col-form-label col-form-label-sm">@lang('site.tax_mount')</label>
+                        <div class="col-sm-8">
+                            <input type="number" id="taxItemsAmount" name="tax_item_amount" class="form-control"  min="0"  placeholder="0.00" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group row ">
+                        <label for="payment-method-code" class="col-sm-4 col-form-label col-form-label-sm">@lang('site.tax_deduction')</label>
+                        <div class="col-sm-5">
+                            <select id="deduction_tax" class="form-control form-control-sm"  name="deduction_tax" >
+                                <option  value="0">@lang('site.no')</option>
+                                @foreach ($taxes as $tax)
+                                <option value="{{ $tax->rate }}" >{{$tax->name . '('.$tax->rate .'%)'}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+
+                                <input type="number" name="deduction_tax_amount" class="form-control form-control-sm"  min="0" id="deduction-tax-amount" placeholder="0.00" readonly>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label  class="col-sm-4 col-form-label col-form-label-sm">@lang('site.subtotal_after_tax')</label>
+                        <div class="col-sm-8">
+                            <input type="number" id="subTotalAfterTaxs" name="sub_total_after_tax" class="form-control"  min="0"  placeholder="0.00" readonly>
+                        </div>
+                    </div>
+
+
+
 
 
                     <div class="form-group row ">
                         <label for="payment-method-account" class="col-sm-4 col-form-label col-form-label-sm">@lang('site.shipping_cost')</label>
                         <div class="col-sm-8">
-                            <input type="number" name="shipping_cost" class="form-control form-control-sm"  min="0" id="shippingCost" placeholder="0.00">
+                            <input type="number" name="shipping_cost" value="0" class="form-control form-control-sm"  min="0" id="shippingCost" placeholder="0.00">
                         </div>
                     </div>
 
@@ -262,14 +314,63 @@
                         <div class="form-group row" id="paymentType">
                             <label  class="col-sm-4 col-form-label col-form-label-sm" > @lang('site.pay_type')</label>
                             <div class="col-sm-8">
-                                <select class="form-control form-control-sm"  name="pay_type" >
+                                <select class="form-control form-control-sm"   id="pay-mthod" name="pay_type" >
 
-                                    <option value="1">@lang('site.cash')</option>
-                                    <option value="2">@lang('site.bank_transfer')</option>
-                                    <option value="2">@lang('site.vezai')</option>
-                                    <option value="1">@lang('site.check')</option>
+                                    <option value="cash">@lang('site.cash')</option>
+                                    <option value="transfare">@lang('site.bank_transfer')</option>
+                                    <option value="check">@lang('site.check')</option>
 
                                 </select>
+                            </div>
+
+                        </div>
+
+                        <div class="option-visible ">
+                            <div class="form-group row">
+                                <label class="col-sm-6"></label>
+                                <strong class="form-group col-sm-6 check "> بيانات الشيك </strong>
+                                <strong class="form-group col-sm-6 transfare"> بيانات التحويل </strong>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm"> @lang('site.banks') </label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="bank_id">
+                                    @foreach ($banks as $bank )
+                                    <option value="{{ $bank->id }}">{{ $bank->title_en }}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm"> @lang('site.number') </label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="document_code" placeholder="" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group row check">
+                                <label class="col-sm-4 col-form-label col-form-label-sm"> @lang('site.created_date') </label>
+                                <div class="col-sm-8">
+                                    <input  name="created_date" class="form-control basicDate flatpickr flatpickr-input active" type="text" placeholder="@lang('site.select_date')" >
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label col-form-label-sm check"> @lang('site.due_date') </label>
+                                <label class="col-sm-4 col-form-label col-form-label-sm transfare"> @lang('site.transfare_date') </label>
+                                <div class="col-sm-8">
+                                    <input  name="due_date" class="form-control basicDate flatpickr flatpickr-input active" type="text" placeholder="@lang('site.select_date')" >
+                                </div>
+                            </div>
+
+                            <div class="form-group row transfare">
+                                <label class="col-sm-4 col-form-label col-form-label-sm"> @lang('site.transfare_bank_fees') </label>
+                                <div class="col-sm-8">
+                                    <input type="number" id="bankTransfareFees" name="bank_transfare_fees"  class="form-control">
+                                </div>
                             </div>
 
                         </div>

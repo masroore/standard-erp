@@ -12,7 +12,7 @@ class ContactController extends Controller
 
     public function __construct(ContactInterface $contactInterface){
         $this->contactInterface = $contactInterface ;
-    }// end of constructor 
+    }// end of constructor
 
     public function index(){
       return $this->contactInterface->index();
@@ -21,7 +21,7 @@ class ContactController extends Controller
 
     public function getById($id){
       return $this->contactInterface->getById($id);
-    }// end of get by id 
+    }// end of get by id
 
     public function store(Request $request){
       return $this->contactInterface->store($request);
@@ -33,5 +33,16 @@ class ContactController extends Controller
 
     public function destroy($id){
       return $this->contactInterface->destroy($id);
-    }// end of destroy 
+    }// end of destroy
+    public function search($value){
+        return $this->contactInterface->search($value);
+    }// end of search
+
+    public function getByType($value){
+    return $this->contactInterface->getByType($value);
+    }// end of getByType
+
+   
+
+
 }

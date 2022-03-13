@@ -38,7 +38,7 @@ class StoItemController extends Controller
 
     public function selectUnits(Request $request){
         return $this->stoItemInterface->selectUnits($request);
-      }
+    }
 
 
     public function update(Request $request ,$id){
@@ -48,6 +48,18 @@ class StoItemController extends Controller
     public function destroy($id){
       return $this->stoItemInterface->destroy($id);
     }// end of destroy
+
+
+    public function export(){
+        return $this->stoItemInterface->export();
+    }
+
+    public function import(Request $request){
+        return $this->stoItemInterface->import($request);
+    }
+    public function show($id){
+        return $this->stoItemInterface->show($id);
+    }
 
 
 }

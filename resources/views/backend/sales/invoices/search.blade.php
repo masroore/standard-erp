@@ -4,7 +4,7 @@
 {{-- sale_unit_id --}}
 <div class="widget-content widget-content-area{{ $id }} p-3"
 style="overflow-y: scroll;height: 350px; background-color: #ccc; position: absolute; z-index: 9000000; width:350px">
- 
+
     <i class="fa fa-times mb-3 btn-danger p-1 close-search" style="cursor: pointer"></i>
     @if ($StoItem->count() > 0)
     <ul class="file-tree">
@@ -71,10 +71,28 @@ style="overflow-y: scroll;height: 350px; background-color: #ccc; position: absol
        $('#taxAmount_'+id).val(parseFloat(taxAmount).toFixed(2));
        $('#modeltax_'+id).val(taxRate);
        $('#modalunit_'+id).val(unit_id);
-       $('#modeltitle'+id).text(title);
+       $('#modeltitle'+id).text(title); 
 
-       $('#totalLine_'+id).val(parseFloat(totalPrice).toFixed(2));
-       $('.amount'+id).text(parseFloat(totalPrice).toFixed(2));
+       amountBeforTax = sale_price  ;
+        $('#totalLineBeforTax_'+id).val(amountBeforTax);
+        $('#totalBeforTax_'+id).text(amountBeforTax);
+
+
+        taxType =  $('#taxType').val() ;
+
+        if (taxType == 1) {
+            var totalPrice = taxAmount + parseFloat(sale_price) ;
+            $('#totalLine_'+id).val(parseFloat(totalPrice).toFixed(2));
+            $('.amount'+id).text(parseFloat(totalPrice).toFixed(2));
+        }
+        else if (taxType == 2) {
+            ;
+            $('#totalLine_'+id).val(parseFloat(amountBeforTax).toFixed(2));
+            $('.amount'+id).text(parseFloat(amountBeforTax).toFixed(2));
+        }
+
+    //    $('#totalLine_'+id).val(parseFloat(totalPrice).toFixed(2));
+    //    $('.amount'+id).text(parseFloat(totalPrice).toFixed(2));
        $('.widget-content-area'+id).remove();
 
        calculateTotal();

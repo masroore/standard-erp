@@ -20,8 +20,8 @@
 
 <div class="row layout-top-spacing" id="cancel-row">
     <div class="col-md-5"></div>
-    <div class="col-md-2">
-        <a href="{{route('dashboard.suppliers.create')}}" class="btn btn-primary center">@lang('site.add_supplier')</a>
+    <div class="col-md-5">
+        <a href="{{route('dashboard.suppliers.create')}}" class="btn btn-primary center"> <i class="fa fa-plus"></i>  @lang('site.add_supplier')</a>
     </div>
 
     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
@@ -35,7 +35,7 @@
                         <th>@lang('site.phone')</th>
                         <th>@lang('site.email')</th>
                         <th>@lang('site.status')</th>
-                        <th class="no-content">{{$lang == 'ar' ? 'اجراءت' : ' Actions '}}</th>
+                        <th class="no-content">@lang('site.actions')</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,6 +63,7 @@
 
                         <td>
                               <a href="{{route('dashboard.suppliers.show', $supplier->id)}}" class="btn btn-info" title="@lang('site.show')"> <i class="fa fa-eye" aria-hidden="true"></i></a>
+                              <a href="{{route('dashboard.supplier.contacts', $supplier->id)}}" class="btn btn-success" title="@lang('site.contacts')"> <i class="fa fa-users" aria-hidden="true"></i></a>
                               <a href="{{route('dashboard.suppliers.edit', $supplier->id)}}" class="btn btn-warning" title="@lang('site.edit')"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 <form action="{{ route('dashboard.suppliers.destroy' , $supplier->id) }}" method="post" style="display:inline-block">
                                     @csrf

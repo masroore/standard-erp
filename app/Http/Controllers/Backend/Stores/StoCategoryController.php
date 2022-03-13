@@ -18,7 +18,9 @@ class StoCategoryController extends Controller
     public function index(){
       return $this->stoCategoryInterface->index();
     }
-
+    public function exportExcell(){
+        return $this->stoCategoryInterface->exportExcell();
+    }
     public function create(){
       return $this->stoCategoryInterface->create();
     }

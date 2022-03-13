@@ -6,7 +6,7 @@ interface PurchaseInvoiceInterface{
 
     public function index();
 
-    public function create();
+    public function create($request);
 
     public function edit($id);
 
@@ -15,6 +15,9 @@ interface PurchaseInvoiceInterface{
     public function store($request);
 
     public function update($request,$id);
+
+    public function getReceivesToCreateInvoice($supplier);
+    public function getReceivesItemsToCreateInvoice($items);
 
     public function destroy($id);
 

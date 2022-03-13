@@ -1,21 +1,23 @@
 <?php
 namespace App\Http\Repositories\Stores;
+
+use App\Exports\StoItemsExport;
 use App\Models\Store\StoItem;
 use App\Models\Store\StoCategory;
 use App\Models\Store\StoBrand;
 use App\Http\Interfaces\Stores\StoItemInterface;
-use App\Http\Repositories\LaravelLocalization;
+use App\Imports\StoItemsImport;
 use App\Models\Settings\Tax;
 use App\Models\Store\StoItemCollection;
 use App\Models\Store\StoItemPlace;
 use App\Models\Store\StoStore;
 use App\Models\Store\StoTag;
 use App\Models\Store\StoUnit;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Image;
 use Auth;
 use Illuminate\Support\Facades\DB as FacadesDB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StoItemRepository  implements StoItemInterface
 {
@@ -63,7 +65,7 @@ class StoItemRepository  implements StoItemInterface
         }
 
 
-        $rows = $rows->with('user')->orderBy('id','desc')->get();
+        $rows = $rows->select('id','title_en','code','brand_id','cat_id','image')->with('user','poductqty')->orderBy('id','desc')->get();
        // dd($rows);
         return view('backend.stores.items.index', compact('rows','categories','brands','tags'));
 
@@ -82,7 +84,7 @@ class StoItemRepository  implements StoItemInterface
 
         return view('backend.stores.items.create', compact('categories','brands','units',
         'taxes','countries','stores','routeName','tags','selectedTags'));
-    }
+    }//end of create
 
     public function search($value,$id){
        // dd('wecom');
@@ -181,7 +183,7 @@ class StoItemRepository  implements StoItemInterface
         compact('categories','tags','brands','row',
                 'units','taxes','countries','stores',
                 'routeName','selectedTags','id'));
-    }
+    }// end of edit
 
     public function update($request,$id){
        //dd($id);
@@ -243,7 +245,6 @@ class StoItemRepository  implements StoItemInterface
 
     }// end of destroy
 
-
     public function selectUnits($request)
     {
 
@@ -261,6 +262,30 @@ class StoItemRepository  implements StoItemInterface
 
         return response()->json(['html' => $html]);
     }// end of select sup
+
+    public function show($id)
+    {
+        //return Excel::download(new StoItemsExport, 'products.xlsx');
+    }
+
+    public function export()
+    {
+        return new StoItemsExport();
+    }// end of export
+
+    public function import($request)
+    {
+
+        Excel::import(new StoItemsImport, request()->file('items_file'));
+
+        if( config('app.locale') == 'ar'){
+            alert()->success('تم انشاء السجلات بنجاح جديد بنجاح', 'عمل رائع');
+        }else{
+            alert()->success('The Recourds Created Successfully', 'Good Work');
+        }
+        return redirect()->back();
+
+    }// import
 
     protected function syncTags($row , $requestArray){
 

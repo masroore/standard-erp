@@ -28,9 +28,10 @@
                     @include('backend.partials._errors')
                     <div class="invoice-content">
 
-                        <form id="form" name="po" action="{{ route('dashboard.purchase-orders.store') }}" method="POST" enctype="multipart/form-data">
+                        <form id="form" name="po" action="{{ route('dashboard.purchase-orders.store') }}" method="POST" enctype="multipart/form-data" novalidate>
                             @csrf
                             <div class="invoice-detail-body">
+                                <input type="hidden" name="opration_id" value="{{ $operation }}">
                                 @include('backend.purchases.purchaseOrders.form')
                                 <hr>
                                 <div class="form-group text-center ">

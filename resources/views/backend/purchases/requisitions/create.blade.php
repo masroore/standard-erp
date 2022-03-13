@@ -31,6 +31,7 @@
                         <form id="form" name="requisitions" action="{{ route('dashboard.purchase-requisitions.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="invoice-detail-body">
+                                <input type="hidden" name="opration_id" value="{{ $operation }}">
                                 @include('backend.purchases.requisitions.form')
                                 <hr>
                                 <div class="form-group text-center ">

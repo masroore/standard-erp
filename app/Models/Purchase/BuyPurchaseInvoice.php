@@ -11,9 +11,9 @@ class BuyPurchaseInvoice extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['reference_no','supplier_id','money_id','added_by','store_id','date','total_qty','remaining_amount',
+    protected $fillable = ['reference_no','supplier_id','money_id','added_by','store_id','date','total_qty','remaining_amount','opration_id',
                             'order_tax_rate','order_tax','shipping_cost','total_discount','total_tax','tax_type','items_count',
-                            'paid_amount','grand_total','status','is_paid','is_received','document','note','invoice_payment_type'];
+                           'paid_amount','grand_total','status','is_paid','is_received','document','note','invoice_payment_type'];
 
     // start relation
 

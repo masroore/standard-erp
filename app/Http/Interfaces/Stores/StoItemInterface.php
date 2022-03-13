@@ -20,6 +20,11 @@ interface StoItemInterface{
 
     public function selectUnits($request);
 
+    public function export();
+
+    public function import($request);
+    
+    public function show($id);
 }// end of interface
 
 

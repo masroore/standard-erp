@@ -51,7 +51,17 @@
                         <td>{{$row->ref}}</td>
                         <td>{{$row->details}}</td>
                         <td>{{ $row->journal->name }}</td>
-                        <td><span class="badge badge-info"> <a href="{{ asset('public/uploads/journals/'.$row->attachment) }}" download="" title="@lang('site.download')"> <i class="fa fa-arrow-down"></i> </a></span></td>
+                        <td>
+                            @if ($row->attachment)
+                                <span class="badge badge-info">
+                                    <a href="{{ asset('public/uploads/journals/'.$row->attachment) }}" download="" title="@lang('site.download')">
+                                        <i class="fa fa-arrow-down"></i>
+                                    </a>
+                                </span>
+                            @else
+                            @endif
+
+                        </td>
 
 
                         <td>

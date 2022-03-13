@@ -15,12 +15,12 @@ class PurchaseOrderController extends Controller
         $this->middleware('auth');
     }// end of constructor
 
-    public function index(){ 
+    public function index(){
       return $this->interface->index();
     }
 
-    public function create(){
-        return $this->interface->create();
+    public function create(Request $request){
+        return $this->interface->create($request);
       }
 
     public function show($id){

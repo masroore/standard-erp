@@ -1,6 +1,6 @@
 <div class="text-center">
     <button type="button" class="btn btn-primary mb-2 mr-2" data-toggle="modal" data-target="#exampleModal">
-        {{$lang == 'ar' ? 'اضافة جديد' : ' Add new'}}
+       @lang('site.add_new')
     </button>
 </div>
 
@@ -22,14 +22,14 @@
                 <div class="form-group">
 
 
-                    <input  type="text" name="title_ar" placeholder="{{ $lang == 'ar' ? ' الرجاء ادخال الاسم باللغة العربية' : 'Enter Name in Arabic ' }}" class="form-control">
+                    <input  type="text" name="title_ar" placeholder="@lang('site.title_ar')" class="form-control">
 
                 </div>
 
                 <div class="form-group">
 
 
-                    <input type="text" name="title_en" placeholder="{{ $lang == 'ar' ? ' الرجاء ادخال الاسم باللغة الانجليزية' : 'Enter Name in English ' }}" class="form-control">
+                    <input type="text" name="title_en" placeholder="@lang('site.title_en')" class="form-control">
 
                 </div>
             </div>

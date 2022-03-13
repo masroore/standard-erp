@@ -11,4 +11,8 @@ class Supplier extends Model
         'fax','email','address','tax_id','tax_file_number','account_id','is_tax_supplier','tax_exempt','twitter','document',
         'city','country_code','mobile','cr_id','id_for_orginaztion','website','opening_balance','facbook','linkedin'
     ];
+
+    public function country(){
+        return $this->belongsTo(Country::class, 'country_code','country_code');
+    }
 }

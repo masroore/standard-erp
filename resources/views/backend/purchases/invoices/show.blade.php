@@ -24,6 +24,10 @@
 
     <button class="btn btn-primary mb-2 mr-2"  onclick="printDiv()"><i class="fa fa-print"></i> print</button>
     <button class="btn btn-primary mb-2 mr-2"><i class="fa fa-file"></i> PDF</button>
+    <form action="{{route('dashboard.purchases-payments.index')}}" method="get" style="display:inline-block">
+        <input type="hidden" name="purch_id" value="{{ $row->id }}">
+    <button type="submit" class="mr-2 text-info btn-link" title="@lang('site.payments')"><i class="fa fa-lg fa-money" aria-hidden="true"></i></button>
+    </form>
 </div>
 
 <div class="row invoice layout-top-spacing layout-spacing" id="print">

@@ -4,6 +4,8 @@ return [
 
 // genral translation
     'fill_form_data'   => 'Please Fill Form Data',
+    'home'             => 'Home',
+    'end_at'           => 'End At',
     'add'              => 'Add',
     'save'             => 'Save',
     'edit'             => 'Edit',
@@ -44,8 +46,13 @@ return [
     'reply'            => 'Reply',
     'submission_date'  => 'Submission Date',
     'delivery_date'    => 'Delivery Date',
+    'print'            => 'Print',
 //items
     'category'         => 'Category',
+    'level'            => 'Level',
+    'parent_category'  => 'Parent Category',
+    'categories_list'  => 'Categories List',
+    'new_category'     => 'New Category',
     'brand'            => 'Brand',
     'sale_price'       => 'Sale Price',
     'alert_qty'        => 'Alert Qty',
@@ -112,6 +119,52 @@ return [
     'journal entries list'      => 'Journal Entries List',
     'journal description'       => 'Journal Description',
     'please_fill_account_date'  => 'Please Fill Account Date',
+    'transactions'        => 'Transactions',
+    'checks'              => 'Checks',
+    'payment_to_supplier' => 'Payment To Supplier',
+    'created_date'        => 'Release Date',
+    'due_date'            => 'Due Date',
+    'check_number'        => 'Check Number',
+    'transfare_bank_fees' => 'Transfare Bank Fees',
+    'transfare_date'      => 'Transfare Date',
+    'number'              => 'Number',
+    'show_payment'        => 'Show Payment',
+    'belong'              => 'Belong To',
+    'bounced'             => 'Bounced',
+
+//Banks
+
+    'banks'     => 'Banks',
+    'bank'      => 'Bank',
+    'all_banks' => 'All Banks',
+    'edit_bank' => 'Edit Bank',
+    'add_bank'  => 'Add Bank',
+
+
+
+//purchase operations
+
+    'purchase_operations'        => 'Purchase Operations',
+    'all_purchase_operations'    => 'All Purchase Operations',
+    'add_purchase_operations'    => 'Add Purchase Operations',
+    'edit_purchase_operations'   => 'Edit Purchase Operations',
+    'show_purchase_operation'    => 'Show Purchase Operation',
+    'operation_info'             => 'Operation Info',
+    'create_now'                 => 'Create Now',
+    'step'                       => 'Step',
+    'view'                       => 'View',
+    'opreation_was_created'      => 'Opreation Was Created',
+    'opreation_dont_have_pr'     => 'Opreation Dont Have Purchase Requestion',
+    'opreation_dont_have_cos'    => 'Operation Dont Have Customer Order Supply',
+    'cust_order_supply_created'  => 'Customer Order Supply Was Created',
+    'opreation_dont_have_pr'     => 'Operation Dont Have Purchase Requestion',
+    'pr_created'                 => 'Purchase Requestion Was Created',
+    'opreation_dont_have_po'     => 'Operation Dont Have Purchase Order',
+    'po_created'                 => 'Purchase Order Was Created',
+    'opreation_dont_have_receive'=> 'Operation Dont Have Receives',
+    'receives_created'           => 'Purchase Receives Was Created',
+    'opreation_dont_have_inv'    => 'Operation Dont Have Invoice',
+    'inv_created'                => 'Invoice Was Created',
 
 // purchases module
     'purchases'             => 'Purchases',
@@ -181,35 +234,61 @@ return [
     'invoice_date'          => 'Invoice Date',
     'invoice_no'            => 'Invoice Num ',
     'social_media'          => 'Social media Info.',
+    'tax_deduction'         => 'Tax deduction and collection',
+    'amount_befor_tax'      => 'Amount Befor Tax',
+    'amount_after_tax'      => 'Amount After Tax',
+    'subtotal_after_discount' => 'Total After Discount',
+    'subtotal_after_tax'    => 'Total After Taxs',
+    'tax_mount'             => 'Total Tax Amount',
 
 // purchase_orders
     'all_purchase_orders'  => 'All Purchase Order',
     'add_purchase_orders'  => 'Add Purchase Order',
     'purchase_orders'      => 'Purchase Orders',
     'show_purchase_orders' => 'Show Purchase Orders',
+// purchases payments
+
+    'purchases_invoices_payments' => 'Purcahses Invoice Payments',
+    'payment_list'                => 'Payments List',
+    'add_payment'                 => 'Add New Payment',
+    'ref'                         => 'Reference',
+    'payment_code'                => 'Payment Code',
+    'bank_transfare'              => 'Bank Transfare',
+    'items'                       => 'Items',
+    'operation_status'            => 'Operation Status',
 
 //requisitions
-    'all_purchase_requisitions'  => 'All Purchase Requisitions',
-    'add_purchase_requisitions'  => 'Add Purchase Requisition',
-    'purchase_requisitions'      => 'Purchase Requisitions',
+    'all_purchase_requisitions'  => 'All Purchase Requests',
+    'add_purchase_requisitions'  => 'Add Purchase Requests',
+    'purchase_requisitions'      => 'Purchase Requests',
     'requested_by'               => 'Requested By',
     'item_count'                 => 'Items Count',
     'total_qty'                  => 'Total Quantity',
     'download_document'          => 'Download Document',
     'requisition_code'           => 'Requisition Code',
     'created_by'                 => 'Created By',
-    'show_purchase_requisitions' => 'Show Purchase Requisitions',
-    'create_purchase_requisitions' => 'Create Purchase Requisitions',
-    'edit_purchase_requisitions' => 'Edit Purchase Requisitions',
+    'show_purchase_requisitions' => 'Show Purchase Requests',
+    'create_purchase_requisitions' => 'Create Purchase Requests',
+    'edit_purchase_requisitions' => 'Edit Purchase Requests',
     'edit_purchase_orders'       => 'Edit Purchase Order',
 
-// supplier_quotations
 
+// supplier_quotations
     'supplier_quotations'        => 'Supplier Quotations',
     'add_supplier_quotations'    => 'Add Supplier Quotations' ,
     'all_supplier_quotations'    => 'All Supplier Quotations',
     'purchase_request_code'      => 'Purchase Request Code',
     'request_code'               => 'Request Code',
+//os customers
+
+    'os_customers'          => 'Customer Order Supply',
+    'add_os_customer'       => 'Add Customer Order Supply',
+    'all_os_customers'      => 'All Customers Order Supply',
+    'customer-order-supply' => 'Customers Order Supply',
+    'quotatiions'           => 'Quotations',
+    'show_os_customers'     => 'Show Customer Order Supply',
+    'edit_os_customers'     => 'Edit Customer Order Supply',
+
 //stores
     'brand'      => 'Brand',
     'brands'     => 'Brands',
@@ -217,8 +296,32 @@ return [
     'categories' => 'Categories',
     'tags'       => 'Tags',
     'tag'        => 'Tag',
+    'store'      => 'Store',
     'inventory_definitions' => 'Inventory Definitions',
     'inventory_management'  => 'Inventory Management',
+    'continuous_inventory'  => 'Continuous Inventory ',
+    'periodic_inventory'    => 'Periodic Inventory',
+    'inventory_type'        => 'Inventory Type',
+
+//receives_list
+    'receives_list'    => 'Receives List',
+    'receives'         => 'Receives',
+    'receive'          => 'Receive',
+    'create_receives'  => 'Create Receives',
+    'show_receive'     => 'Show Receive',
+    'edit_receive'     => 'Edit Receive',
+    'import_receives'  => 'Import Receives',
+
+//receives_list
+    'delivers_list'    => 'Delivers List',
+    'delivers'         => 'Delivers',
+    'deliver'          => 'Deliver',
+    'create_delivers'  => 'Create Delivers',
+    'show_deliver'     => 'Show Deliver',
+    'edit_deliver'     => 'Edit Deliver',
+    'deliver_status'   => 'Deliver Status',
+    'deliverd'         => 'Deliverd',
+
 // units
     'units'     => 'Units',
     'unit'      => 'Unit',
@@ -247,10 +350,20 @@ return [
      'Bank_fees_and_account_fees'  => 'Bank Fees and Account Fees',
      'account_key'                 => 'Account Key',
      'please_fill_setting_data'    => 'Please Fill Setting Data',
+     'setting_of_main_accounts'    => 'Setting Of Main Accounts  ',
      'company_email'               => 'Company Email',
      'company_address'             => 'Company Address',
      'company_phone'               => 'Company Phone',
-
+     'Added_tax_value'             => 'Added Tax Value',
+     'Purchase_Expenses'           => 'Purchase Expenses',
+     'DiscountEarned'              => 'Discount Earned',
+     'TaxDeductCollect'            => 'Tax deduction and collection',
+     'TaxCommercialIndustrlalProfit'=> 'Tax commercial industrlal profit',
+     'SalesExpenses'               => 'Sales Expenses',
+     'genral_setting'              => 'Genral Setting',
+     'payPayper'                   => 'Pay Payper',
+     'BankExpenses'                => 'Bank Expenses',
+     'NotesReceivables'            => 'Notes Receivables',
 
 // roles
      'roles' => 'Roles',
@@ -318,11 +431,14 @@ return [
     'tax_info' => 'Tax Info',
     'company_name' => 'Company Name',
     'fax' => 'Fax',
+    'yes' => 'Yes',
     'address' => 'Address',
     'tax_file_num' => 'Tax File No.',
     'tax_id' => 'Tax id',
     'percent' => 'percent',
     'add_new' => 'Add New',
+    'media_info' => 'Media Info',
+    'contacts_customers' => 'Contacts Customer',
     'add_new_customer_group' => 'Add new customer group',
     'edit_customer_group' => 'Edit customer group',
     'active'              => 'Active',
@@ -342,6 +458,8 @@ return [
     'document'            => 'Document',
     'tax_client'          => 'Is Tax Client',
     'tax_supplier'        => 'Is Tax Supplier',
+    'select_group'        => 'Select Customer Group',
+    'select_parent_company' => 'Select Parent Company',
 
 // tax
     'tax_list' => 'Tax List',
@@ -457,6 +575,7 @@ return [
     'pending'=> 'Pending',
     'resolved'=> 'Resolved',
     'closed'=> 'Closed',
+    'close'=> 'Close',
     'low'=> 'low',
     'medium'=> 'Medium',
     'high'=> 'high',
@@ -549,6 +668,60 @@ return [
       'edit_holiday' => 'Edit Holiday',
       'date_from' => 'Date From',
       'date_to' => 'Date To',
+
+
+
+
+    // contacts
+
+    'whatsapp' => 'Whatsapp',
+    'add_new_contact' => 'Add New Contact',
+    'edit_contact' => 'Edit Contact',
+    'contacts' => ' Contacts',
+    'contact_photo' => 'Contact Photo',
+    'our_company' => 'Our Company',
+    'this_contact_related_by' => 'This Contact Related By',
+    'position' => 'Position',
+    'another_phone' => 'Another Phone',
+    'twitter_link' => 'Twitter Link',
+    'linkedin_link' => 'Linkedin Link',
+    'facebook_link' => 'Facebook Link',
+    'whatsapp_number' => 'Whatsapp Number',
+
+
+    // bank info
+
+    'bankinfos' => 'Bank Info',
+    'bankinfo' => 'Bank Info',
+    'bankinfos_list' => 'Bank Info List',
+    'banks_list' => 'Banks List',
+    'add_bankinfos' => 'Add Bank Info',
+    'add_bankinfo' => 'Add Bank Info',
+    'edit_bankinfo' => 'Edit Bank Info',
+    'add_bank_info' => 'Add Bank Info',
+    'add_new_bankinfo' => 'Add New Bank Info',
+    'beneficiary_info' => 'Beneficiary Info',
+    'beneficiary_name' => 'Beneficiary Name',
+    'beneficiary_account_no' => 'Beneficiary Account No',
+    'beneficiary_account' => 'Beneficiary Account ',
+    'beneficiary_address' => 'Beneficiary Address',
+    'beneficiary_city' => 'Beneficiary City',
+    'beneficiary_street' => 'Beneficiary Street',
+    'beneficiary_bank_info' => 'Beneficiary Bank Info',
+    'beneficiary_bank_name' => 'Beneficiary Bank Name',
+    'bank_name' => ' Bank Name',
+    'beneficiary_bank_code' => 'Beneficiary Bank Code',
+    'beneficiary_bank_swift_code' => 'Beneficiary Bank Swift Code',
+    'iban_code' => 'Iban Code',
+    'beneficiary_bank_branch' => 'Beneficiary Bank Branch',
+    'bank_branch' => ' Bank Branch',
+    'beneficiary_bank_address' => 'Beneficiary Bank Address ',
+    'beneficiary_bank_city' => 'Beneficiary Bank City ',
+    'intermediary_bank' => 'Intermediary Bank ',
+    'bank_street' => 'Bank Street',
+    'this_bank_info_related_by' => 'This Bank Info Related By',
+
+
 
 
 

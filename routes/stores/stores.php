@@ -31,12 +31,18 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' =>['loc
         Route::resource('units', StoUnitController::class);
         Route::resource('stores', StoStoreController::class);
         Route::resource('items', StoItemController::class);
+        Route::get('items/export/excel-sheet', [StoItemController::class, 'export'])->name('export.items.excellsheet');
+        Route::post('items/import/excell',[StoItemController::class, 'import'])->name('import.items.excellsheet');
         Route::resource('tags', StoTagController::class);
         Route::resource('priceList', PriceListController::class);
         Route::get('priceList/search/{value?}/{id?}', [PriceListController::class,'search']);
 
         Route::get('getchaildunit', [StoItemController::class, 'selectUnits'])->name('unitschaild');
         Route::get('items/search/{value?}/{id?}', [StoItemController::class,'search']);
+
+
+        Route::get('categories/export/excel-sheet', [StoCategoryController::class, 'exportExcell'])->name('export.categories.excellsheet');
+
 
     });
 

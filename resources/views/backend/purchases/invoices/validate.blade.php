@@ -2,7 +2,7 @@
 $(function() {
   // Initialize form validation on the registration form.
   // It has the name attribute "registration"
-  $("form[name='invoice']").validate({
+  $("form[name='test']").validate({
     // Specify validation rules
     rules: {
       reference_no: "required",

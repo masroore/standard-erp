@@ -19,7 +19,7 @@
                 <a href="{{route('dashboard.home')}}" aria-expanded="true" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                        <span> {{ $current_lang == 'ar'  ? ' الرئيسية' :'Dashboard'}}</span>
+                        <span> @lang('site.home')</span>
                     </div>
 
                 </a>
@@ -27,7 +27,7 @@
             </li>
 
 
-            {{-- purchases Management --}}
+        {{-- purchases Management --}}
 
             <li class="menu menu-heading">
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>
@@ -35,6 +35,14 @@
                 </div>
             </li>
 
+            <li class="menu">
+                <a href="{{route('dashboard.purchase-operations.index')}}" aria-expanded="{{is_true(['contacts'])}}" class="dropdown-toggle text-white">
+                     <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        <span> @lang('site.purchase_operations')</span>
+                    </div>
+                </a>
+            </li>
 
             <li class="menu">
                 <a href="#purchase-requisitions" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -80,13 +88,19 @@
                 </ul>
             </li>
 
-
+            <li class="menu">
+                <a href="{{route('dashboard.receives.index')}}" aria-expanded="{{is_true(['contacts'])}}" class="dropdown-toggle text-white">
+                     <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <span> @lang('site.receives')</span>
+                    </div>
+                </a>
+            </li>
 
             <li class="menu">
                 <a href="#purchases" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                         <span>@lang('site.purchases_invoices')</span>
                     </div>
                     <div>
@@ -108,8 +122,7 @@
             <li class="menu">
                 <a href="#suppliers" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                         <span>@lang('site.suppliers')</span>
                     </div>
                     <div>
@@ -127,7 +140,7 @@
                 </ul>
             </li>
 
-            {{-- sales management  --}}
+        {{-- sales management  --}}
             <li class="menu menu-heading">
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>
                     <span>@lang('site.sales_management')</span>
@@ -135,9 +148,37 @@
             </li>
 
             <li class="menu">
+                <a href="{{route('dashboard.delivers.index')}}" aria-expanded="" class="dropdown-toggle text-white">
+                     <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <span> @lang('site.delivers')</span>
+                    </div>
+                </a>
+            </li>
+
+            <li class="menu">
+                <a href="{{route('dashboard.customer-order-supply.index')}}" aria-expanded="" class="dropdown-toggle text-white">
+                     <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <span> @lang('site.customer-order-supply')</span>
+                    </div>
+                </a>
+            </li>
+
+            <li class="menu">
+                <a href="{{route('dashboard.quotations.index')}}" aria-expanded="" class="dropdown-toggle text-white">
+                     <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <span>@lang('site.quotatiions') </span>
+                    </div>
+                </a>
+            </li>
+
+            <li class="menu">
                 <a href="#invoices" data-toggle="collapse" aria-expanded="{{is_true(['invoices'])}}" class="dropdown-toggle">
                     <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>                        <span>@lang('site.sales')</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                        <span>@lang('site.invoices')</span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -150,12 +191,7 @@
                     <li class="{{is_active('invoices')}}">
                         <a class="text-white" href="{{route('dashboard.sales.create')}}"> @lang('site.create_invoice') </a>
                     </li>
-                    <li class="{{is_active('invoices')}}">
-                        <a class="text-white" href="{{route('dashboard.quotations.index')}}"> @lang('site.quotatiions') </a>
-                    </li>
-                    <li class="{{is_active('invoices')}}">
-                        <a class="text-white" href="{{route('dashboard.quotations.create')}}"> @lang('site.create_offer_price') </a>
-                    </li>
+
                 </ul>
             </li>
 
@@ -189,7 +225,16 @@
                 </ul>
             </li>
 
-            {{-- Inventory Management --}}
+            <li class="menu">
+                <a href="{{route('dashboard.contacts.index')}}" aria-expanded="{{is_true(['contacts'])}}" class="dropdown-toggle text-white">
+                     <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <span> @lang('site.contacts')</span>
+                    </div>
+                </a>
+            </li>
+
+        {{-- Inventory Management --}}
 
             <li class="menu menu-heading">
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>
@@ -239,7 +284,7 @@
             </li>
 
 
-             {{-- Inventory Management --}}
+        {{-- Financial Management --}}
 
              <li class="menu menu-heading">
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>
@@ -265,9 +310,9 @@
                     <li class="{{is_active('accounts')}}">
                         <a class="text-white" href="{{route('dashboard.finance.accounts.index')}}">  {{ $current_lang == 'ar'  ? 'شجرة الحسابات' :'Accounts tree'}} </a>
                     </li>
-                    {{-- <li class="{{is_active('accounts')}}">
-                        <a class="text-white" href="{{route('dashboard.finance.accounts.create')}}">  {{ $current_lang == 'ar'  ? ' انشاء حساب' :'Create Account'}} </a>
-                    </li> --}}
+                    <li class="{{is_active('banks')}}">
+                        <a class="text-white" href="{{route('dashboard.finance.banks.index')}}">  @lang('site.banks') </a>
+                    </li>
 
                     {{-- <li class="{{is_active('journals')}}">
                         <a class="text-white" href="{{route('dashboard.finance.journals.create')}}"> @lang('site.create journal')</a>
@@ -283,8 +328,34 @@
                 </ul>
             </li>
 
+            <li class="menu  {{ (request()->is('dashboard/finance/transactions*')) ? 'active' : '' }}">
+                <a href="#transactions" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
 
-             {{-- HR Management --}}
+                        <span>@lang('site.transactions')</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="transactions" data-parent="#accordionExample" >
+                    <li class="{{ (strpos(Route::currentRouteName(), 'dashboard.finance.transactions.payment-to-supplier') == 0) ? 'active' : '' }}">
+                        <a class="text-white" href="{{ route('dashboard.finance.transactions.payment-to-supplier') }}">  @lang('site.payment_to_supplier') </a>
+                    </li>
+                    <li class="">
+                        <a class="text-white" href="{{ route('dashboard.finance.transactions.customer-payment') }}">  @lang('site.customer-payment') </a>
+                    </li>
+
+                    <li class="">
+                        <a class="text-white" href="{{ route('dashboard.finance.transactions.checks.all') }}">  @lang('site.checks') </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+        {{-- HR Management --}}
 
              <li class="menu menu-heading">
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>
@@ -413,7 +484,7 @@
             </li> --}}
 
 
-            {{--user mangement --}}
+        {{--user mangement --}}
             <li class="menu">
                 <a href="#users" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
@@ -458,7 +529,7 @@
             </li>
 
 
-            {{--settings  --}}
+        {{--settings  --}}
 
             <li class="menu menu-heading">
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg><span>{{ $current_lang == 'ar'  ? ' الإعدادات' :'settings'}}</span></div>
@@ -483,6 +554,35 @@
 
                     <li class="{{is_active('tax')}}">
                         <a href="{{route('dashboard.tax.index')}}">@lang('site.tax') </a>
+                    </li>
+
+
+                </ul>
+            </li>
+
+
+            <li class="menu">
+                <a href="#bankinfos" data-toggle="collapse" aria-expanded="{{is_true(['bankinfos'])}}" class="dropdown-toggle text-white">
+
+
+
+                     <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+
+                        <span> @lang('site.bankinfos')</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+
+                </a>
+                <ul class="collapse submenu list-unstyled {{is_show(['bankinfos'])}}" id="bankinfos" data-parent="#accordionExample">
+                    <li class="{{is_active('bankinfos')}}">
+                        <a href="{{route('dashboard.bankinfos.index')}}">   @lang('site.banks_list') </a>
+                    </li>
+
+                    <li class="{{is_active('contacts')}}">
+                        <a href="{{route('dashboard.bankinfos.create')}}">   @lang('site.add_bank_info') </a>
                     </li>
 
 

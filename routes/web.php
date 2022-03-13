@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\UsersManagment\UserController;
 use Illuminate\Support\Facades\Auth;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Spatie\Activitylog\Models\Activity;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,6 +28,10 @@ Route::prefix('dashboard')->name('dashboard.')->group(function(){
 
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::get('/get-logs', function () {
+        return  Activity::all();
+    });
 });
 
 });

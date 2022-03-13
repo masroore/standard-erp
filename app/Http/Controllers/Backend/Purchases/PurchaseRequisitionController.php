@@ -19,8 +19,8 @@ class PurchaseRequisitionController extends Controller
       return $this->interface->index();
     }
 
-    public function create(){
-        return $this->interface->create();
+    public function create(Request $request){
+        return $this->interface->create($request);
       }
 
     public function show($id){

@@ -138,7 +138,7 @@
 
 
 
-@endsection
+@endsection 
 
 @push('css')
     <style>

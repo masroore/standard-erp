@@ -141,38 +141,38 @@
 @push('js')
 <script type="text/javascript">
 
-$(document).ready(function(){
-    $("#search").keyup(function(){
+    $(document).ready(function(){
+        $("#search").keyup(function(){
 
-        var value =$(this).val();
+            var value =$(this).val();
 
-            $.ajax({
-                type: 'get',
+                $.ajax({
+                    type: 'get',
 
-                url: "{{ url('dashboard/'. $routeName .'/search/') }}"+'/'+value,
+                    url: "{{ url('dashboard/'. $routeName .'/search/') }}"+'/'+value,
 
-                success: function (data) {
-                    $('#content-search').html(data);
+                    success: function (data) {
+                        $('#content-search').html(data);
 
-                    },
+                        },
 
-                error: function(data_error, exception) {
-                    if(exception == 'error'){
-                        var error_list = '' ;
-                        $.each(data_error.responseJSON.errors, function(index,v){
-                            error_list += '<li>'+v+'</li>';
-                        });
-                        $('.alert-errors ul').html(error_list)
+                    error: function(data_error, exception) {
+                        if(exception == 'error'){
+                            var error_list = '' ;
+                            $.each(data_error.responseJSON.errors, function(index,v){
+                                error_list += '<li>'+v+'</li>';
+                            });
+                            $('.alert-errors ul').html(error_list)
+                        }
+
                     }
 
-                }
 
 
+                });
 
-            });
-
+        });
     });
-});
     $(".nested").select2({
         tags: true
     });

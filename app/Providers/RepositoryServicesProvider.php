@@ -49,6 +49,11 @@ class RepositoryServicesProvider extends ServiceProvider
         );
 
         $this->app->bind(
+            'App\Http\Interfaces\Purchases\PurchaseReceiveInterface',
+            'App\Http\Repositories\Purchases\PurchaseReceiveRepository'
+        );
+
+        $this->app->bind(
             'App\Http\Interfaces\ContactInterface',
             'App\Http\Repositories\ContactRepository'
         );
@@ -101,6 +106,17 @@ class RepositoryServicesProvider extends ServiceProvider
         );
 
         $this->app->bind(
+            'App\Http\Interfaces\Finance\FinBankInterface',
+            'App\Http\Repositories\Finance\FinBankRepository'
+        );
+
+        $this->app->bind(
+            'App\Http\Interfaces\Finance\FinTransactionInterface',
+            'App\Http\Repositories\Finance\FinTransactionRepository'
+        );
+
+
+        $this->app->bind(
             'App\Http\Interfaces\Finance\FinJournalInterface',
             'App\Http\Repositories\Finance\FinJournalRepository'
         );
@@ -126,13 +142,39 @@ class RepositoryServicesProvider extends ServiceProvider
         );
 
         $this->app->bind(
+            'App\Http\Interfaces\Purchases\PurchaseOperationInterface',
+            'App\Http\Repositories\Purchases\PurchaseOperationRepository'
+        );
+
+        $this->app->bind(
+            'App\Http\Interfaces\Purchases\PurchasePaymentInterface',
+            'App\Http\Repositories\Purchases\PurchasePaymentRepository'
+        );
+
+
+        $this->app->bind(
             'App\Http\Interfaces\Sales\SalQuotationInterface',
             'App\Http\Repositories\Sales\SalQuotationRepository'
         );
 
         $this->app->bind(
+            'App\Http\Interfaces\Sales\SalDeliverInterface',
+            'App\Http\Repositories\Sales\SalDeliverRepository'
+        );
+
+        $this->app->bind(
             'App\Http\Interfaces\Sales\SalInvoiceInterface',
             'App\Http\Repositories\Sales\SalInvoiceRepository'
+        );
+
+        $this->app->bind(
+            'App\Http\Interfaces\Sales\SalOrderedSupplyCustomerInterface',
+            'App\Http\Repositories\Sales\SalOrderedSupplyCustomerRepository'
+        );
+
+        $this->app->bind(
+            'App\Http\Interfaces\Sales\SalPaymentInterface',
+            'App\Http\Repositories\Sales\SalPaymentRepository'
         );
 
         $this->app->bind(

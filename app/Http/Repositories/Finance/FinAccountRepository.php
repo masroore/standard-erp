@@ -20,7 +20,7 @@ class FinAccountRepository  implements FinAccountInterface
     }
 
     public function index(){
-        $cats           = FinCategory::get();
+        $cats      = FinCategory::get();
         $rows      = $this->model::get();
         $routeName = 'accounts';
 

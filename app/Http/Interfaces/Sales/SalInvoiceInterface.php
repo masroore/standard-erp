@@ -8,9 +8,13 @@ interface SalInvoiceInterface{
 
     public function create();
 
-    public function store($request); 
+    public function store($request);
 
     public function edit($id);
+
+    public function getDeliversToCreateInvoice($customer);
+    
+    public function getDeliversItemsToCreateInvoice($items);
 
     public function update($request ,$id);
 

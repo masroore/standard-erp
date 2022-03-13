@@ -92,6 +92,7 @@
                         <th>@lang('site.created_at')</th>
                         <th>@lang('site.customer')</th>
                         <th>@lang('site.amount')</th>
+                        <th>@lang('site.remaining_amount')</th>
                         <th>@lang('site.paid_status')</th>
                         <th class="no-content text-center">@lang('site.actions')</th>
                     </tr>
@@ -131,25 +132,41 @@
                         </td>
 
                         <td class="sorting_1 sorting_2">
-                            @if ($row->status == 1)
-                            <span class="badge badge-success"> {{$lang == 'ar' ? 'مدفوع' : ' paid '}} <i class="fa fa-check" aria-hidden="true"></i> </span>
+                            <div class="d-flex">
+
+                                <p class="align-self-center mb-0 admin-name"> {{$row->remaining_amount}} </p>
+                            </div>
+                        </td>
+
+                        <td class="sorting_1 sorting_2">
+                            @if ($row->is_paid == 1)
+                            <span class="badge badge-success"> @lang('site.paid') <i class="fa fa-check" aria-hidden="true"></i> </span>
                             @else
-                            <span class="badge badge-danger"> {{$lang == 'ar' ? 'غير مدفوع' : ' unpaid '}} <i class="fa fa-times" aria-hidden="true"></i> </span>
+                            <span class="badge badge-danger"> @lang('site.unpaid') <i class="fa fa-times" aria-hidden="true"></i> </span>
                             @endif
                         </td>
 
 
-
                         <td class="text-center">
-                            <a href="{{ route('dashboard.sales.show',$row->id ) }}" class="mr-2 btn btn-info" title="@lang('site.show')"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                            <a class="mr-2 btn btn-warning" title="@lang('site.edit')"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                            <a class="mr-2 btn btn-primary" title="@lang('site.download')"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+                            <a href="{{ route('dashboard.sales.show',$row->id ) }}" class="mr-2 text-success" title="@lang('site.show')"><i class="fa fa-lg fa-search" aria-hidden="true"></i></a>
+                            <a class="mr-2 text-warning" title="@lang('site.edit')"><i class="fa fa-lg fa-edit" aria-hidden="true"></i></a>
+                            <a class="mr-2 text-primary" title="@lang('site.download')"><i class="fa fa-lg fa-arrow-down" aria-hidden="true"></i></a>
+
+
+
+                            <form action="{{route('dashboard.sales-payments.index')}}" method="get" style="display:inline-block">
+                                <input type="hidden" name="sal_id" value="{{ $row->id }}">
+                            <button type="submit" class="mr-2 text-info btn-link" title="@lang('site.payments')"><i class="fa fa-lg fa-money" aria-hidden="true"></i></button>
+                            </form>
+
                             <form action="{{route('dashboard.sales.destroy', $row->id)}}" method="POST" style="display:inline-block">
                                 @csrf
                                 @method('delete')
-                            <button type="submit" class="mr-2 btn btn-danger show_confirm" title="@lang('site.delete')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <button type="submit" class="mr-2 show_confirm text-danger btn-link" title="@lang('site.delete')"><i class="fa fa-lg fa-trash" aria-hidden="true"></i></button>
                             </form>
                         </td>
+
+
                     </tr>
 
                     @endforeach

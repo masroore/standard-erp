@@ -52,7 +52,7 @@ class StoItem extends Model
     public function saleUnit()
     {
         return $this->belongsTo(StoUnit::class, 'sale_unit_id');
-    } 
+    }
 
     public function baseUnit()
     {
@@ -70,5 +70,9 @@ class StoItem extends Model
 
     public function collectionProduct(){
         return $this->hasMany(StoItemCollection::class, 'belongs_product');
+    }
+
+    public function poductqty(){
+        return $this->hasMany(StoQuantity::class, 'item_id');
     }
 }

@@ -29,12 +29,18 @@
                             @foreach ($row->items as $item)
 
                             <tr>
-                                <td>{{ $lang == 'ar' ? $item->account->title_ar : $item->account->title_en }}</td>
-                                <td>{{ $item->credit }}</td>
-                                <td>{{ $item->debit }}</td>
+                                <td>{{ $lang == 'ar' ? $item->account->title_ar ?? '__' : $item->account->title_en ?? '__' }}</td>
+                                <td id="credit_{{$row->id}}">{{ $item->credit }}</td>
+                                <td id="debit_{{$row->id}}">{{ $item->debit }}</td>
                             </tr>
 
                             @endforeach
+
+                            {{-- <tr>
+                                <td>@lang('site.total')</td>
+                                <td id="crediAmount{{ $row->id }}">5000</td>
+                                <td id="debiAmount{{ $row->id }}">5000</td>
+                            </tr> --}}
 
                         </tbody>
                     </table>
@@ -46,3 +52,29 @@
         </div>
     </div>
 </div>
+
+{{-- @push('js')
+
+<script>
+
+    var creditId     = $('[id^=credit]');
+    var creditAmount = 0;
+
+        creditId.each(function(index, value)
+        {
+        creditAmount += +($(value).html());
+        });
+        $('#crediAmount{{ $row->id }}').text(creditAmount);
+
+    var debitId     = $('[id^=credit]');
+    var debitAmount = 0;
+
+        debitId.each(function(index, value)
+        {
+            debitAmount += +($(value).html());
+        });
+        $('#debiAmount{{ $row->id }}').text(debitAmount);
+
+</script>
+
+@endpush --}}

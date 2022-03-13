@@ -19,8 +19,8 @@ class PurchaseInvoiceController extends Controller
       return $this->invoiceInterface->index();
     }
 
-    public function create(){
-        return $this->invoiceInterface->create();
+    public function create(Request $request){
+        return $this->invoiceInterface->create($request);
       }
 
     public function show($id){
@@ -31,6 +31,13 @@ class PurchaseInvoiceController extends Controller
         return $this->invoiceInterface->search($value,$id);
       }// end of search
 
+    public function getReceivesToCreateInvoice($supplier){
+        return $this->invoiceInterface->getReceivesToCreateInvoice($supplier);
+    }// end of
+
+    public function getReceivesItemsToCreateInvoice($items){
+        return $this->invoiceInterface->getReceivesItemsToCreateInvoice($items);
+    }
     public function edit($id){
         return $this->invoiceInterface->edit($id);
       }

@@ -3,6 +3,8 @@ namespace App\Http\Repositories;
 use App\Models\Customer;
 use App\Http\Traits\ApiDesignTrait;
 use App\Http\Interfaces\CustomerInterface;
+use App\Models\Contact;
+use App\Models\Country;
 use App\Models\CustomerGroup;
 use App\Models\Finance\FinAccount;
 use App\Models\Finance\FinSetting;
@@ -25,19 +27,22 @@ class CustomerRepository  implements CustomerInterface
 
     public function index(){
         $routeName = 'customers';
-        $customers  = Customer::get();
+        $customers  = Customer::all(['name','company_name','email','phone','photo','is_active','id','opening_balance']);
         return view('backend.customers.index',compact('routeName','customers'));
     }//end of index
 
     public function show($id){
-        $row =  $this->customerModel::where('id', $id)->get();
+        $row =  $this->customerModel::where('id', $id)->first();
+        $taxes = DB::table('taxes')->get();
+        $parentCompanies = DB::table('parent_companies')->get();
         $CustomerGroup = DB::table('customer_groups')->get();
+        $countries = Country::all(['country_code','country_enName','country_arName']);
 
-        return view('backend.customers.show', compact('row','CustomerGroup'));
+        return view('backend.customers.show', compact('row','countries','CustomerGroup','taxes','parentCompanies'));
     }//end of show
 
     public function create(){
-        $countries = DB::table('countries')->get();
+        $countries =  Country::all(['country_code','country_enName','country_arName']);
         $CustomerGroup = DB::table('customer_groups')->get();
         $taxes = DB::table('taxes')->get();
         $parentCompanies = DB::table('parent_companies')->get();
@@ -62,14 +67,21 @@ class CustomerRepository  implements CustomerInterface
             'name'            => 'required|string',
             'company_name'    => 'required|string',
             'photo'           => 'mimes:jpeg,jpg,png,gif',
-            'phone'           => 'required|digits:11',
+            'phone'           => 'required',
             'fax'             => 'numeric|nullable',
-            'email'           => 'required|email|unique:customers',
-            'address'         => 'required',
+            'email'           => 'email|nullable',
+            'address'         => 'nullable',
             'parent_id'       => 'exists:parent_companies,id',
             'group_id'        => 'exists:customer_groups,id',
 
        ]);
+
+        if($request->tax_id){
+            $request->validate([
+                'tax_id'          => 'unique:customers',
+            ]);
+        }
+
 
        // create account for supplier
 
@@ -88,15 +100,17 @@ class CustomerRepository  implements CustomerInterface
         }
 
 
-        $fileName = '';
-         if ($request->hasFile('photo')) {
-             $fileName = $this->uploadImage($request->file('photo'));
-            }
+
+        if ($request->hasFile('photo')) {
+            $fileName = $this->uploadImage($request->file('photo'));
+        }else{
+            $fileName = '';
+        }
 
         if($request->document){
-            $fileName = time().'.'.$request->document->extension();
-            $request->document->move(public_path('uploads/customers/documents/'), $fileName);
-            $document =  $fileName ;
+            $doc = time().'.'.$request->document->extension();
+            $request->document->move(public_path('uploads/customers/documents/'), $doc);
+            $document =  $doc ;
         }else{
             $document = "";
         }
@@ -119,39 +133,51 @@ class CustomerRepository  implements CustomerInterface
 
         $row =   $this->customerModel::FindOrFail($id);
 
-
         $request->validate([
                 'name'            => 'required|string',
                 'company_name'    => 'required|string',
-                'is_active'       => 'required|numeric', // 0 => not active , 1 => active
                 'photo'           => 'mimes:jpeg,jpg,png,gif',
-                'phone'           => 'required|digits:11',
-                'fax'             => 'numeric',
-                'email'           => 'required|email|unique:customers,email,'.$id,
-                'address'         => 'required',
-                'tax_id'          => 'required|unique:customers,tax_id,'.$id,
-                'tax_file_number' => 'required|unique:customers,tax_file_number,'.$id,
+                'phone'           => 'required',
+                'fax'             => 'numeric|nullable',
+                'email'           => 'email',
                 'parent_id'       => 'exists:parent_companies,id',
                 'group_id'        => 'exists:customer_groups,id',
             ]);
 
-
-
-
-        $requestArray = $request->all();
-
-        if ($request->hasFile('photo')) {
-            $file     = $request->file('photo');
-            $fileName = time().Str::random(15).'.'.$file->getClientOriginalExtension();
-            $img      = Image::make($request->file('photo'));
-            $img->fit(150, 150);
-            $img->save(public_path('uploads/customers/photos/'. $fileName));
-            $url =  url('public/uploads/customers/photos/' . $fileName);
-            $requestArray = ['photo' => $url] + $request->all() ;
-            $file_bath = 'public/uploads/customers/photos/'.$fileName;
-            $requestArray = ['photo' => $file_bath] + $request->all() ;
+            if($request->tax_id){
+                $request->validate([
+                    'tax_id'          => 'unique:customers,tax_id,'.$id,
+                    ]);
             }
 
+
+        if($request->is_active == 1){
+            $status = 1;
+        }else{
+            $status = 0;
+        }
+
+        if($request->taxclient == 1){
+            $taxclient = 1;
+        }else{
+            $taxclient = 2;
+        }
+
+        if ($request->hasFile('photo')) {
+            $fileName = $this->uploadImage($request->file('photo'));
+        }else{
+            $fileName = $row->photo;
+        }
+
+        if($request->document){
+            $doc = time().'.'.$request->document->extension();
+            $request->document->move(public_path('uploads/customers/documents/'), $doc);
+            $document =  $doc ;
+        }else{
+            $document = $row->document;
+        }
+
+        $requestArray = ['is_active' => $status , 'photo' =>$fileName ,'document'=>$document,'is_tax_customer'=> $taxclient] + $request->all();
         $row->update($requestArray);
 
         if( config('app.locale') == 'ar'){
@@ -159,8 +185,15 @@ class CustomerRepository  implements CustomerInterface
         }else{
             alert()->success('The customer created Successfully', 'Good Work');
         }
+
         return redirect()->route('dashboard.customers.index');
     }// end of update
+
+    public function customerContacts($id){
+        $rows = Contact::where('customer_id', $id)->get();
+        //dd($rows);
+        return view('backend.customers.contacts', compact('rows'));
+    }// end of customerContacts
 
     public function destroy($id){+
 

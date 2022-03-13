@@ -22,15 +22,16 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
         <div class="doc-container">
-
+ 
             <div class="row">
                 <div class="col-xl-12">
                     @include('backend.partials._errors')
                     <div class="invoice-content">
 
-                        <form id="form" name="invoice" action="{{ route('dashboard.purchases.store') }}" method="POST" enctype="multipart/form-data">
+                        <form id="form" action="{{ route('dashboard.purchases.store') }}" method="POST" enctype="multipart/form-data" novalidate>
                             @csrf
                             <div class="invoice-detail-body">
+                                <input type="hidden" name="opration_id" value="{{ $operation }}">
                                 @include('backend.purchases.invoices.form')
                                 <hr>
                                 <div class="form-group text-center ">
@@ -65,7 +66,6 @@
 @endpush
 @push('js')
 <script src="{{asset('public/backend/crock/assets/js/apps/add_purchase.js') }}"></script>
-@include('backend.purchases.invoices.validate')
 @include('backend.purchases.invoices.script')
 
 @endpush

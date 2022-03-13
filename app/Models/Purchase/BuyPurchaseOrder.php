@@ -13,7 +13,7 @@ class BuyPurchaseOrder extends Model
 
     protected $fillable = ['reference_no','supplier_id','added_by','date','shipping_cost',
                 'total_qty','items_count','grand_total','status','document','note','delivery_date'
-                ,'items_count','tax_rate','tax_amount','total_discount'];
+                ,'items_count','tax_rate','tax_amount','total_discount','opration_id'];
 
 
     public function user()

@@ -43,4 +43,8 @@ class CustomerController  extends Controller
     public function destroy($id){
       return $this->customerInterface->destroy($id);
     }// end of destroy
+
+    public function customerContacts($id){
+        return $this->customerInterface->customerContacts($id);
+    }
 }

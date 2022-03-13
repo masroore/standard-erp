@@ -119,7 +119,7 @@
                                     </td>
 
                                     <td class="description">
-                                        <input type="number" id="price_1" value="{{ $collection->price }}"   name="price[]"   class="form-control sale_price1 changesNo" placeholder="0.00">
+                                        <input type="text" id="price_1" value="{{ $collection->price }}"   name="price[]"   class="form-control sale_price1 changesNo" placeholder="0.00">
                                     </td>
 
                                     <td class="description">
@@ -228,11 +228,11 @@
 
             <div class="form-group col-md-6">
                 <label for="">@lang('site.sale_price')</label>
-                <input type="number" name="sale_price" value="{{old('sale_price', isset($row) ? $row->sale_price : '0')}}" class="form-control " >
+                <input type="text" name="sale_price" value="{{old('sale_price', isset($row) ? $row->sale_price : '0')}}" class="form-control " >
             </div>
             <div class="form-group col-md-6">
                 <label for="">@lang('site.cost')</label>
-                <input type="number" name="cost"  value="{{old('cost', isset($row) ? $row->cost : '0')}}" class="form-control " >
+                <input type="text" name="cost"  value="{{old('cost', isset($row) ? $row->cost : '0')}}" class="form-control " >
             </div>
 
             <div class="form-group col-md-6 hide-in-service">

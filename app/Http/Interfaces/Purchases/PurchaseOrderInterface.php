@@ -6,7 +6,7 @@ interface PurchaseOrderInterface{
 
     public function index();
 
-    public function create();
+    public function create($request);
 
     public function edit($id);
 
